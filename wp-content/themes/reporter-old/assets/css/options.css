@@ -4,10 +4,10 @@
 /*---------------------------*/
 
 body,
-.posts .title-meta .entry-meta { font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.posts .title-meta .entry-meta { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 body {
-	background: #e6e6e6 ; 
+	background: #ffffff ; 
 }
 
 h1,h2,h3,h4,h5,h6,
@@ -45,20 +45,20 @@ a:hover,
 .featured-image:hover a:after { color: #d12f2f; }
 
 @media (min-width: 768px) {
-	logo { width: 400px; }
+	logo { width: 280px; }
 	.logo img,
 	.logo-text {
-		width: 400px;
-		height: 73px;
+		width: 280px;
+		height: 69px;
 	}
-	.header-main-row { padding-left: 350px; }
+	.header-main-row { padding-left: 230px; }
 	.header-main-menu .trigger { 
-		height: 73px; 
-		line-height: 73px; 
+		height: 69px; 
+		line-height: 69px; 
 	}
-	.header-search { height: 73px; }
+	.header-search { height: 69px; }
 	.header-search form { 
-		73px; 
+		69px; 
 		width: 100%;
 		display: table;
 		height: 100%;

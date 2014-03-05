@@ -28,6 +28,6 @@
 		<?php endif; ?>
 
 	</div>
-
+	<!-- /.row -->
 
 <?php get_footer(); ?>

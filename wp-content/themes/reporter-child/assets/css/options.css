@@ -18,7 +18,7 @@ h1,h2,h3,h4,h5,h6,
 blockquote,
 .the-author,
 .comment-meta,
-label { font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+label { font-family: "Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book Antiqua", Baskerville, "Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond", "ITC Garamond Narrow", "New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif; }
 
 .logo .logo-text,
 .footer-widgets,
@@ -31,7 +31,7 @@ label { font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
 .flex-direction-nav .flex-prev,
 .flex-direction-nav .flex-next,
 .widget_tag_cloud a:hover { 
-	background-color: #e7e4d1;  
+	background-color: #d12f2f;  
 }
 
 .top-bar-section ul li > a:hover,
@@ -42,23 +42,23 @@ a:hover,
 .page-title,
 .the-author a,
 .entry-content .widget-title,
-.featured-image:hover a:after { color: #e7e4d1; }
+.featured-image:hover a:after { color: #d12f2f; }
 
 @media (min-width: 768px) {
-	logo { width: 490px; }
+	logo { width: 280px; }
 	.logo img,
 	.logo-text {
-		width: 490px;
-		height: 90px;
+		width: 280px;
+		height: 69px;
 	}
-	.header-main-row { padding-left: 440px; }
+	.header-main-row { padding-left: 230px; }
 	.header-main-menu .trigger { 
-		height: 90px; 
-		line-height: 90px; 
+		height: 69px; 
+		line-height: 69px; 
 	}
-	.header-search { height: 90px; }
+	.header-search { height: 69px; }
 	.header-search form { 
-		90px; 
+		69px; 
 		width: 100%;
 		display: table;
 		height: 100%;

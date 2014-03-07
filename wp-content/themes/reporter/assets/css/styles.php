@@ -104,7 +104,7 @@ a:hover,
 .featured-image:hover a:after { color: <?php echo $cssdata['primary_color'] ?>; }
 
 @media (min-width: 768px) {
-	logo { width: <?php echo $cssdata['logo_width']; - 35; ?>px; }
+	.logo { width: <?php echo $cssdata['logo_width']; - 35; ?>px; }
 	.logo img,
 	.logo-text {
 		width: <?php echo $cssdata['logo_width']; - 35; ?>px;
@@ -117,7 +117,7 @@ a:hover,
 	}
 	.header-search { height: <?php echo $cssdata['logo_height']; ?>px; }
 	.header-search form { 
-		<?php echo $cssdata['logo_height']; ?>px; 
+		height:<?php echo $cssdata['logo_height']; ?>px;
 		width: 100%;
 		display: table;
 		height: 100%;

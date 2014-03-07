@@ -4,7 +4,7 @@
 /*---------------------------*/
 
 body,
-.posts .title-meta .entry-meta { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.posts .title-meta .entry-meta { font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 body {
 	background: #e6e6e6 ; 
@@ -18,7 +18,7 @@ h1,h2,h3,h4,h5,h6,
 blockquote,
 .the-author,
 .comment-meta,
-label { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+label { font-family: "Lora", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 .logo .logo-text,
 .footer-widgets,
@@ -45,20 +45,20 @@ a:hover,
 .featured-image:hover a:after { color: #d12f2f; }
 
 @media (min-width: 768px) {
-	logo { width: 280px; }
+	.logo { width: 335px; }
 	.logo img,
 	.logo-text {
-		width: 280px;
-		height: 69px;
+		width: 335px;
+		height: 62px;
 	}
-	.header-main-row { padding-left: 230px; }
+	.header-main-row { padding-left: 285px; }
 	.header-main-menu .trigger { 
-		height: 69px; 
-		line-height: 69px; 
+		height: 62px; 
+		line-height: 62px; 
 	}
-	.header-search { height: 69px; }
+	.header-search { height: 62px; }
 	.header-search form { 
-		69px; 
+		height:62px;
 		width: 100%;
 		display: table;
 		height: 100%;

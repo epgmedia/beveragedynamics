@@ -1,12 +1,10 @@
-<br />
-<b>Notice</b>:  Undefined index: body_bg in <b>/Users/chrisgerberepg/Sites/beverage-dynamics/wp-content/themes/reporter/assets/css/styles.php</b> on line <b>52</b><br />
 
 /*---------------------------*/
 /*		   general
 /*---------------------------*/
 
 body,
-.posts .title-meta .entry-meta { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.posts .title-meta .entry-meta { font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 body {
 	background: #e6e6e6 ; 
@@ -20,7 +18,7 @@ h1,h2,h3,h4,h5,h6,
 blockquote,
 .the-author,
 .comment-meta,
-label { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+label { font-family: "Lora", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 .logo .logo-text,
 .footer-widgets,
@@ -47,7 +45,7 @@ a:hover,
 .featured-image:hover a:after { color: #d12f2f; }
 
 @media (min-width: 768px) {
-	logo { width: 335px; }
+	.logo { width: 335px; }
 	.logo img,
 	.logo-text {
 		width: 335px;
@@ -60,7 +58,7 @@ a:hover,
 	}
 	.header-search { height: 62px; }
 	.header-search form { 
-		62px; 
+		height:62px;
 		width: 100%;
 		display: table;
 		height: 100%;

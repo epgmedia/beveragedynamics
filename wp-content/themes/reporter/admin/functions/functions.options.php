@@ -67,7 +67,7 @@ if (!function_exists('of_options'))
 		$slider_img_url =  ADMIN_DIR . 'assets/images/slider/';
 
 		//Background Images Reader
-		$bg_images_path = get_stylesheet_directory(). '/assets/img/backgrounds/'; // change this to where you store your bg images
+		$bg_images_path = get_template_directory(). '/assets/img/backgrounds/'; // change this to where you store your bg images
 		$bg_images_url = get_template_directory_uri().'/assets/img/backgrounds/'; // change this to where you store your bg images
 		$bg_images = array();
 

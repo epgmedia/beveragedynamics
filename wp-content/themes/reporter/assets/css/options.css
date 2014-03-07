@@ -1,3 +1,5 @@
+<br />
+<b>Notice</b>:  Undefined index: body_bg in <b>/Users/chrisgerberepg/Sites/beverage-dynamics/wp-content/themes/reporter/assets/css/styles.php</b> on line <b>52</b><br />
 
 /*---------------------------*/
 /*		   general
@@ -45,20 +47,20 @@ a:hover,
 .featured-image:hover a:after { color: #d12f2f; }
 
 @media (min-width: 768px) {
-	logo { width: 280px; }
+	logo { width: 335px; }
 	.logo img,
 	.logo-text {
-		width: 280px;
-		height: 69px;
+		width: 335px;
+		height: 62px;
 	}
-	.header-main-row { padding-left: 230px; }
+	.header-main-row { padding-left: 285px; }
 	.header-main-menu .trigger { 
-		height: 69px; 
-		line-height: 69px; 
+		height: 62px; 
+		line-height: 62px; 
 	}
-	.header-search { height: 69px; }
+	.header-search { height: 62px; }
 	.header-search form { 
-		69px; 
+		62px; 
 		width: 100%;
 		display: table;
 		height: 100%;

@@ -45,11 +45,11 @@ a:hover,
 .featured-image:hover a:after { color: #d12f2f; }
 
 @media (min-width: 768px) {
-	logo { width: 280px; }
+	.logo { width: 335px; }
 	.logo img,
 	.logo-text {
-		width: 280px;
-		height: 69px;
+		width: 335px;
+		height: 62px;
 	}
 	.header-main-row { padding-left: 230px; }
 	.header-main-menu .trigger { 
@@ -58,7 +58,7 @@ a:hover,
 	}
 	.header-search { height: 69px; }
 	.header-search form { 
-		69px; 
+		line-height: 69px;
 		width: 100%;
 		display: table;
 		height: 100%;

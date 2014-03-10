@@ -15,3 +15,4 @@ wp-config.php
 error_log
 wp-admin/
 wp-includes/
+.idea

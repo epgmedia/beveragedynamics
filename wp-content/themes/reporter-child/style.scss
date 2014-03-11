@@ -1024,9 +1024,12 @@ textarea {
 /*---------------------------*/
 
 .sidebar {
-	list-style: none;
+    list-style: none;
 	margin: 20px 0 0;
 	@include breakpoint(large) { margin: 0; }
+    .adPosition {
+      @media only screen and (min-width:"#{$topbar-breakpoint}") { padding: 0 45px; }
+    }
 }
 
 /*---------------------------*/
@@ -1143,6 +1146,44 @@ textarea {
 		.slides { margin: 0; }
 		li { border: 0; }
 	}
+}
+
+.widget-epgStockIndex {
+  th,
+  td {
+      margin: 0;
+      padding: emCalc(3px) emCalc(3px) emCalc(5px);
+      font-size: emCalc(13px);
+  }
+  td {
+      font-size: emCalc(12px);
+  }
+  tfoot {
+    padding: emCalc(3px) emCalc(3px) emCalc(5px);
+    font-weight:normal;
+  }
+  .siChange,
+  .siSymbol,
+  .siPrice {
+      text-align:center;
+      .priceDown {
+          color:#E00C0C;
+      }
+      .priceUp {
+          color:#000000;
+      }
+  }
+}
+
+
+.fatHalf {
+  p {
+    width: 48%;
+    display: inline-block;
+  }
+  label {
+    display: block;
+  }
 }
 
 /*---------------------------*/

@@ -5118,6 +5118,9 @@ textarea {
   @media (min-width: 768px) {
     .sidebar {
       margin: 0; } }
+  @media only screen and (min-width: 940px) {
+    .sidebar .adPosition {
+      padding: 0 45px; } }
 
 /*---------------------------*/
 /*	Widgets
@@ -5250,6 +5253,34 @@ textarea {
     margin: 0; }
   .widget_dt_slider .slider li {
     border: 0; }
+
+.widget-epgStockIndex th,
+.widget-epgStockIndex td {
+  margin: 0;
+  padding: 0.25em 0.25em 0.41667em;
+  font-size: 1.08333em; }
+.widget-epgStockIndex td {
+  font-size: 1em; }
+.widget-epgStockIndex tfoot {
+  font-weight: normal; }
+.widget-epgStockIndex .siChange,
+.widget-epgStockIndex .siSymbol,
+.widget-epgStockIndex .siPrice {
+  text-align: center; }
+  .widget-epgStockIndex .siChange .priceDown,
+  .widget-epgStockIndex .siSymbol .priceDown,
+  .widget-epgStockIndex .siPrice .priceDown {
+    color: #E00C0C; }
+  .widget-epgStockIndex .siChange .priceUp,
+  .widget-epgStockIndex .siSymbol .priceUp,
+  .widget-epgStockIndex .siPrice .priceUp {
+    color: #000000; }
+
+.fatHalf p {
+  width: 48%;
+  display: inline-block; }
+.fatHalf label {
+  display: block; }
 
 /*---------------------------*/
 /*	Footer

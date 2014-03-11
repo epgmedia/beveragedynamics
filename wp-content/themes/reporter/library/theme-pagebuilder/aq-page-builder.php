@@ -53,6 +53,7 @@ require_once(AQPB_PATH . 'blocks/aq-clear-block.php');
 //require_once(AQPB_PATH . 'blocks/aq-alert-block.php');
 //require_once(AQPB_PATH . 'blocks/aq-tabs-block.php');
 //require_once(AQPB_PATH . 'blocks/aq-richtext-block.php'); //buggy
+require_once(AQPB_PATH . 'blocks/epg_stock_index_block.php');
 
 //register default blocks
 aq_register_block('AQ_Text_Block');
@@ -62,6 +63,7 @@ aq_register_block('AQ_Clear_Block');
 //aq_register_block('AQ_Widgets_Block');
 //aq_register_block('AQ_Alert_Block');
 //aq_register_block('AQ_Tabs_Block');
+aq_register_block('EPG_Stock_Index_Block');
 
 //fire up page builder
 $aqpb_config = aq_page_builder_config();

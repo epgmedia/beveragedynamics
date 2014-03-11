@@ -42,7 +42,7 @@
 		<!-- /.content small-12 large-9 column -->
 
 		<?php if( engine_content_position() != 'large-12' ) : ?>
-		<div class="sidebar small-12 large-3 column" id="sidebar">
+		<div class="sidebar small-12 large-4 column" id="sidebar">
 			<?php get_sidebar(); ?>
 		</div>
 		<!-- /#sidebar.sidebar small-12 large-3 column -->

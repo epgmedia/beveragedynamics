@@ -5259,10 +5259,14 @@ textarea {
   margin: 0;
   padding: 0.25em 0.25em 0.41667em;
   font-size: 1.08333em; }
-.widget-epgStockIndex td {
+.widget-epgStockIndex tbody td {
+  border-bottom: 1px solid #DFDFDF;
   font-size: 1em; }
 .widget-epgStockIndex tfoot {
+  padding: 0.25em 0.25em 0.41667em;
   font-weight: normal; }
+  .widget-epgStockIndex tfoot td {
+    font-size: 0.83333em; }
 .widget-epgStockIndex .siChange,
 .widget-epgStockIndex .siSymbol,
 .widget-epgStockIndex .siPrice {

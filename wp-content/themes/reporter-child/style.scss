@@ -1155,12 +1155,19 @@ textarea {
       padding: emCalc(3px) emCalc(3px) emCalc(5px);
       font-size: emCalc(13px);
   }
-  td {
+  tbody {
+    td {
+      border-bottom: 1px solid #DFDFDF;
       font-size: emCalc(12px);
+    }
   }
+
   tfoot {
     padding: emCalc(3px) emCalc(3px) emCalc(5px);
     font-weight:normal;
+    td {
+      font-size: emCalc(10px);
+    }
   }
   .siChange,
   .siSymbol,

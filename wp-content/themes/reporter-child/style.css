@@ -5502,10 +5502,14 @@ textarea {
   font-size: 1em; }
 
 .soldPosition {
+  display: none;
   margin: auto; }
   @media only screen and (min-width: 940px) {
     .soldPosition {
       width: auto !important; } }
+  @media only screen and (min-width: 768px) {
+    .soldPosition {
+      display: block; } }
 
 .testAd {
   width: auto;
@@ -5513,3 +5517,19 @@ textarea {
   text-align: center; }
   .testAd img {
     margin: auto; }
+
+.secondary-bar-section {
+  width: 100%; }
+  .secondary-bar-section ul {
+    width: 100%;
+    margin: 1em 0;
+    list-style: none; }
+    .secondary-bar-section ul li {
+      display: inline; }
+
+.block-Widgets .DisplayCategoriesWidget .widget-title {
+  font-size: 1.16667em;
+  line-height: 2em;
+  float: none; }
+.block-Widgets li {
+  list-style: none; }

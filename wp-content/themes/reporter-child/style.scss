@@ -1423,9 +1423,13 @@ textarea {
 .gallery-caption { font-size: 1em; }
 
 .soldPosition {
+    display:none;
     margin: auto;
     @media only screen and (min-width:"#{$topbar-breakpoint}") {
         width:auto!important;
+    }
+    @media #{$small} {
+        display:block;
     }
 }
 .testAd {
@@ -1434,5 +1438,28 @@ textarea {
     text-align: center;
     img {
         margin:auto;
+    }
+}
+
+.secondary-bar-section {
+    width:100%;
+    ul {
+        width: 100%;
+        margin: 1em 0;
+        list-style: none;
+        li { display: inline; }
+    }
+}
+
+.block-Widgets {
+    .DisplayCategoriesWidget {
+        .widget-title {
+            font-size: emCalc(14px);
+            line-height: emCalc(24px);
+            float: none;
+        }
+    }
+    li {
+        list-style: none;
     }
 }

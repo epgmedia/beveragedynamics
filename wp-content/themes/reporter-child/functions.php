@@ -181,6 +181,12 @@ function WP_Widget_google_ads_position_init() {
 
 add_action('widgets_init', 'WP_Widget_google_ads_position_init');
 
+function archive_first_excerpt() {
+
+}
+
+
+
 /*
  * Talk with theme create about supporting child blocks.
 //require_once( TEMPLATEPATH . '/library/theme-pagebuilder/aq-page-builder.php');

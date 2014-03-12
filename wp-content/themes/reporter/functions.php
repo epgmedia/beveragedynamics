@@ -46,12 +46,16 @@ require_once(AQPB_PATH . 'blocks/engine-slider-block.php');
 require_once(AQPB_PATH . 'blocks/engine-posts-block.php');
 require_once(AQPB_PATH . 'blocks/engine-heading-block.php');
 require_once(AQPB_PATH . 'blocks/epg-stock-index-block.php');
+require_once(AQPB_PATH . 'blocks/epg-ad-position-block.php');
+require_once(AQPB_PATH . 'blocks/epg-ad-position-test-block.php');
 
 // Register Page Builder block
 aq_register_block('Engine_Slider_Block');
 aq_register_block('Engine_Posts_Block');
 aq_register_block('Engine_Heading_Block');
 aq_register_block('EPG_Stock_Index_Block');
+aq_register_block('EPG_Ad_Position_Block');
+aq_register_block('EPG_Ad_Position_Test_Block');
 
 add_filter('widget_text', 'do_shortcode');
 

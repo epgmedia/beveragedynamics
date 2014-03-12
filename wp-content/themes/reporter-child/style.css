@@ -5118,9 +5118,6 @@ textarea {
   @media (min-width: 768px) {
     .sidebar {
       margin: 0; } }
-  @media only screen and (min-width: 940px) {
-    .sidebar .adPosition {
-      padding: 0 45px; } }
 
 /*---------------------------*/
 /*	Widgets
@@ -5504,6 +5501,15 @@ textarea {
 .gallery-caption {
   font-size: 1em; }
 
-.leaderboardAd {
+.soldPosition {
+  margin: auto; }
+  @media only screen and (min-width: 940px) {
+    .soldPosition {
+      width: auto !important; } }
+
+.testAd {
+  width: auto;
   margin: auto;
-  width: 728px; }
+  text-align: center; }
+  .testAd img {
+    margin: auto; }

@@ -30,16 +30,10 @@ if(!class_exists('EPG_Stock_Index_Block')) {
                     <?php echo aq_field_input('symbols', $block_id, $symbols, $size = 'full') ?>
                 </label>
             </p>
+
         <?php
-        }
-        function update( $new_instance, $old_instance ) {
-            // processes block options to be saved
-            $instance = $old_instance;
-            $instance['title'] = $new_instance['title'];
-            $instance['symbols'] = $new_instance['symbols'];
-            // remove cached data
+            // Remove former results
             delete_transient( 'epg_stock_block_results' );
-            return $instance;
         }
         function block($instance) {
             extract($instance);

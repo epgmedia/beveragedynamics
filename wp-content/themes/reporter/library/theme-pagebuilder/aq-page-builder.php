@@ -34,7 +34,7 @@ Author URI: http://aquagraphite.com
 
 //definitions
 if(!defined('AQPB_VERSION')) define( 'AQPB_VERSION', '1.1.0' );
-if(!defined('AQPB_PATH')) define( 'AQPB_PATH', TEMPLATEPATH . '/library/theme-pagebuilder/' );
+if(!defined('AQPB_PATH')) define( 'AQPB_PATH', ENGINE_LIB . '/theme-pagebuilder/' );
 if(!defined('AQPB_DIR')) define( 'AQPB_DIR', get_template_directory_uri() . '/library/theme-pagebuilder/' );
 
 //required functions & classes

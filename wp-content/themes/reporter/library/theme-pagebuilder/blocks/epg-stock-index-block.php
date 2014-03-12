@@ -71,9 +71,14 @@ if(!class_exists('EPG_Stock_Index_Block')) {
             $quoteArr = $data['query']['results']['quote'];
             function priceChangeColor($str) {
                 if ($str[0] === "-") {
-                    return '<span class="priceDown">' . $str . '</span>';
+                    $str = substr($str, 1);
+                    $str = floatval($str);
+                    $str = round($str, 2);
+                    return '<span class="priceDown">-' . $str . '</span>';
                 } else {
-                    return '<span class="priceUp">' . $str . '</span>';
+                    // returns digit rounded to hundreds
+                    $str = round(floatval(substr($str, 1)), 2);
+                    return '<span class="priceUp">+' . $str . '</span>';
                 }
             }
             $stockData[] = "<thead><tr>" .

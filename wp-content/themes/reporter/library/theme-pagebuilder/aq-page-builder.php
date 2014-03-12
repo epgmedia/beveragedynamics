@@ -34,7 +34,7 @@ Author URI: http://aquagraphite.com
 
 //definitions
 if(!defined('AQPB_VERSION')) define( 'AQPB_VERSION', '1.1.0' );
-if(!defined('AQPB_PATH')) define( 'AQPB_PATH', ENGINE_LIB . '/theme-pagebuilder/' );
+if(!defined('AQPB_PATH')) define( 'AQPB_PATH', TEMPLATEPATH . '/library/theme-pagebuilder/' );
 if(!defined('AQPB_DIR')) define( 'AQPB_DIR', get_template_directory_uri() . '/library/theme-pagebuilder/' );
 
 //required functions & classes
@@ -53,7 +53,6 @@ require_once(AQPB_PATH . 'blocks/aq-clear-block.php');
 //require_once(AQPB_PATH . 'blocks/aq-alert-block.php');
 //require_once(AQPB_PATH . 'blocks/aq-tabs-block.php');
 //require_once(AQPB_PATH . 'blocks/aq-richtext-block.php'); //buggy
-require_once(AQPB_PATH . 'blocks/epg_stock_index_block.php');
 
 //register default blocks
 aq_register_block('AQ_Text_Block');
@@ -63,7 +62,6 @@ aq_register_block('AQ_Clear_Block');
 //aq_register_block('AQ_Widgets_Block');
 //aq_register_block('AQ_Alert_Block');
 //aq_register_block('AQ_Tabs_Block');
-aq_register_block('EPG_Stock_Index_Block');
 
 //fire up page builder
 $aqpb_config = aq_page_builder_config();

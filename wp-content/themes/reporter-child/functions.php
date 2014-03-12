@@ -181,5 +181,19 @@ function WP_Widget_google_ads_position_init() {
 
 add_action('widgets_init', 'WP_Widget_google_ads_position_init');
 
+require_once( TEMPLATEPATH . '/library/theme-pagebuilder/aq-page-builder.php');
 
+if(class_exists('AQ_Page_Builder')) {
 
+    define('AQPB_CUSTOM_DIR', get_template_directory() . '/theme-page-builder/');
+    define('AQPB_CUSTOM_URI', get_template_directory_uri() . '/theme-page-builder/');
+    define('AQPB_CUSTOMCHILD_DIR', get_stylesheet_directory() . '/blocks/');
+    define('AQPB_CUSTOMCHILD_URI', get_stylesheet_directory_uri() . '/blocks/');
+
+    //include the block files
+    require_once(AQPB_CUSTOMCHILD_DIR . 'epg-ad-position-block.php');
+
+    //register the blocks
+    aq_register_block('EPG_Stock_Index_Block');
+
+}

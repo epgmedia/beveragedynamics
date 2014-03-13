@@ -154,10 +154,20 @@ License: GPL
 */
 require_once( CHILDDIR . '/widgets/epg-display-categories-widget.php');
 
+
+/*
+Widget Name: Related Stories
+Description: Displays stories related to the current page category.
+ */
+require_once( CHILDDIR . '/widgets/epg-related-stories-widget.php');
+require_once( CHILDDIR . '/widgets/pew-related-stories-widget.php');
+
 // put widgets together
 function epg_child_theme_widget_init() {
     register_widget('epg_google_ad_position_widget');
     register_widget('DisplayCategoriesWidget');
+    register_widget('epg_related_stories_widget');
+    register_widget('pew_related_stories_widget');
 }
 /**
  * Register New Wordpress Widgets

@@ -108,7 +108,7 @@ select {
   margin-right: auto;
   margin-top: 0;
   margin-bottom: 0;
-  max-width: 80em;
+  max-width: 83.33333em;
   *zoom: 1; }
   .row:before, .row:after {
     content: " ";
@@ -2778,7 +2778,7 @@ form.custom {
       background: #f7f7f7; }
 
   .contain-to-grid .top-bar {
-    max-width: 80em;
+    max-width: 83.33333em;
     margin: 0 auto;
     margin-bottom: 0; }
 
@@ -5533,3 +5533,11 @@ textarea {
   float: none; }
 .block-Widgets li {
   list-style: none; }
+
+#breadcrumbs {
+  list-style: none;
+  overflow: hidden; }
+  #breadcrumbs li {
+    display: inline; }
+  #breadcrumbs .separator {
+    font-weight: 700; }

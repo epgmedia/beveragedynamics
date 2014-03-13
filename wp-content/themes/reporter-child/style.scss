@@ -1463,3 +1463,15 @@ textarea {
         list-style: none;
     }
 }
+
+#breadcrumbs {
+    list-style: none;
+    overflow: hidden;
+    li {
+        display: inline;
+    }
+    .separator {
+        //font-size: emCalc(10px);
+        font-weight:700;
+    }
+}

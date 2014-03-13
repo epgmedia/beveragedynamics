@@ -3,7 +3,7 @@
 	<div class="row">
 
 		<div class="content small-12 column <?php echo engine_content_position(); ?>">
-
+            <?php the_breadcrumb(); ?>
 			<article <?php post_class(); ?>>
 
 				<div class="featured-image">

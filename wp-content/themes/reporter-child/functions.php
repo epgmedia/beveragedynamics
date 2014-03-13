@@ -4,6 +4,8 @@ define('CHILDDIR', get_stylesheet_directory());
  *
  * Get the content position with the sidebar options
  *
+ * Changed content sizing for sidebar
+ *
  */
 function engine_content_position() {
 
@@ -50,6 +52,9 @@ function engine_content_position() {
 }
 
 /**
+ *
+ * Register AQ Page Builder Blocks
+ *
  * Add Theme parts after theme is created
  * Makes Page builder Child-themeable.
  */
@@ -66,8 +71,42 @@ add_action( 'after_setup_theme', function() {
     aq_register_block('EPG_Ad_Position_Block');
     aq_register_block('EPG_Ad_Position_Test_Block');
     aq_register_block('AQ_Widgets_Block');
-
 }, 2 );
+
+/**
+ * Register Sidebars and Menus
+ *
+ * Items to be registered at init
+ * Extra sidebars (widget areas)
+ * Extra menus
+ */
+function register_on_page_widgets () {
+    /**
+     * Top menu - Small menu for links.
+     */
+    register_nav_menu('secondary-menu', __('Secondary Menu'));
+
+    /**
+     * Additional widgets to be placed with Aqua Page Builder
+     * Will not display on site directly, only through AQPB
+     */
+    $sidebars = array(
+        'category_sidebar' => __('Category Sidebar', 'engine')
+    );
+
+    foreach ($sidebars as $key => $value) {
+        register_sidebar(array(
+                'name' => $value,
+                'id' => $key,
+                'before_widget' => '<li id="%1$s" class="widget %2$s">',
+                'after_widget' => '</li>',
+                'before_title' => '<h3 class="widget-title">',
+                'after_title' => '</h3>'
+            )
+        );
+    }
+}
+add_action('init', 'register_on_page_widgets');
 
 /**
  *
@@ -77,17 +116,15 @@ add_action( 'after_setup_theme', function() {
  * @param string $separator
  * @return string
  */
-function the_category_filter( $thelist, $separator=' ' ) {
+function the_category_filter($thelist, $separator = ' ') {
     if(!defined('WP_ADMIN')) {
         //Category IDs to exclude
         //Excludes Uncategorized, Top Stories
         $exclude = array(1, 91);
-
         $exclude2 = array();
         foreach($exclude as $c) {
             $exclude2[] = get_cat_name($c);
         }
-
         $cats = explode($separator,$thelist);
         $newlist = array();
         foreach($cats as $cat) {
@@ -107,11 +144,6 @@ Widget: Ad Position
 Description: Adds a widget that takes an ad position's variables and creates a new ad position
 */
 require_once( CHILDDIR . '/widgets/epg-google-ad-position-widget.php');
-function epg_google_ad_position_widget_init() {
-    register_widget('epg_google_ad_position_widget');
-}
-add_action('widgets_init', 'epg_google_ad_position_widget_init');
-
 /*
 Plugin Name: Display Categories Widget
 Description: Display Categories Widget to display on your sidebar, this will get the title and category id
@@ -121,42 +153,61 @@ Author: Suresh Baskaran
 License: GPL
 */
 require_once( CHILDDIR . '/widgets/epg-display-categories-widget.php');
-function DisplayCategoriesWidget_init() {
+
+// put widgets together
+function epg_child_theme_widget_init() {
+    register_widget('epg_google_ad_position_widget');
     register_widget('DisplayCategoriesWidget');
 }
-add_action('widgets_init', 'DisplayCategoriesWidget_init');
-
+/**
+ * Register New Wordpress Widgets
+ */
+add_action('widgets_init', 'epg_child_theme_widget_init');
 
 /**
- * Top menu
+ * Breadcrumb Nav
+ * Simple website breadcrumb. Placed on Post pages.
+ * Link: http://cazue.com/articles/wordpress-creating-breadcrumbs-without-a-plugin-2013
  */
-function register_top_menu() {
-    register_nav_menu('secondary-menu',__( 'Secondary Menu' ));
-}
-add_action( 'init', 'register_top_menu' );
-
-
-/**
- * Additional widgets to be placed with Aqua Page Builder
- * Will not display on site directly
- */
-function register_on_page_widgets () {
-
-    $sidebars = array(
-        'category_sidebar' => __('Category Sidebar', 'engine')
-
-    );
-
-    foreach ($sidebars as $key => $value) {
-
-        register_sidebar(array('name'=> $value,
-            'id' => $key,
-            'before_widget' => '<li id="%1$s" class="widget %2$s">',
-            'after_widget' => '</li>',
-            'before_title' => '<h3 class="widget-title">',
-            'after_title' => '</h3>'
-        ));
-
+function the_breadcrumb() {
+    global $post;
+    echo '<ul id="breadcrumbs">';
+    if (!is_home()) {
+        echo '<li><a href="';
+        echo get_option('home');
+        echo '">';
+        echo 'Home';
+        echo '</a></li><li class="separator"> &#187; </li>';
+        if (is_category() || is_single()) {
+            echo '<li>';
+            the_category(' </li><li class="separator"> &#187; </li><li> ');
+            if (is_single()) {
+                echo '</li><li class="separator"> &#187; </li><li>';
+                the_title();
+                echo '</li>';
+            }
+        } elseif (is_page()) {
+            if($post->post_parent){
+                $anc = get_post_ancestors( $post->ID );
+                $title = get_the_title();
+                foreach ( $anc as $ancestor ) {
+                    $output = '<li><a href="'.get_permalink($ancestor).'" title="'.get_the_title($ancestor).'">'.get_the_title($ancestor).'</a></li> <li class="separator">&#187;</li>';
+                }
+                echo $output;
+                echo '<strong title="'.$title.'"> '.$title.'</strong>';
+            } else {
+                echo '<strong> ';
+                echo the_title();
+                echo '</strong>';
+            }
+        }
     }
+    elseif (is_tag()) {single_tag_title();}
+    elseif (is_day()) {echo"<li>Archive for "; the_time('F jS, Y'); echo'</li>';}
+    elseif (is_month()) {echo"<li>Archive for "; the_time('F, Y'); echo'</li>';}
+    elseif (is_year()) {echo"<li>Archive for "; the_time('Y'); echo'</li>';}
+    elseif (is_author()) {echo"<li>Author Archive"; echo'</li>';}
+    elseif (isset($_GET['paged']) && !empty($_GET['paged'])) {echo "<li>Blog Archives"; echo'</li>';}
+    elseif (is_search()) {echo"<li>Search Results"; echo'</li>';}
+    echo '</ul>';
 }
-add_action('init', 'register_on_page_widgets');

@@ -5527,10 +5527,6 @@ textarea {
     .secondary-bar-section ul li {
       display: inline; }
 
-.block-Widgets .DisplayCategoriesWidget .widget-title {
-  font-size: 1.16667em;
-  line-height: 2em;
-  float: none; }
 .block-Widgets li {
   list-style: none; }
 
@@ -5541,3 +5537,51 @@ textarea {
     display: inline; }
   #breadcrumbs .separator {
     font-weight: 700; }
+
+.widget-title {
+  font-size: 1.16667em; }
+
+#related-material a,
+.subcategories a,
+.wpp-list a {
+  text-decoration: none; }
+#related-material .widget-title,
+#related-material h5,
+#related-material .wpp-post-title,
+.subcategories .widget-title,
+.subcategories h5,
+.subcategories .wpp-post-title,
+.wpp-list .widget-title,
+.wpp-list h5,
+.wpp-list .wpp-post-title {
+  font-size: 1.33333em;
+  line-height: 1.66667em; }
+#related-material .widget-title,
+#related-material h5,
+#related-material .wpp-post-title,
+#related-material .date,
+.subcategories .widget-title,
+.subcategories h5,
+.subcategories .wpp-post-title,
+.subcategories .date,
+.wpp-list .widget-title,
+.wpp-list h5,
+.wpp-list .wpp-post-title,
+.wpp-list .date {
+  color: #000000; }
+#related-material h5:hover,
+#related-material .wpp-post-title:hover,
+.subcategories h5:hover,
+.subcategories .wpp-post-title:hover,
+.wpp-list h5:hover,
+.wpp-list .wpp-post-title:hover {
+  color: #d12f2f; }
+
+.related-stories-meta {
+  text-transform: uppercase;
+  font-size: 1em; }
+
+.right-separator {
+  padding-right: 1.16667em;
+  margin-right: 0.66667em;
+  border-right: 1px solid black; }

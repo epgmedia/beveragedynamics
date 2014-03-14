@@ -5,7 +5,6 @@
  *
  */
 class epg_related_stories_widget extends WP_Widget {
-
     function __construct() {
         $widget_ops = array('classname' => 'epg_related_stories_widget', __("Display stories related to the post", 'reactor') );
         $this->WP_Widget('epg_related_stories_widget', 'Related Stories', $widget_ops);
@@ -27,38 +26,123 @@ class epg_related_stories_widget extends WP_Widget {
         return $instance;
     }
 
-    function widget($args, $instance) {
-        extract($args);
-        global $post;
-        $categories = get_the_category($post->ID);
+    function get_epg_related_data($post_id, $instance) {
+        global $post, $wpdb;
 
-        if ($categories) {
-            $category_ids = array();
-            foreach ($categories as $individual_category) {
-                $category_ids[] = $individual_category->term_id;
-            }
-            $qargs=array(
-                'category__in' => $category_ids,
-                'post__not_in' => array($post->ID),
-                'posts_per_page'=> 5, // Number of related posts that will be shown.
-                'ignore_sticky_posts'=>1
-            );
-            $my_query = new wp_query( $qargs );
+        // Set post ID for transient
+        if ( isset($post_id) ) {
+            $post_id = intval( $post_id);
+        } elseif (!isset($post_id) && $post->ID) {
+            $post_id = $post->ID;
+        } elseif( !$post_id ) {
+            return false;
+        }
 
-            if( $my_query->have_posts() ) {
-                echo $before_widget;
-                //echo '<h3>' . $instance['title'] . '</h3>';
-                echo $before_title . $instance['title'] . $after_title;
-                echo '<ul id="related_posts">';
-                while ( $my_query->have_posts() ) {
-                    $my_query->the_post(); ?>
-                    <li class="relatedcontent"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title(); ?>"><?php the_title(); ?></a></li>
-                <?php
-                }
-                echo '</ul>';
-                echo $after_widget;
+        $AND = "AND";
+        $defaults = array(
+            'taxonomy' => 'post_tag',
+            'max' => 5
+        );
+        $categoryquery = array(
+            'taxonomy' => 'category'
+        );
+
+        $transient_name = 'epg-related-' . $instance['title'] . '-' . $post_id;
+        if( isset($_GET['flush-related-links']) && is_user_logged_in() ) {
+            //echo '<p>Related links flushed! (' . $transient_name . ')</p>';
+            delete_transient( $transient_name );
+        }
+        $output = get_transient( $transient_name );
+        if( $output !== false && !is_preview() && is_user_logged_in() ) {
+            //echo $transient_name . ' read!';
+            return $output;
+        }
+        $output = iterate_terms($post_id, $defaults, $AND );
+        if (count($output) < $defaults['max']) {
+            $cat_output = iterate_terms($post_id, $categoryquery, $AND );
+            foreach ($cat_output as $cat) {
+                $cat = intval( $cat);
+                $output[] = $cat;
             }
         }
-        wp_reset_query();
+        if (count($output) < $defaults['max']) {
+            $cat_output = iterate_terms($post_id, $defaults);
+            foreach ($cat_output as $cat) {
+                $cat = intval( $cat);
+                $output[] = $cat;
+            }
+        }
+        if (count($output) < $defaults['max']) {
+            $cat_output = iterate_terms($post_id, $categoryquery);
+            foreach ($cat_output as $cat) {
+                $cat = intval( $cat);
+                $output[] = $cat;
+            }
+        }
+
+        $output = array_slice($output, 0, 5);
+
+        if( !is_preview() ) {
+            //echo $transient_name . ' set!';
+            set_transient( $transient_name, $output, 24 * HOUR_IN_SECONDS );
+        }
+
+        return $output;
+    }
+
+    function widget($args, $instance) {
+        extract($args);
+        global $post, $wpdb;
+        $post_ids = $this->get_epg_related_data($post->ID, $instance);
+
+        if( !$post_ids ) {
+            return false;
+        }
+        //echo $post_ids;
+        $defaults = array(
+            'post__in' => $post_ids,
+            //'orderby' => 'post__in',
+            'post_type' => array('post'),
+            'posts_per_page' => min( array(count($post_ids), 10)),
+            'related_title' => 'Related Posts'
+        );
+        $options = wp_parse_args( $instance, $defaults );
+
+        $related_posts = new WP_Query( $options );
+        if( $related_posts->have_posts() ):
+            echo $before_widget;
+            echo $before_title;
+            echo $instance['title'];
+            echo $after_title;
+                ?>
+                <ul id="related-material">
+                    <?php while ( $related_posts->have_posts() ):
+                        $related_posts->the_post();
+                        ?>
+                        <li>
+                            <a class="related-story" href="<?php the_permalink(); ?>">
+                                <div class="related-stories-meta">
+                                    <?php
+                                    $post_terms = wp_get_object_terms($related_posts->post->ID, 'category');
+                                    $term = 'News';
+                                    $term_slug = '';
+                                    if( isset($post_terms[0]) ) {
+                                        $term = $post_terms[0]->name;
+                                        $term_slug =  $post_terms[0]->slug;
+                                    }
+                                    ?>
+                                    <span class="<?php echo $term_slug; ?> right-separator"><?php echo $term; ?></span>
+                                    &nbsp;<span class="date"><?php the_time('M j, Y'); ?></span>
+                                </div>
+                                <h5><?php the_title(); ?></h5>
+                            </a>
+                        </li>
+                    <?php endwhile;
+                    wp_reset_postdata();
+                    ?>
+                </ul>
+                <?php
+            echo $after_widget;
+        endif;
     }
 };

@@ -160,14 +160,12 @@ Widget Name: Related Stories
 Description: Displays stories related to the current page category.
  */
 require_once( CHILDDIR . '/widgets/epg-related-stories-widget.php');
-require_once( CHILDDIR . '/widgets/pew-related-stories-widget.php');
 
 // put widgets together
 function epg_child_theme_widget_init() {
     register_widget('epg_google_ad_position_widget');
     register_widget('DisplayCategoriesWidget');
     register_widget('epg_related_stories_widget');
-    register_widget('pew_related_stories_widget');
 }
 /**
  * Register New Wordpress Widgets
@@ -221,3 +219,58 @@ function the_breadcrumb() {
     elseif (is_search()) {echo"<li>Search Results"; echo'</li>';}
     echo '</ul>';
 }
+
+
+function iterate_terms($post_id = '', $search_options = array(), $AND = NULL ) {
+    global $post, $wpdb;
+
+    if ( $AND !== NULL ) {
+        $post_args['tax_query'][0]['operator'] = $AND;
+    }
+    $output = array();
+    $defaults = array(
+        'post_type' => array('post')
+    );
+    $qargs = array(
+        'fields' => 'ids',
+        'orderby' => 'count',
+        'order' => 'ASC'
+    );
+    $options = wp_parse_args( $search_options, $defaults );
+    $terms_set = wp_get_post_terms( $post_id, $options['taxonomy'], $qargs );
+    //Make sure each returned term id to be an integer.
+    $terms_set = array_map('intval', $terms_set);
+
+    //Store a copy that we'll be reducing by one item for each iteration.
+    $terms_to_iterate = $terms_set;
+
+    $post_args = array(
+        'fields' => 'ids',
+        'post_type' => $options['post_type'],
+        'post__not_in' => array($post_id, 1, 91),
+        'posts_per_page' => 50
+    );
+
+    while( count( $terms_to_iterate ) >= 1 ) {
+
+        $post_args['tax_query'] = array(
+            array(
+                'taxonomy' => $options['taxonomy'],
+                'field' => 'id',
+                'terms' => $terms_to_iterate
+            )
+        );
+        $posts = get_posts( $post_args );
+        foreach( $posts as $id ) {
+            $id = intval( $id );
+            if( !in_array( $id, $output) ) {
+                $output[] = $id;
+            }
+        }
+        array_pop( $terms_to_iterate );
+    }
+
+    return $output;
+}
+
+

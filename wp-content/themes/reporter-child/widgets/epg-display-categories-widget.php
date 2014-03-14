@@ -111,7 +111,7 @@ class DisplayCategoriesWidget extends WP_Widget
         if($cat_id=="BLANK") $cat_id="0";
         if($instance['show_format']==0)
         {
-            echo "<ul class='dcw'>";
+            echo '<ul class="subcategories">';
             wp_list_categories('orderby=name&show_count='.$showcount_value.'&child_of='.$cat_id.'&hide_empty='.$display_empty_categories.'&title_li=&number='.$dcw_limit);
             echo "</ul>";
         }

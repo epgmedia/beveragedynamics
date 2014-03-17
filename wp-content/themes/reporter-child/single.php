@@ -15,6 +15,7 @@
 				<header class="entry-header main-header">
 
 					<div class="entry-meta">
+                        <?php get_template_part('parts/entry-author'); ?>
 						<span class="entry-comments"><a href="<?php comments_link(); ?>"><i class="icon-comments"></i><?php comments_number(0, 1, '%'); ?></a></span>
 						<span class="entry-date"><i class="icon-calendar"></i><?php the_time( get_option('date_format') ); ?></span>
 
@@ -45,7 +46,7 @@
 		<div class="sidebar small-12 large-4 column" id="sidebar">
 			<?php get_sidebar(); ?>
 		</div>
-		<!-- /#sidebar.sidebar small-12 large-3 column -->
+		<!-- /#sidebar.sidebar small-12 large-4 column -->
 		<?php endif; ?>
 
 	</div>

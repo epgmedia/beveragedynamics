@@ -1504,3 +1504,11 @@ textarea {
     margin-right: emCalc(8px);
     border-right:1px solid black;
 }
+
+.author-meta {
+    @include clearfix();
+    .author-image {
+        background-color: #ffffff;
+        padding: 10px 10px 10px 0;
+    }
+}

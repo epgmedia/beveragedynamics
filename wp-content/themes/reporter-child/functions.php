@@ -165,7 +165,9 @@ require_once( CHILDDIR . '/widgets/epg-related-stories-widget.php');
 function epg_child_theme_widget_init() {
     register_widget('epg_google_ad_position_widget');
     register_widget('DisplayCategoriesWidget');
-    register_widget('epg_related_stories_widget');
+    register_widget('epg_related_stories_widget');/*
+    require_once( CHILDDIR . '/blocks/ai1ec-agenda-block.php');
+    aq_register_block('Ai1ec_Agenda_Block');*/
 }
 /**
  * Register New Wordpress Widgets
@@ -273,4 +275,18 @@ function iterate_terms($post_id = '', $search_options = array(), $AND = NULL ) {
     return $output;
 }
 
+/**
+ * Checks for local avatar or returns nothing
+ */
+function getAvatarHostName( $htmlFragment ) {
+    $string = <<<XML
+$htmlFragment
+XML;
+    $xml = simplexml_load_string( $string );
+    $imageSrc = parse_url($xml['src']);
 
+    if ( $imageSrc['host'] ) {
+        return $imageSrc['host'];
+    }
+    return NULL;
+}

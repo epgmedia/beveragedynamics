@@ -5585,3 +5585,14 @@ textarea {
   padding-right: 1.16667em;
   margin-right: 0.66667em;
   border-right: 1px solid black; }
+
+.author-meta {
+  *zoom: 1; }
+.author-meta:before, .author-meta:after {
+  content: "";
+  display: table; }
+.author-meta:after {
+  clear: both; }
+.author-meta .author-image {
+  background-color: #ffffff;
+  padding: 10px 10px 10px 0; }

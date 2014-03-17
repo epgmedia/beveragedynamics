@@ -49,7 +49,7 @@ class epg_related_stories_widget extends WP_Widget {
 
         $transient_name = 'epg-related-' . $instance['title'] . '-' . $post_id;
         if( isset($_GET['flush-related-links']) && is_user_logged_in() ) {
-            //echo '<p>Related links flushed! (' . $transient_name . ')</p>';
+            echo '<p>Related links flushed! (' . $transient_name . ')</p>';
             delete_transient( $transient_name );
         }
         $output = get_transient( $transient_name );
@@ -93,12 +93,13 @@ class epg_related_stories_widget extends WP_Widget {
     function widget($args, $instance) {
         extract($args);
         global $post, $wpdb;
+        if ( !is_single($post->ID) ) {
+            return false;
+        }
         $post_ids = $this->get_epg_related_data($post->ID, $instance);
-
         if( !$post_ids ) {
             return false;
         }
-        //echo $post_ids;
         $defaults = array(
             'post__in' => $post_ids,
             //'orderby' => 'post__in',
@@ -107,7 +108,6 @@ class epg_related_stories_widget extends WP_Widget {
             'related_title' => 'Related Posts'
         );
         $options = wp_parse_args( $instance, $defaults );
-
         $related_posts = new WP_Query( $options );
         if( $related_posts->have_posts() ):
             echo $before_widget;

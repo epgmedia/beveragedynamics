@@ -4,7 +4,11 @@
 
 		<div class="content small-12 column <?php echo engine_content_position(); ?>">
 
-			<article <?php post_class(); ?>>
+            <?php the_breadcrumb(); ?>
+
+			<article id="main-content" <?php post_class(); ?>>
+
+
 
 				<div class="featured-image">
 					<?php engine_thumbnail(); ?>
@@ -15,8 +19,12 @@
 				<header class="entry-header main-header">
 
 					<div class="entry-meta">
-						<span class="entry-comments"><a href="<?php comments_link(); ?>"><i class="icon-comments"></i><?php comments_number(0, 1, '%'); ?></a></span>
+                        <span class="entry-comments"><a href="<?php comments_link(); ?>"><i class="icon-comments"></i><?php comments_number(0, 1, '%'); ?></a></span>
 						<span class="entry-date"><i class="icon-calendar"></i><?php the_time( get_option('date_format') ); ?></span>
+                        <?php
+                        get_template_part('parts/entry-author');
+                        get_template_part('parts/entry-photographer');
+                        ?>
 
 						<span class="entry-tags hide"><?php the_tags(); ?></span>
 					</div>
@@ -25,6 +33,11 @@
 
 				</header>
 				<!-- /.entry-header -->
+                <div class="sharing">
+                    <?php // Share buttons
+                    echo do_shortcode('[ssba]');
+                    ?>
+                </div>
 
 				<div class="entry-content">
 					<?php the_content(); ?>
@@ -45,7 +58,7 @@
 		<div class="sidebar small-12 large-4 column" id="sidebar">
 			<?php get_sidebar(); ?>
 		</div>
-		<!-- /#sidebar.sidebar small-12 large-3 column -->
+		<!-- /#sidebar.sidebar small-12 large-4 column -->
 		<?php endif; ?>
 
 	</div>

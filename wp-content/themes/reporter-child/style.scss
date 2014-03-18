@@ -854,10 +854,13 @@ pre {
 
 	h1,h2,h3,h4,h5,h6 {
 		color: #2e2e2e;
-		border-bottom: 1px solid #e8e8e8;
 		margin: 0 0 20px 0;
 		padding: 0 0 5px 0;
 	}
+
+    h1,h2,h3 {
+        border-bottom: 1px solid #e8e8e8;
+    }
 
 	ul,
 	ol { list-style-position: inside; }
@@ -1027,9 +1030,6 @@ textarea {
     list-style: none;
 	margin: 20px 0 0;
 	@include breakpoint(large) { margin: 0; }
-    .adPosition {
-      @media only screen and (min-width:"#{$topbar-breakpoint}") { padding: 0 45px; }
-    }
 }
 
 /*---------------------------*/
@@ -1425,7 +1425,107 @@ textarea {
 .bypostauthor,
 .gallery-caption { font-size: 1em; }
 
-.leaderboardAd {
-  margin: auto;
-  width: 728px;
+#main-content {
+
+    min-height: emCalc(410px);
+
 }
+.sharing {
+    float:right;
+}
+
+.soldPosition {
+    display:none;
+    margin: auto;
+    @media only screen and (min-width:"#{$topbar-breakpoint}") {
+        width:auto!important;
+    }
+    @media #{$small} {
+        display:block;
+    }
+}
+.testAd {
+    width: auto;
+    margin: auto;
+    text-align: center;
+    img {
+        margin:auto;
+    }
+}
+
+.secondary-bar-section {
+    width:100%;
+    ul {
+        width: 100%;
+        margin: 1em 0;
+        list-style: none;
+        li { display: inline; }
+    }
+}
+
+.block-Widgets {
+    li {
+        list-style: none;
+    }
+}
+
+/** Unused Breadcrumb **/
+#breadcrumbs {
+    list-style: none;
+    overflow: hidden;
+    li {
+        display: inline;
+    }
+    .separator {
+        font-size: emCalc(10px);
+        font-weight:700;
+    }
+}
+
+.widget-title {
+    font-size: emCalc(14px);
+}
+
+#related-material,
+.subcategories,
+.wpp-list {
+    a {
+        text-decoration: none;
+    }
+    .widget-title,
+    h5,
+    .wpp-post-title {
+        font-size: emCalc(16px);
+        line-height: emCalc(20px);
+    }
+    .widget-title,
+    h5,
+    .wpp-post-title,
+    .date {
+        color:#000000;
+    }
+    h5:hover,
+    .wpp-post-title:hover {
+        color: #d12f2f;
+    }
+}
+
+.related-stories-meta {
+    text-transform: uppercase;
+    font-size: emCalc(12px);
+}
+
+.right-separator {
+    padding-right: emCalc(14px);
+    margin-right: emCalc(8px);
+    border-right:1px solid black;
+}
+
+.author-meta {
+    @include clearfix();
+    .author-image {
+        background-color: #ffffff;
+        padding: 10px 10px 10px 0;
+    }
+}
+

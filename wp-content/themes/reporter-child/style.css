@@ -4924,9 +4924,10 @@ pre {
     font-size: 1.16667em; }
   .entry-content h1, .entry-content h2, .entry-content h3, .entry-content h4, .entry-content h5, .entry-content h6 {
     color: #2e2e2e;
-    border-bottom: 1px solid #e8e8e8;
     margin: 0 0 20px 0;
     padding: 0 0 5px 0; }
+  .entry-content h1, .entry-content h2, .entry-content h3 {
+    border-bottom: 1px solid #e8e8e8; }
   .entry-content ul,
   .entry-content ol {
     list-style-position: inside; }
@@ -5501,6 +5502,12 @@ textarea {
 .gallery-caption {
   font-size: 1em; }
 
+#main-content {
+  min-height: 34.16667em; }
+
+.sharing {
+  float: right; }
+
 .soldPosition {
   display: none;
   margin: auto; }
@@ -5530,6 +5537,7 @@ textarea {
 .block-Widgets li {
   list-style: none; }
 
+/** Unused Breadcrumb **/
 #breadcrumbs {
   list-style: none;
   overflow: hidden; }

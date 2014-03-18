@@ -3,8 +3,12 @@
 	<div class="row">
 
 		<div class="content small-12 column <?php echo engine_content_position(); ?>">
+
             <?php the_breadcrumb(); ?>
-			<article <?php post_class(); ?>>
+
+			<article id="main-content" <?php post_class(); ?>>
+
+
 
 				<div class="featured-image">
 					<?php engine_thumbnail(); ?>
@@ -29,6 +33,11 @@
 
 				</header>
 				<!-- /.entry-header -->
+                <div class="sharing">
+                    <?php // Share buttons
+                    echo do_shortcode('[ssba]');
+                    ?>
+                </div>
 
 				<div class="entry-content">
 					<?php the_content(); ?>

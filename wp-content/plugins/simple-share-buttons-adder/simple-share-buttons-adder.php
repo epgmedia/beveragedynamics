@@ -609,7 +609,7 @@ GNU General Public License for more details.
 		if (is_page() && $arrSettings['ssba_pages'] == 'Y' || is_single() && $arrSettings['ssba_posts'] == 'Y' || is_category() && $arrSettings['ssba_cats_archs'] == 'Y' || is_archive() && $arrSettings['ssba_cats_archs'] == 'Y' || is_home() && $arrSettings['ssba_homepage'] == 'Y' || $booShortCode == TRUE) {
 			
 			// ssba div
-			$htmlShareButtons.= '<div id="ssba">';
+			$htmlShareButtons.= '<!-- I got these buttons from simplesharebuttons.com --><div id="ssba">';
 			
 			// center if set so
 			$htmlShareButtons.= ($arrSettings['ssba_align'] == 'center' ? '<center>' : NULL);
@@ -621,7 +621,7 @@ GNU General Public License for more details.
 				if ($arrSettings['ssba_link_to_ssb'] == 'Y') {
 				
 					// share text with link
-					$htmlShareButtons .= $arrSettings['ssba_share_text'];
+					$htmlShareButtons .= '<a href="http://www.simplesharebuttons.com" target="_blank" class="ssba_tooptip" id="ssba_tooptip""><span>www.simplesharebuttons.com</span>' . $arrSettings['ssba_share_text'];
 				}
 				
 				// just display the share text

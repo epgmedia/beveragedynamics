@@ -854,10 +854,13 @@ pre {
 
 	h1,h2,h3,h4,h5,h6 {
 		color: #2e2e2e;
-		border-bottom: 1px solid #e8e8e8;
 		margin: 0 0 20px 0;
 		padding: 0 0 5px 0;
 	}
+
+    h1,h2,h3 {
+        border-bottom: 1px solid #e8e8e8;
+    }
 
 	ul,
 	ol { list-style-position: inside; }
@@ -1422,6 +1425,15 @@ textarea {
 .bypostauthor,
 .gallery-caption { font-size: 1em; }
 
+#main-content {
+
+    min-height: emCalc(410px);
+
+}
+.sharing {
+    float:right;
+}
+
 .soldPosition {
     display:none;
     margin: auto;
@@ -1457,6 +1469,7 @@ textarea {
     }
 }
 
+/** Unused Breadcrumb **/
 #breadcrumbs {
     list-style: none;
     overflow: hidden;
@@ -1472,6 +1485,7 @@ textarea {
 .widget-title {
     font-size: emCalc(14px);
 }
+
 #related-material,
 .subcategories,
 .wpp-list {
@@ -1495,10 +1509,12 @@ textarea {
         color: #d12f2f;
     }
 }
+
 .related-stories-meta {
     text-transform: uppercase;
     font-size: emCalc(12px);
 }
+
 .right-separator {
     padding-right: emCalc(14px);
     margin-right: emCalc(8px);
@@ -1512,3 +1528,4 @@ textarea {
         padding: 10px 10px 10px 0;
     }
 }
+

@@ -91,7 +91,10 @@ function register_on_page_widgets () {
      * Will not display on site directly, only through AQPB
      */
     $sidebars = array(
-        'category_sidebar' => __('Category Sidebar', 'engine')
+        'retail_category_sidebar' => __('Retail Sidebar', 'engine'),
+        'spirits_category_sidebar' => __('Spirits Sidebar', 'engine'),
+        'wine_category_sidebar' => __('Wine Sidebar', 'engine'),
+        'beer_category_sidebar' => __('Beer Sidebar', 'engine')
     );
 
     foreach ($sidebars as $key => $value) {

@@ -181,19 +181,20 @@ add_action('widgets_init', 'epg_child_theme_widget_init');
  */
 function the_breadcrumb() {
     global $post;
-    echo '<ul id="breadcrumbs">';
+    //<li class="separator"> &#187; </li>
+    echo '<ul class="breadcrumbs">';
     if (!is_home()) {
         echo '<li><a href="';
         echo get_option('home');
         echo '">';
         echo 'Home';
-        echo '</a></li><li class="separator"> &#187; </li>';
+        echo '</a></li>';
         if (is_category() || is_single()) {
             echo '<li>';
-            the_category(' </li><li class="separator"> &#187; </li><li> ');
+            the_category(' </li><li> ');
             if (is_single()) {
-                echo '</li><li class="separator"> &#187; </li><li>';
-                the_title();
+                echo '</li><li>';
+                echo the_title();
                 echo '</li>';
             }
         } elseif (is_page()) {

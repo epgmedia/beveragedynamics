@@ -5536,6 +5536,7 @@ textarea {
   #breadcrumbs li {
     display: inline; }
   #breadcrumbs .separator {
+    font-size: 0.83333em;
     font-weight: 700; }
 
 .widget-title {

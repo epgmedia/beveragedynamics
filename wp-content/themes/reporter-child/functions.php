@@ -1,55 +1,116 @@
 <?php
 define('CHILDDIR', get_stylesheet_directory());
-/*
- *
- * Get the content position with the sidebar options
- *
- * Changed content sizing for sidebar
+define('CHILDURI', get_stylesheet_directory_uri());
+define('CHILDVERSION', 'v0.0.1');
+/**
+ * Additional Styles and Scripts
  *
  */
-function engine_content_position() {
+/**
+ * CSS Auto versioning
+ *
+ * Given a file, i.e. /css/base.css, replaces it with a string containing the
+ * file's mtime, i.e. /css/base.1221534296.css.
+ *
+ * @param $file  The file to be loaded.  Must be an absolute path (i.e.
+ *               starting with slash).
+ */
 
-    if( !is_admin() ) {
-
-        global $reporter_data;
-
-        // Default
-        $sidebar_position = 'right';
-        $content_position = 'large-8 left';
-
-        // Default sidebar positions
-        if( is_single() )
-            if( isset($reporter_data['post_sidebar_pos']) )
-                $sidebar_position = $reporter_data['post_sidebar_pos'];
-
-        if( is_page() )
-            if( isset($reporter_data['page_sidebar_pos']) )
-                $sidebar_position = $reporter_data['page_sidebar_pos'];
-
-        if( is_archive() )
-            if( isset($reporter_data['archive_sidebar_pos']) )
-                $sidebar_position = $reporter_data['archive_sidebar_pos'];
-
-        // Override if sidebar position is set for post/page metabox
-        if( is_singular() ) {
-
-            $single_sidebar_position = get_post_meta(get_the_ID(), 'engine_sidebar_pos', TRUE);
-
-            if( $single_sidebar_position != '' )
-                $sidebar_position = $single_sidebar_position;
-
+function auto_version_css($file) {
+    /*
+     * Checks what the last modified time was
+     * Checks:
+     * 1. Equal modified time       AND
+     * 2. Stylesheet option is set  AND
+     * 3. A time has been set to query AND
+     * 4. The new stylesheet exists
+     *
+     * If it's all true, returns the modified file.
+     */
+    clearstatcache();
+    $update_option = 'child_stylesheet_modified_time';
+    $lastModifiedTime = get_option($update_option, "Time Not Set");
+    $currentStylesheet = get_option($file, 'Stylesheet Not Set');
+    $modifiedTime = filemtime(CHILDDIR . $file);
+     if ( $lastModifiedTime == $modifiedTime
+     && $currentStylesheet !== "Stylesheet Not Set"
+     && $lastModifiedTime !== "Time Not Set"
+     && file_exists(CHILDDIR . $currentStylesheet) ) {
+         return $currentStylesheet;
+     }
+    $stylesheet = $file;
+    /*
+     * Running the function
+     * If all of those aren't met, it's time to create a new stylesheet
+     *
+     * First we write the new file name
+     * Create a var to hold base directory info
+     *
+     * Then, we check if everything is writable. If it is, we continue.
+     * Otherwise, we return the un-cached file.
+     *
+     */
+    // style.css
+    $newStylesheetName = substr(strrchr($stylesheet, "/"), 1);
+    // style.timestamp.css
+    $newFileName = substr($newStylesheetName, 0, -4) . '.' . $modifiedTime . '.css';
+    // "/css/" from "/css/style.css"
+    $newStyleSheetDirectory = substr($stylesheet, 0, (strlen($stylesheet)-strlen($newStylesheetName)));
+    /*
+     * Add new file location.
+     * Full directory location of new file.
+     * /dir/user/www/etc/etc/wp-content/etc/etc/style.css
+     */
+    $newStyleSheet = CHILDDIR . $newStyleSheetDirectory . $newFileName;
+    /*
+     * Add file to folder
+     * If it's not writable or files, it'll return the base stylesheet.
+     * If we can't write, then chances are it wasn't written before.
+     */
+    if (is_writable(CHILDDIR . $newStyleSheetDirectory)) {
+        // check if the file was created
+        if (!$handle = fopen($newStyleSheet, 'w')) {
+            return $stylesheet;
         }
-
-        if( $sidebar_position == 'right-sidebar' ) $content_position = 'large-8 left';
-        if( $sidebar_position == 'left-sidebar' ) $content_position = 'large-8 right';
-        if( $sidebar_position == 'no-sidebar' ) $content_position = 'large-12';
-
-        $output = $content_position;
-
-        return $output;
-
+        $oldStylesheet = file_get_contents(CHILDDIR . $stylesheet); // data
+        // Write data to new stylesheet.
+        if (fwrite($handle, $oldStylesheet) === FALSE) {
+            return $stylesheet;
+        }
+        // Success, wrote data to file new stylesheet;
+        fclose($handle);
+    } else {
+        return $stylesheet;
     }
+    /*
+     * Update Database
+     * Everything worked and now it's time to update the database and return the new file
+     * and then delete the old file.
+     */
+    $newFileName = $newStyleSheetDirectory . $newFileName;
+    update_option($update_option, $modifiedTime);
+    update_option($file, $newFileName);
+    // And delete the old stylesheet
+    if ($currentStylesheet !== "Stylesheet Not Set" ) {
+        unlink(CHILDDIR . $currentStylesheet);
+    }
+
+    return $newFileName;
 }
+
+/**
+ * Register style sheet and new script.
+ */
+function register_child_theme_styles() {
+    $stylesheet = '/assets/beverage-dynamics.css'; //file
+    $fileName = auto_version_css($stylesheet);
+    wp_register_style( 'BDX-Styles', CHILDURI . $fileName, array('theme-style') );
+    wp_enqueue_style( 'BDX-Styles' );
+
+    wp_enqueue_script( 'child-js', CHILDURI . '/assets/beverage-scripts.js', array('jquery', 'foundation'), '', TRUE );
+}
+// Register style sheet.
+add_action( 'wp_enqueue_scripts', 'register_child_theme_styles' );
 
 /**
  *
@@ -111,6 +172,89 @@ function register_on_page_widgets () {
 }
 add_action('init', 'register_on_page_widgets');
 
+/*
+Widget: Ad Position
+Description: Adds a widget that takes an ad position's variables and creates a new ad position
+*/
+require_once( CHILDDIR . '/widgets/epg-google-ad-position-widget.php');
+/*
+Plugin Name: Display Categories Widget
+Description: Display Categories Widget to display on your sidebar, this will get the title and category id
+Plugin URI: http://www.iteamweb.com/
+Version: 1.0
+Author: Suresh Baskaran
+License: GPL
+*/
+require_once( CHILDDIR . '/widgets/epg-display-categories-widget.php');
+
+/*
+Widget Name: Related Stories
+Description: Displays stories related to the current page category.
+ */
+require_once( CHILDDIR . '/widgets/epg-related-stories-widget.php');
+
+// put widgets together
+function epg_child_theme_widget_init() {
+    register_widget('epg_google_ad_position_widget');
+    register_widget('displayCategoriesWidget');
+    register_widget('epg_related_stories_widget');
+}
+/**
+ * Register New Wordpress Widgets
+ */
+add_action('widgets_init', 'epg_child_theme_widget_init');
+
+/*
+ *
+ * Get the content position with the sidebar options
+ *
+ * Changed content sizing for sidebar
+ *
+ */
+function engine_content_position() {
+
+    if( !is_admin() ) {
+
+        global $reporter_data;
+
+        // Default
+        $sidebar_position = 'right';
+        $content_position = 'large-8 left';
+
+        // Default sidebar positions
+        if( is_single() )
+            if( isset($reporter_data['post_sidebar_pos']) )
+                $sidebar_position = $reporter_data['post_sidebar_pos'];
+
+        if( is_page() )
+            if( isset($reporter_data['page_sidebar_pos']) )
+                $sidebar_position = $reporter_data['page_sidebar_pos'];
+
+        if( is_archive() )
+            if( isset($reporter_data['archive_sidebar_pos']) )
+                $sidebar_position = $reporter_data['archive_sidebar_pos'];
+
+        // Override if sidebar position is set for post/page metabox
+        if( is_singular() ) {
+
+            $single_sidebar_position = get_post_meta(get_the_ID(), 'engine_sidebar_pos', TRUE);
+
+            if( $single_sidebar_position != '' )
+                $sidebar_position = $single_sidebar_position;
+
+        }
+
+        if( $sidebar_position == 'right-sidebar' ) $content_position = 'large-8 left';
+        if( $sidebar_position == 'left-sidebar' ) $content_position = 'large-8 right';
+        if( $sidebar_position == 'no-sidebar' ) $content_position = 'large-12';
+
+        $output = $content_position;
+
+        return $output;
+
+    }
+}
+
 /**
  *
  * Removes "Top Stories" and "Uncategorized" categories from printed category lists.
@@ -141,41 +285,6 @@ function the_category_filter($thelist, $separator = ' ') {
     }
 }
 add_filter('the_category','the_category_filter', 10, 2);
-
-/*
-Widget: Ad Position
-Description: Adds a widget that takes an ad position's variables and creates a new ad position
-*/
-require_once( CHILDDIR . '/widgets/epg-google-ad-position-widget.php');
-/*
-Plugin Name: Display Categories Widget
-Description: Display Categories Widget to display on your sidebar, this will get the title and category id
-Plugin URI: http://www.iteamweb.com/
-Version: 1.0
-Author: Suresh Baskaran
-License: GPL
-*/
-require_once( CHILDDIR . '/widgets/epg-display-categories-widget.php');
-
-
-/*
-Widget Name: Related Stories
-Description: Displays stories related to the current page category.
- */
-require_once( CHILDDIR . '/widgets/epg-related-stories-widget.php');
-
-// put widgets together
-function epg_child_theme_widget_init() {
-    register_widget('epg_google_ad_position_widget');
-    register_widget('DisplayCategoriesWidget');
-    register_widget('epg_related_stories_widget');/*
-    require_once( CHILDDIR . '/blocks/ai1ec-agenda-block.php');
-    aq_register_block('Ai1ec_Agenda_Block');*/
-}
-/**
- * Register New Wordpress Widgets
- */
-add_action('widgets_init', 'epg_child_theme_widget_init');
 
 /**
  * Breadcrumb Nav
@@ -226,61 +335,15 @@ function the_breadcrumb() {
     echo '</ul>';
 }
 
-
-function iterate_terms($post_id = '', $search_options = array(), $AND = NULL ) {
-    global $post, $wpdb;
-
-    if ( $AND !== NULL ) {
-        $post_args['tax_query'][0]['operator'] = $AND;
-    }
-    $output = array();
-    $defaults = array(
-        'post_type' => array('post')
-    );
-    $qargs = array(
-        'fields' => 'ids',
-        'orderby' => 'count',
-        'order' => 'ASC'
-    );
-    $options = wp_parse_args( $search_options, $defaults );
-    $terms_set = wp_get_post_terms( $post_id, $options['taxonomy'], $qargs );
-    //Make sure each returned term id to be an integer.
-    $terms_set = array_map('intval', $terms_set);
-
-    //Store a copy that we'll be reducing by one item for each iteration.
-    $terms_to_iterate = $terms_set;
-
-    $post_args = array(
-        'fields' => 'ids',
-        'post_type' => $options['post_type'],
-        'post__not_in' => array($post_id, 1, 91),
-        'posts_per_page' => 50
-    );
-
-    while( count( $terms_to_iterate ) >= 1 ) {
-
-        $post_args['tax_query'] = array(
-            array(
-                'taxonomy' => $options['taxonomy'],
-                'field' => 'id',
-                'terms' => $terms_to_iterate
-            )
-        );
-        $posts = get_posts( $post_args );
-        foreach( $posts as $id ) {
-            $id = intval( $id );
-            if( !in_array( $id, $output) ) {
-                $output[] = $id;
-            }
-        }
-        array_pop( $terms_to_iterate );
-    }
-
-    return $output;
-}
-
 /**
- * Checks for local avatar or returns nothing
+ * Local Avatar
+ *
+ * Removes default avatar from author pages.
+ *
+ * @var $htmlfragment = HTML object, string of HTML
+ *
+ * Used on avatar pages.
+ *
  */
 function getAvatarHostName( $htmlFragment ) {
     $string = <<<XML
@@ -293,4 +356,55 @@ XML;
         return $imageSrc['host'];
     }
     return NULL;
+}
+
+/**
+ * Class Walker_Category_Find_Parents
+ *
+ * Extends the Walker_Category
+ *
+ * Adds "has-children" class to parent lists that have sub lists.
+ *
+ * Used in category list widget
+ *
+ */
+class Walker_Category_Find_Parents extends Walker_Category {
+    function start_el( &$output, $category, $depth = 0, $args = array(), $id = 0 ) {
+        extract($args);
+
+        $cat_name = esc_attr( $category->name );
+        $cat_name = apply_filters( 'list_cats', $cat_name, $category );
+        $link = '<a href="' . esc_url( get_term_link($category) ) . '" ';
+        if ( $use_desc_for_title == 0 || empty($category->description) )
+            $link .= 'title="' . esc_attr( sprintf(__( 'View all posts filed under %s' ), $cat_name) ) . '"';
+        else
+            $link .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $category->description, $category ) ) ) . '"';
+        $link .= '>';
+        $link .= $cat_name . '</a>';
+
+        if ( !empty($show_count) )
+            $link .= ' (' . intval($category->count) . ')';
+
+        if ( 'list' == $args['style'] ) {
+            $output .= "\t<li";
+            $class = 'cat-item cat-item-' . $category->term_id;
+
+            $termchildren = get_term_children( $category->term_id, $category->taxonomy );
+            if(count($termchildren)>0){
+                $class .=  ' has-children';
+            }
+
+            if ( !empty($current_category) ) {
+                $_current_category = get_term( $current_category, $category->taxonomy );
+                if ( $category->term_id == $current_category )
+                    $class .=  ' current-cat';
+                elseif ( $category->term_id == $_current_category->parent )
+                    $class .=  ' current-cat-parent';
+            }
+            $output .=  ' class="' . $class . '"';
+            $output .= ">$link\n";
+        } else {
+            $output .= "\t$link<br />\n";
+        }
+    }
 }

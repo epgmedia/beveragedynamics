@@ -697,7 +697,7 @@ a:hover { text-decoration: underline; }
 
 .main {
     padding: 25px 10px 10px;
-    @include breakpoint(large) { padding: 25px 50px 10px; }
+    @include breakpoint(large) { padding: 25px 20px 10px; }
 }
 
 .the-post {
@@ -1587,4 +1587,19 @@ textarea {
             visibility: visible;
         }
     }
+}
+
+.flexslider {
+
+    .slides .featured-image {
+        min-height:160px;
+    }
+
+    .slides img {
+        width: auto!important;
+        max-height: 100%!important;
+        margin: auto!important;
+        display: block!important;
+    }
+
 }

@@ -4754,7 +4754,7 @@ a:hover {
   padding: 25px 10px 10px; }
   @media (min-width: 768px) {
     .main {
-      padding: 25px 50px 10px; } }
+      padding: 25px 20px 10px; } }
 
 .the-post {
   margin-bottom: 30px;
@@ -5647,3 +5647,11 @@ textarea {
     .displayCategoriesWidget .has-children .children {
       display: block;
       visibility: visible; } }
+
+.flexslider .slides .featured-image {
+  min-height: 160px; }
+.flexslider .slides img {
+  width: auto !important;
+  max-height: 100% !important;
+  margin: auto !important;
+  display: block !important; }

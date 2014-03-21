@@ -1522,7 +1522,7 @@ textarea {
         padding: 10px 10px 10px 0;
     }
 }
-.block-Widgets {
+.block-Widgets, .left-rail {
     background: #FAFAFA;
     padding-top: 14px;
 }
@@ -1530,6 +1530,11 @@ textarea {
 .displayCategoriesWidget {
 
     text-transform: uppercase;
+
+    .subcategories {
+        margin-top: 0;
+    }
+
     .subcategories li {
         font-size: 14px;
         position: relative;
@@ -1540,7 +1545,16 @@ textarea {
         font-weight: 300;
     }
 
-    .subcategories > li:hover > a { color: #d12f2f; }
+    .subcategories > li:hover > a,
+    .subcategories .current-cat a,
+    .subcategories .current-parent-cat a {
+        color: #d12f2f;
+    }
+
+    .subcategories .current-parent-cat {
+        padding-bottom: emCalc(15px);
+        font-family: "Lora", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
 
     ul.children, {
         border: 0;
@@ -1587,6 +1601,14 @@ textarea {
             visibility: visible;
         }
     }
+}
+
+.center-column {
+
+    .slider {
+        margin-bottom: 30px!important;
+    }
+
 }
 
 .flexslider {

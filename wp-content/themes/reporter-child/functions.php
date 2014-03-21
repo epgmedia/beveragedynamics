@@ -408,3 +408,180 @@ class Walker_Category_Find_Parents extends Walker_Category {
         }
     }
 }
+
+/**
+ * Display categories
+ *
+ * Displays child categories.
+ *
+ * If no children, returns siblings.
+ *
+ */
+
+function display_category_list($post_cat) {
+
+    $category = $post_cat;
+
+    $before_widget = '<div id="category-page-List" class="widget displayCategoriesWidget">';
+    $after_widget = '</div>';
+    $before_title = '<h3 class="widget-title">';
+    $after_title = '</h3>';
+
+    $cat_id = $category->cat_ID;
+    $parent_id = $category->parent;
+
+
+    $category_args = array( 'child_of' => $cat_id );
+    $categories = get_categories($category_args);
+    if ( empty($categories) ) {
+        $cat_id = $category->parent;
+    }
+
+
+    $title = '&raquo; ' . get_cat_name($cat_id);
+
+    echo $before_widget;
+
+    if ($parent_id == 0) {
+        echo $before_title . $title . $after_title;
+    }
+
+    $args = array(
+        'orderby'            => 'ID',
+        'order'              => 'ASC',
+        'style'              => 'list',
+        'hide_empty'         => 0,
+        'child_of'           => $cat_id,
+        'exclude'            => '1,91',
+        'hierarchical'       => 1,
+        'title_li'           => '',
+        'show_option_none'   => '',
+        'echo'               => 1,
+        'taxonomy'           => 'category',
+        'walker'             => new Walker_Category_Find_Parents()
+    );
+    echo '<ul class="subcategories">';
+    if ($parent_id !== 0) {
+
+        echo '<li class="cat-item cat-item-' . $parent_id . ' current-parent-cat">' .
+                ' <a href="' . get_category_link($parent_id) .'">&laquo; ' .
+                get_cat_name($parent_id) .'</a>' .
+            '</li>';
+
+    }
+    wp_list_categories($args);
+    echo "</ul>";
+    echo $after_widget;
+}
+
+function display_category_slider($arguments) {
+
+    extract($arguments);
+    $args = array(
+        'posts_per_page' => $qty,
+        'cat' => $cat_id,
+    );
+
+    $q = new WP_Query($args);
+
+    if( $q->have_posts() ) : ?>
+
+        <div class="slider flexslider" data-autoplay="<?php echo $autoplay; ?>" data-random="<?php echo $random; ?>">
+
+            <ul class="slides">
+
+                <?php while ( $q->have_posts() ) : $q->the_post();
+                    $i = 0;
+                    if ( in_category( 91, $post->ID ) ) {
+                        $i = 3;
+                        ?>
+                        <li <?php post_class(); ?>>
+
+                            <article class="the-post">
+
+                                <div class="featured-image">
+
+                                    <a href="<?php the_permalink(); ?>"><?php engine_thumbnail($th_size); ?></a>
+
+                                </div>
+                                <!-- /.featured-image -->
+
+                                <!-- .entry-header -->
+                                <header class="entry-header">
+
+                                    <div class="entry-meta">
+                                        <span class="entry-comments"><a href="<?php comments_link(); ?>"><i class="icon-comments"></i><?php comments_number(0, 1, '%'); ?></a></span>
+                                        <span class="entry-category"><i class="icon-folder-open"></i><?php the_category(', '); ?></span>
+                                        <span class="entry-date"><i class="icon-calendar"></i><?php the_time( get_option('date_format') ); ?></span>
+                                    </div>
+
+                                    <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+
+                                </header>
+                                <!-- /.entry-header -->
+
+                                <?php if( $excerpt_length != '0' ): ?>
+
+                                    <div class="entry-content">
+                                        <?php echo wpautop(engine_excerpt($excerpt_length)); ?>
+                                    </div>
+
+                                <?php endif; ?>
+
+                            </article>
+                            <!-- /.the-post -->
+
+                        </li>
+                    <?php
+                    }
+
+                    while ( $i < 3 ) { ?>
+                        <li <?php post_class(); ?>>
+
+                            <article class="the-post">
+
+                                <div class="featured-image">
+
+                                    <a href="<?php the_permalink(); ?>"><?php engine_thumbnail($th_size); ?></a>
+
+                                </div>
+                                <!-- /.featured-image -->
+
+                                <!-- .entry-header -->
+                                <header class="entry-header">
+
+                                    <div class="entry-meta">
+                                        <span class="entry-comments"><a href="<?php comments_link(); ?>"><i class="icon-comments"></i><?php comments_number(0, 1, '%'); ?></a></span>
+                                        <span class="entry-category"><i class="icon-folder-open"></i><?php the_category(', '); ?></span>
+                                        <span class="entry-date"><i class="icon-calendar"></i><?php the_time( get_option('date_format') ); ?></span>
+                                    </div>
+
+                                    <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+
+                                </header>
+                                <!-- /.entry-header -->
+
+                                <?php if( $excerpt_length != '0' ): ?>
+
+                                    <div class="entry-content">
+                                        <?php echo wpautop(engine_excerpt($excerpt_length)); ?>
+                                    </div>
+
+                                <?php endif; ?>
+
+                            </article>
+                            <!-- /.the-post -->
+
+                        </li>
+                        <?php $i++;
+                    }
+                endwhile; ?>
+
+            </ul>
+
+        </div>
+
+    <?php
+    endif;
+    wp_reset_query();
+}

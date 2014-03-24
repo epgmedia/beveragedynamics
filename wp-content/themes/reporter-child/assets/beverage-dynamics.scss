@@ -1429,23 +1429,41 @@ textarea {
 }
 
 .soldPosition {
-    display:none;
-    margin: auto;
-    @media only screen and (min-width:"#{$topbar-breakpoint}") {
-        width:auto!important;
+
+    .widget {
+        margin: auto;
+        margin-bottom: 30px;
+        width: auto;
     }
-    @media #{$small} {
-        display:block;
+    .leader {
+        min-width: 728px;
+
+        @media only screen and (min-width:"#{$small-screen}") {
+            visibility: visible;
+        }
+
+        @media only screen and (max-width:"#{$small-screen}") {
+            display:none;
+            visibility: hidden;
+        }
+
     }
+
+    .box {
+        min-width: 300px;
+
+        @media only screen and (min-width:"#{$topbar-breakpoint}") {
+            visibility: visible;
+        }
+
+        @media only screen and (max-width:"#{$topbar-breakpoint}") {
+            display:none;
+            visibility: hidden;
+        }
+    }
+
 }
-.testAd {
-    width: auto;
-    margin: auto;
-    text-align: center;
-    img {
-        margin:auto;
-    }
-}
+
 
 .secondary-bar-section {
     width:100%;
@@ -1483,6 +1501,9 @@ textarea {
 #related-material,
 .subcategories,
 .wpp-list {
+
+    list-style:none;
+
     a {
         text-decoration: none;
     }
@@ -1490,7 +1511,6 @@ textarea {
     h5,
     .wpp-post-title {
         font-size: emCalc(16px);
-        line-height: emCalc(20px);
     }
     .widget-title,
     h5,
@@ -1501,6 +1521,11 @@ textarea {
     h5:hover,
     .wpp-post-title:hover {
         color: #d12f2f;
+    }
+    .wpp-category {
+        font-size: emCalc(10px);
+        display:block;
+        text-transform: uppercase;
     }
 }
 
@@ -1525,6 +1550,16 @@ textarea {
 .block-Widgets, .left-rail {
     background: #FAFAFA;
     padding-top: 14px;
+    height:100%;
+
+    @media only screen and (min-width:"#{$small-screen}") {
+        visibility: visible;
+    }
+
+    @media only screen and (max-width:"#{$small-screen}") {
+        display:none;
+        visibility: hidden;
+    }
 }
 
 .displayCategoriesWidget {
@@ -1533,6 +1568,7 @@ textarea {
 
     .subcategories {
         margin-top: 0;
+
     }
 
     .subcategories li {
@@ -1597,8 +1633,8 @@ textarea {
     }
     @media only screen and (max-width:"#{$topbar-breakpoint}") {
         .has-children .children {
-            display: block;
-            visibility: visible;
+            display:none;
+            visibility: hidden;
         }
     }
 }
@@ -1624,4 +1660,10 @@ textarea {
         display: block!important;
     }
 
+}
+
+.widget_text .textWidget {
+    img {
+        margin:auto;
+    }
 }

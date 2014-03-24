@@ -5502,22 +5502,28 @@ textarea {
 .sharing {
   float: right; }
 
-.soldPosition {
-  display: none;
-  margin: auto; }
-  @media only screen and (min-width: 940px) {
-    .soldPosition {
-      width: auto !important; } }
-  @media only screen and (min-width: 768px) {
-    .soldPosition {
-      display: block; } }
-
-.testAd {
-  width: auto;
+.soldPosition .widget {
   margin: auto;
-  text-align: center; }
-  .testAd img {
-    margin: auto; }
+  margin-bottom: 30px;
+  width: auto; }
+.soldPosition .leader {
+  min-width: 728px; }
+  @media only screen and (min-width: 768px) {
+    .soldPosition .leader {
+      visibility: visible; } }
+  @media only screen and (max-width: 768px) {
+    .soldPosition .leader {
+      display: none;
+      visibility: hidden; } }
+.soldPosition .box {
+  min-width: 300px; }
+  @media only screen and (min-width: 940px) {
+    .soldPosition .box {
+      visibility: visible; } }
+  @media only screen and (max-width: 940px) {
+    .soldPosition .box {
+      display: none;
+      visibility: hidden; } }
 
 .secondary-bar-section {
   width: 100%; }
@@ -5544,41 +5550,50 @@ textarea {
 .widget-title {
   font-size: 1.16667em; }
 
-#related-material a,
-.subcategories a,
-.wpp-list a {
-  text-decoration: none; }
-#related-material .widget-title,
-#related-material h5,
-#related-material .wpp-post-title,
-.subcategories .widget-title,
-.subcategories h5,
-.subcategories .wpp-post-title,
-.wpp-list .widget-title,
-.wpp-list h5,
-.wpp-list .wpp-post-title {
-  font-size: 1.33333em;
-  line-height: 1.66667em; }
-#related-material .widget-title,
-#related-material h5,
-#related-material .wpp-post-title,
-#related-material .date,
-.subcategories .widget-title,
-.subcategories h5,
-.subcategories .wpp-post-title,
-.subcategories .date,
-.wpp-list .widget-title,
-.wpp-list h5,
-.wpp-list .wpp-post-title,
-.wpp-list .date {
-  color: #000000; }
-#related-material h5:hover,
-#related-material .wpp-post-title:hover,
-.subcategories h5:hover,
-.subcategories .wpp-post-title:hover,
-.wpp-list h5:hover,
-.wpp-list .wpp-post-title:hover {
-  color: #d12f2f; }
+#related-material,
+.subcategories,
+.wpp-list {
+  list-style: none; }
+  #related-material a,
+  .subcategories a,
+  .wpp-list a {
+    text-decoration: none; }
+  #related-material .widget-title,
+  #related-material h5,
+  #related-material .wpp-post-title,
+  .subcategories .widget-title,
+  .subcategories h5,
+  .subcategories .wpp-post-title,
+  .wpp-list .widget-title,
+  .wpp-list h5,
+  .wpp-list .wpp-post-title {
+    font-size: 1.33333em; }
+  #related-material .widget-title,
+  #related-material h5,
+  #related-material .wpp-post-title,
+  #related-material .date,
+  .subcategories .widget-title,
+  .subcategories h5,
+  .subcategories .wpp-post-title,
+  .subcategories .date,
+  .wpp-list .widget-title,
+  .wpp-list h5,
+  .wpp-list .wpp-post-title,
+  .wpp-list .date {
+    color: #000000; }
+  #related-material h5:hover,
+  #related-material .wpp-post-title:hover,
+  .subcategories h5:hover,
+  .subcategories .wpp-post-title:hover,
+  .wpp-list h5:hover,
+  .wpp-list .wpp-post-title:hover {
+    color: #d12f2f; }
+  #related-material .wpp-category,
+  .subcategories .wpp-category,
+  .wpp-list .wpp-category {
+    font-size: 0.83333em;
+    display: block;
+    text-transform: uppercase; }
 
 .related-stories-meta {
   text-transform: uppercase;
@@ -5602,7 +5617,15 @@ textarea {
 
 .block-Widgets, .left-rail {
   background: #FAFAFA;
-  padding-top: 14px; }
+  padding-top: 14px;
+  height: 100%; }
+  @media only screen and (min-width: 768px) {
+    .block-Widgets, .left-rail {
+      visibility: visible; } }
+  @media only screen and (max-width: 768px) {
+    .block-Widgets, .left-rail {
+      display: none;
+      visibility: hidden; } }
 
 .displayCategoriesWidget {
   text-transform: uppercase; }
@@ -5652,11 +5675,9 @@ textarea {
         padding: 5px 20px 5px 10px; } }
   @media only screen and (max-width: 940px) {
     .displayCategoriesWidget .has-children .children {
-      display: block;
-      visibility: visible; } }
+      display: none;
+      visibility: hidden; } }
 
-.center-column .category-post {
-  clear: both; }
 .center-column .slider {
   margin-bottom: 30px !important; }
 
@@ -5667,3 +5688,6 @@ textarea {
   max-height: 100% !important;
   margin: auto !important;
   display: block !important; }
+
+.widget_text .textWidget img {
+  margin: auto; }

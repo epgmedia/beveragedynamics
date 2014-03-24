@@ -124,13 +124,11 @@ add_action( 'after_setup_theme', function() {
     // add blocks
     require_once( CHILDDIR . '/blocks/epg-stock-index-block.php');
     require_once( CHILDDIR . '/blocks/epg-ad-position-block.php');
-    require_once( CHILDDIR . '/blocks/epg-ad-position-test-block.php');
     require_once( CHILDDIR . '/blocks/aq-widgets-block.php');
 
     // register blocks
     aq_register_block('EPG_Stock_Index_Block');
     aq_register_block('EPG_Ad_Position_Block');
-    aq_register_block('EPG_Ad_Position_Test_Block');
     aq_register_block('AQ_Widgets_Block');
 }, 2 );
 
@@ -584,4 +582,104 @@ function display_category_slider($arguments) {
     <?php
     endif;
     wp_reset_query();
+}
+
+
+
+function category_page_subcategories($category, $args, $clear_div = 1) {
+
+    extract($args);
+
+    $content_start = '<div class="large-8 left small-12 engine-block column center-column">';
+    $title_start = '<h3 class="widget-title">';
+    $cat_desc = NULL;
+    if ( $category->description ) {
+        $cat_desc = '<p class="description">' . $category->description . '</p>';
+    }
+    $title_end = '</h3>';
+    $clear_both = '';
+    $category_post = '';
+    if ( $clear_div === 1 ) {
+        $category_post = 'category-post ';
+        $clear_both = '<div class="span12 no-margin small-12 engine-block column block-Clear"></div>';
+    }
+    $content_end = '</div>';
+
+    // title and description
+    echo $content_start;
+    echo $title_start . $category->name . $title_end;
+    echo $cat_desc;
+
+
+    // the good stuff
+    $news_cat_ID = $category->cat_ID;
+    $news_args = array(
+        'parent' => $news_cat_ID,
+        'orderby' => $orderby,
+        'order' => $order
+    );
+    $news_cats   = get_categories($news_args);
+    $news_query  = new WP_Query();
+
+    $ad_position = NULL;
+    $total = count($news_cats);
+    if ( $total / 2 > 2 ) {
+        $ad_position = (round(($total / 2), 0, PHP_ROUND_HALF_DOWN))-1;
+    };
+
+    foreach ($news_cats as $news_cat):
+        $count++;
+        echo $clear_both;
+        echo '<div class="' . $category_post . 'large-12 small-12 column left engine-block center-column">';
+        echo '<h4 class="widget-title">' . $news_cat->name .
+            '<span><a href="' . get_category_link($news_cat->cat_ID) . '"> more&raquo;</a></span>' . '</h4>';
+
+            echo '<ul class="posts title_meta_thumb_2 small-block-grid-2 large-block-grid-2">';
+            // query for each category
+            $news_query->query('posts_per_page=' . $args['posts'] . '&cat=' . $news_cat->term_id);
+
+            if ( $news_query->have_posts() ):
+                while ( $news_query->have_posts() ): $news_query->the_post(); ?>
+                    <li class="title-meta-thumb">
+                        <article class="the-post">
+                            <div class="featured-image">
+                                <a href="<?php the_permalink(); ?>"><?php engine_thumbnail('archive-first'); ?></a>
+                            </div>
+                            <header class="entry-header">
+                                <div class="entry-meta">
+                                    <span class="entry-comments"><a href="<?php comments_link(); ?>"><i class="icon-comments"></i><?php comments_number(0, 1, '%'); ?></a></span>
+                                    <span class="entry-date"><i class="icon-calendar"></i><?php the_time( get_option('date_format') ); ?></span>
+                                </div>
+                                <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+                            </header>
+                            <!-- /.entry-header -->
+                            <div class="entry-content">
+                            <?php
+                                echo engine_excerpt(25);
+                            ?>
+                            </div>
+                        </article>
+                    </li>
+                <?php
+                endwhile;
+
+            endif;
+
+            echo '</ul>';
+
+        echo '</div>';
+        if ($count == $ad_position) {
+            echo $content_end; ?>
+            <div class="large-12 small-12 column center-column soldPosition">
+                <?php get_template_part("ads/leaderboard-middle"); ?>
+            </div>
+            <div class="small-12 large-4 column right right-rail soldPosition">
+                <?php get_template_part("ads/box-middle"); ?>
+            </div>
+            <?php echo $content_start;
+        }
+
+    endforeach;
+
+    echo $content_end;
 }

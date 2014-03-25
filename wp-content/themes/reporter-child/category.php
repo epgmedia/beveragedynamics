@@ -12,21 +12,21 @@ get_header(); ?>
 
                 <h1 class="page-title"><?php _e('Latest from','engine'); ?> <?php wp_title(); ?></h1>
 
-                <div class="content small-12 column large-8 left">
+                <div class="content small-12 column large-12 left">
 
                     <?php get_template_part("parts/category-content");?>
-
-                </div>
-
-                <div class="sidebar small-12 large-4 column" id="sidebar">
-
-                    <?php get_sidebar(); ?>
 
                 </div>
 
             </div>
 
 		</div>
+
+        <div class="sidebar small-12 large-4 column" id="sidebar">
+
+            <?php get_sidebar(); ?>
+
+        </div>
 
         <?php the_ad_position('Leaderboard', 'Bottom'); ?>
 

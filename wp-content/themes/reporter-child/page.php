@@ -2,6 +2,8 @@
 
 	<div class="row">
 
+        <?php the_ad_position('Leaderboard', 'Top'); ?>
+
 		<div class="content small-12 column <?php echo engine_content_position(); ?>">
 
 			<div <?php post_class(); ?>>

@@ -109,8 +109,7 @@ function auto_version_css($file, $run = TRUE) {
 add_action( 'wp_enqueue_scripts', function() {
 
     // Child Stylesheet
-    $stylesheet = '/assets/beverage-dynamics.css'; //file
-    $fileName = auto_version_css($stylesheet);
+    $fileName = auto_version_css( '/assets/beverage-dynamics.css', TRUE );
     wp_register_style( 'BDX-Styles', CHILDURI . $fileName, array('theme-style') );
     wp_enqueue_style( 'BDX-Styles' );
 

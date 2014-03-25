@@ -26,6 +26,58 @@ class epg_related_stories_widget extends WP_Widget {
         return $instance;
     }
 
+    function iterate_terms($post_id = '', $search_options = array(), $AND = NULL ) {
+        global $post, $wpdb;
+
+        if ( $AND !== NULL ) {
+            $post_args['tax_query'][0]['operator'] = $AND;
+        }
+        $output = array();
+        $defaults = array(
+            'post_type' => array('post')
+        );
+        $qargs = array(
+            'fields' => 'ids',
+            'orderby' => 'count',
+            'order' => 'ASC'
+        );
+        $options = wp_parse_args( $search_options, $defaults );
+        $terms_set = wp_get_post_terms( $post_id, $options['taxonomy'], $qargs );
+        //Make sure each returned term id to be an integer.
+        $terms_set = array_map('intval', $terms_set);
+
+        //Store a copy that we'll be reducing by one item for each iteration.
+        $terms_to_iterate = $terms_set;
+
+        $post_args = array(
+            'fields' => 'ids',
+            'post_type' => $options['post_type'],
+            'post__not_in' => array($post_id, 1, 91),
+            'posts_per_page' => 50
+        );
+
+        while( count( $terms_to_iterate ) >= 1 ) {
+
+            $post_args['tax_query'] = array(
+                array(
+                    'taxonomy' => $options['taxonomy'],
+                    'field' => 'id',
+                    'terms' => $terms_to_iterate
+                )
+            );
+            $posts = get_posts( $post_args );
+            foreach( $posts as $id ) {
+                $id = intval( $id );
+                if( !in_array( $id, $output) ) {
+                    $output[] = $id;
+                }
+            }
+            array_pop( $terms_to_iterate );
+        }
+
+        return $output;
+    }
+
     function get_epg_related_data($post_id, $instance) {
         global $post, $wpdb;
 
@@ -57,23 +109,23 @@ class epg_related_stories_widget extends WP_Widget {
             //echo $transient_name . ' read!';
             return $output;
         }
-        $output = iterate_terms($post_id, $defaults, $AND );
+        $output = $this->iterate_terms($post_id, $defaults, $AND );
         if (count($output) < $defaults['max']) {
-            $cat_output = iterate_terms($post_id, $categoryquery, $AND );
+            $cat_output = $this->iterate_terms($post_id, $categoryquery, $AND );
             foreach ($cat_output as $cat) {
                 $cat = intval( $cat);
                 $output[] = $cat;
             }
         }
         if (count($output) < $defaults['max']) {
-            $cat_output = iterate_terms($post_id, $defaults);
+            $cat_output = $this->iterate_terms($post_id, $defaults);
             foreach ($cat_output as $cat) {
                 $cat = intval( $cat);
                 $output[] = $cat;
             }
         }
         if (count($output) < $defaults['max']) {
-            $cat_output = iterate_terms($post_id, $categoryquery);
+            $cat_output = $this->iterate_terms($post_id, $categoryquery);
             foreach ($cat_output as $cat) {
                 $cat = intval( $cat);
                 $output[] = $cat;

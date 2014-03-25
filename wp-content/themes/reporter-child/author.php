@@ -2,6 +2,8 @@
 
     <div class="row">
 
+        <?php the_ad_position('Leaderboard', 'Top'); ?>
+
         <div id="content" class="content small-12 column <?php echo engine_content_position(); ?>">
 
             <?php
@@ -26,6 +28,8 @@
                 <?php get_sidebar(); ?>
             </div>
         <?php endif; ?>
+
+        <?php the_ad_position('Leaderboard', 'Bottom'); ?>
 
     </div>
     <!-- /.row -->

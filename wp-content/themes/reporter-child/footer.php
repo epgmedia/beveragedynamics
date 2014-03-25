@@ -26,11 +26,8 @@
 	<?php endif; ?>
 
 <?php wp_footer(); ?>
-    <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $("span.entry-comments").hide();
-        });
-    </script>
 
-</body>
+<?php include_once("analytics.php"); ?>
+
+    </body>
 </html>

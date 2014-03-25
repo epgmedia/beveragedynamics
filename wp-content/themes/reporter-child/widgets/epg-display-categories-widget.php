@@ -8,12 +8,12 @@ Author: Suresh Baskaran
 License: GPL
 */
 
-class DisplayCategoriesWidget extends WP_Widget
+class displayCategoriesWidget extends WP_Widget
 {
-    function DisplayCategoriesWidget()
+    function displayCategoriesWidget()
     {
-        $widget_ops = array('classname' => 'DisplayCategoriesWidget', 'description' => 'Displays categories' );
-        $this->WP_Widget('DisplayCategoriesWidget', 'Display Categories Widget', $widget_ops);
+        $widget_ops = array('classname' => 'displayCategoriesWidget', 'description' => 'Displays categories' );
+        $this->WP_Widget('displayCategoriesWidget', 'Display Categories Widget', $widget_ops);
     }
 
     function form($instance)
@@ -111,8 +111,35 @@ class DisplayCategoriesWidget extends WP_Widget
         if($cat_id=="BLANK") $cat_id="0";
         if($instance['show_format']==0)
         {
+            // 'orderby=name&show_count='.$showcount_value.'&child_of='.$cat_id.'&hide_empty='.$display_empty_categories.'&title_li=&number='.$dcw_limit
+            $args = array(
+                'show_option_all'    => '',
+                'orderby'            => 'name',
+                'order'              => 'ASC',
+                'style'              => 'list',
+                'show_count'         => 0,
+                'hide_empty'         => 0,
+                'use_desc_for_title' => 0,
+                'child_of'           => $cat_id,
+                'feed'               => '',
+                'feed_type'          => '',
+                'feed_image'         => '',
+                'exclude'            => '',
+                'exclude_tree'       => '',
+                'include'            => '',
+                'hierarchical'       => 1,
+                'title_li'           => '',
+                'show_option_none'   => '',
+                'number'             => null,
+                'echo'               => 1,
+                'depth'              => 0,
+                'current_category'   => 0,
+                'pad_counts'         => 0,
+                'taxonomy'           => 'category',
+                'walker'             => new Walker_Category_Find_Parents()
+            );
             echo '<ul class="subcategories">';
-            wp_list_categories('orderby=name&show_count='.$showcount_value.'&child_of='.$cat_id.'&hide_empty='.$display_empty_categories.'&title_li=&number='.$dcw_limit);
+            wp_list_categories($args);
             echo "</ul>";
         }
         if($instance['show_format']==2)

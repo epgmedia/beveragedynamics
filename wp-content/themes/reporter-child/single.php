@@ -2,13 +2,13 @@
 
 	<div class="row">
 
+        <?php the_ad_position('Leaderboard', 'Top'); ?>
+
 		<div class="content small-12 column <?php echo engine_content_position(); ?>">
 
-            <?php the_breadcrumb(); ?>
+            <?php dimox_breadcrumbs(); ?>
 
 			<article id="main-content" <?php post_class(); ?>>
-
-
 
 				<div class="featured-image">
 					<?php engine_thumbnail(); ?>
@@ -60,6 +60,8 @@
 		</div>
 		<!-- /#sidebar.sidebar small-12 large-4 column -->
 		<?php endif; ?>
+
+        <?php the_ad_position('Leaderboard', 'Bottom'); ?>
 
 	</div>
 	<!-- /.row -->

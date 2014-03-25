@@ -1,5 +1,6 @@
-<div class="widget widget_text box">
-    <div class="textWidget">
-        <img src="http://www.placehold.it/300x250" />
-    </div>
+<!-- BDX_ROS_300_Top -->
+<div id='div-gpt-ad-1395769613001-0'>
+    <script type='text/javascript'>
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-1395769613001-0'); });
+    </script>
 </div>

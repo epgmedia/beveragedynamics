@@ -30,3 +30,8 @@ jQuery(document).ready(function($) {
     $(window).resize(function() {
     });
 });
+
+
+jQuery(document).ready(function($) {
+    $("span.entry-comments").hide();
+});

@@ -29,6 +29,8 @@
 		<!-- /#sidebar.sidebar small-12 large-4 column -->
 		<?php endif; ?>
 
+        <?php the_ad_position('Leaderboard', 'Bottom'); ?>
+
 	</div>
 	<!-- /.row -->
 

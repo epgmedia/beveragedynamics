@@ -5496,35 +5496,11 @@ textarea {
 .gallery-caption {
   font-size: 1em; }
 
-#main-content {
-  min-height: 34.16667em; }
+/****************************************
 
-.sharing {
-  float: right; }
+Custom Styles
 
-.soldPosition .widget {
-  margin: auto;
-  margin-bottom: 30px;
-  width: auto; }
-.soldPosition .leader {
-  min-width: 728px; }
-  @media only screen and (min-width: 768px) {
-    .soldPosition .leader {
-      visibility: visible; } }
-  @media only screen and (max-width: 768px) {
-    .soldPosition .leader {
-      display: none;
-      visibility: hidden; } }
-.soldPosition .box {
-  min-width: 300px; }
-  @media only screen and (min-width: 940px) {
-    .soldPosition .box {
-      visibility: visible; } }
-  @media only screen and (max-width: 940px) {
-    .soldPosition .box {
-      display: none;
-      visibility: hidden; } }
-
+****************************************/
 .secondary-bar-section {
   width: 100%; }
   .secondary-bar-section ul {
@@ -5534,10 +5510,6 @@ textarea {
     .secondary-bar-section ul li {
       display: inline; }
 
-.block-Widgets li {
-  list-style: none; }
-
-/** Unused Breadcrumb **/
 #breadcrumbs {
   list-style: none;
   overflow: hidden; }
@@ -5547,8 +5519,79 @@ textarea {
     font-size: 0.83333em;
     font-weight: 700; }
 
+#main-content {
+  min-height: 34.16667em; }
+
+.sharing {
+  float: right; }
+
+.author-meta {
+  *zoom: 1; }
+.author-meta:before, .author-meta:after {
+  content: "";
+  display: table; }
+.author-meta:after {
+  clear: both; }
+.author-meta .author-image {
+  background-color: #ffffff;
+  padding: 10px 10px 10px 0; }
+
+.block-Slider .slider {
+  margin-bottom: 30px !important; }
+
+.flexslider .slides .featured-image {
+  min-height: 160px; }
+.flexslider .slides img {
+  width: auto !important;
+  max-height: 100% !important;
+  margin: auto !important;
+  display: block !important; }
+
+/****************************************
+
+Ad Styles
+
+****************************************/
+.soldPosition {
+  margin: auto !important; }
+  .soldPosition > div {
+    margin: auto;
+    margin-bottom: 30px; }
+
+.leaderboard > div {
+  min-width: 728px; }
+@media only screen and (min-width: 768px) {
+  .leaderboard {
+    visibility: visible; } }
+@media only screen and (max-width: 768px) {
+  .leaderboard {
+    display: none;
+    visibility: hidden; } }
+
+.box > div {
+  min-width: 300px; }
+@media only screen and (min-width: 940px) {
+  .box {
+    visibility: visible; } }
+@media only screen and (max-width: 940px) {
+  .box {
+    display: none;
+    visibility: hidden; } }
+
+/****************************************
+
+Widget Styles
+
+****************************************/
 .widget-title {
   font-size: 1.16667em; }
+
+#sidebar h3.widget-title {
+  font-size: 1.33333em;
+  text-align: right; }
+  @media only screen and (max-width: 768px) {
+    #sidebar h3.widget-title {
+      text-align: left; } }
 
 #related-material,
 .subcategories,
@@ -5588,42 +5631,26 @@ textarea {
   .wpp-list h5:hover,
   .wpp-list .wpp-post-title:hover {
     color: #d12f2f; }
-  #related-material .wpp-category,
-  .subcategories .wpp-category,
-  .wpp-list .wpp-category {
-    font-size: 0.83333em;
-    display: block;
-    text-transform: uppercase; }
 
-.related-stories-meta {
+.related-stories-meta,
+.wpp-category {
   text-transform: uppercase;
-  font-size: 1em; }
+  font-size: 1em;
+  display: block; }
 
 .right-separator {
   padding-right: 1.16667em;
   margin-right: 0.66667em;
   border-right: 1px solid black; }
 
-.author-meta {
-  *zoom: 1; }
-.author-meta:before, .author-meta:after {
-  content: "";
-  display: table; }
-.author-meta:after {
-  clear: both; }
-.author-meta .author-image {
-  background-color: #ffffff;
-  padding: 10px 10px 10px 0; }
-
-.block-Widgets, .left-rail {
+.left-rail {
   background: #FAFAFA;
-  padding-top: 14px;
-  height: 100%; }
+  padding-top: 14px; }
   @media only screen and (min-width: 768px) {
-    .block-Widgets, .left-rail {
+    .left-rail {
       visibility: visible; } }
   @media only screen and (max-width: 768px) {
-    .block-Widgets, .left-rail {
+    .left-rail {
       display: none;
       visibility: hidden; } }
 
@@ -5677,17 +5704,3 @@ textarea {
     .displayCategoriesWidget .has-children .children {
       display: none;
       visibility: hidden; } }
-
-.center-column .slider {
-  margin-bottom: 30px !important; }
-
-.flexslider .slides .featured-image {
-  min-height: 160px; }
-.flexslider .slides img {
-  width: auto !important;
-  max-height: 100% !important;
-  margin: auto !important;
-  display: block !important; }
-
-.widget_text .textWidget img {
-  margin: auto; }

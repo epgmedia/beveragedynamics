@@ -5519,8 +5519,8 @@ Custom Styles
     font-size: 0.83333em;
     font-weight: 700; }
 
-#main-content {
-  min-height: 34.16667em; }
+#main-content .entry-content {
+  min-height: 25.83333em; }
 
 .sharing {
   float: right; }
@@ -5569,7 +5569,10 @@ Ad Styles
     visibility: hidden; } }
 
 .box > div {
-  min-width: 300px; }
+  min-width: 300px;
+  border-top: 1px solid #DFDFDF;
+  border-bottom: 1px solid #DFDFDF;
+  padding: 10px 0; }
 @media only screen and (min-width: 940px) {
   .box {
     visibility: visible; } }
@@ -5704,3 +5707,86 @@ Widget Styles
     .displayCategoriesWidget .has-children .children {
       display: none;
       visibility: hidden; } }
+
+/*********************************************
+
+Subscribe Form
+
+*********************************************/
+.subscribe-form {
+  @-moz-document url-prefix() {
+    label {
+      padding-right: 1.3em; } }
+ }
+  .subscribe-form h2 {
+    padding: 0;
+    background-color: #d12f2f;
+    color: #ffffff; }
+    .subscribe-form h2 input[type=submit] {
+      background-color: #d12f2f; }
+  .subscribe-form label {
+    font-size: 1.16667em; }
+    .subscribe-form label span {
+      color: #d12f2f; }
+    .subscribe-form label input {
+      font-size: 1em; }
+
+@supports (pointer-events: none) and ((-webkit-appearance: none) or (-moz-appearance: none) or (appearance: none)) {
+  .subscribe-form label {
+    position: relative;
+    /* White dropdown style */
+    /* FF only temp fix */
+    @-moz-document url-prefix() {
+      select {
+        padding-right: 0.9em; } }
+ }
+    .subscribe-form label span.dropdown {
+      height: 2.2em; }
+    .subscribe-form label select {
+      height: 2.2em;
+      border: 1px solid #e6e6e6;
+      border-radius: 3px;
+      background-color: #f0f0f0;
+      font-size: 1em;
+      color: #4d4d4d;
+      margin: 0 0 1.33333em 0;
+      padding: 0 2.5em 0 1em;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none; }
+      .subscribe-form label select option {
+        overflow: hidden; }
+    .subscribe-form label span.dropdown::before,
+    .subscribe-form label span.dropdown::after {
+      content: "";
+      pointer-events: none; }
+    .subscribe-form label span.dropdown::before {
+      /*  Custom dropdown arrow cover */
+      z-index: 0;
+      background-color: #d0d0d0;
+      width: 2.5em;
+      height: 34px;
+      right: 0;
+      bottom: 1.3em;
+      border-radius: 0 3px 3px 0;
+      position: absolute; }
+    .subscribe-form label span.dropdown::after {
+      /*  Custom dropdown arrow */
+      content: "\25BC";
+      position: absolute;
+      right: 0;
+      bottom: 1.9em;
+      height: 1em;
+      padding: 1em 0.75em 1em 1em;
+      font-size: 1em; }
+    .subscribe-form label select[disabled] {
+      color: rgba(0, 0, 0, 0.3); }
+    .subscribe-form label select::after {
+      color: rgba(0, 0, 0, 0.1); }
+    .subscribe-form label select::before {
+      top: .5em;
+      bottom: .5em;
+      background-color: #d0d0d0;
+      border-left: 1px solid rgba(0, 0, 0, 0.1); }
+    .subscribe-form label select::after {
+      color: rgba(0, 0, 0, 0.9); } }

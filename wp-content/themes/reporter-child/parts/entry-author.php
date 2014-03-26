@@ -12,8 +12,9 @@
 
 // checks for "By" at beginning of author name
 function prependByAuthor($author) {
-    if ( mb_substr($author, 0, 3) != 'By ' ) {
-        $author = 'By ' . mb_substr($author, 3);
+
+    if ( mb_substr($author, 0, 3) !== 'By ' ) {
+        $author = 'By ' . $author;
     }
     return $author;
 }

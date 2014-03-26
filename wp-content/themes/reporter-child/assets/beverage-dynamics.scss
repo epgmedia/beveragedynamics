@@ -1448,7 +1448,11 @@ Custom Styles
     }
 }
 
-#main-content { min-height: emCalc(410px); }
+#main-content {
+    .entry-content {
+        min-height: emCalc(310px);
+    }
+}
 
 
 .sharing { float:right; }
@@ -1680,6 +1684,128 @@ Widget Styles
         .has-children .children {
             display:none;
             visibility: hidden;
+        }
+    }
+}
+
+/*********************************************
+
+Subscribe Form
+
+*********************************************/
+.subscribe-form {
+
+    h2 {
+        padding: 0;
+        background-color: #d12f2f;
+        color: #ffffff;
+        input[type=submit] { background-color: #d12f2f; }
+    }
+
+    label {
+
+        font-size: emCalc(14px);
+
+        span {
+            color: #d12f2f;
+        }
+
+        input {
+            font-size: emCalc(12px);
+        }
+
+        select {
+        }
+
+    }
+    @-moz-document url-prefix() {
+        label { padding-right: 1.3em }
+    }
+}
+@supports (pointer-events: none) and
+      ((-webkit-appearance: none) or
+      (-moz-appearance: none) or
+      (appearance: none)) {
+    .subscribe-form {
+
+        label {
+
+            position: relative;
+
+            span.dropdown {
+                height: 2.2em;
+            }
+
+            select {
+                height: 2.2em;
+                border: 1px solid #e6e6e6;
+                border-radius: 3px;
+                background-color: #f0f0f0;
+                font-size: emCalc(12px);
+                color: #4d4d4d;
+                margin: 0 0 emCalc(16px) 0;
+                padding: 0 2.5em 0 1em;
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+
+                option {
+                    overflow:hidden;
+                }
+
+            }
+
+            span.dropdown::before,
+            span.dropdown::after {
+                content: "";
+                pointer-events: none;
+            }
+
+            span.dropdown::before { /*  Custom dropdown arrow cover */
+                z-index: 0;
+                background-color: #d0d0d0;
+                width: 2.5em;
+                height: 34px;
+                right: 0;
+                bottom: 1.3em;
+                border-radius: 0 3px 3px 0;
+                position: absolute;
+            }
+
+            span.dropdown::after { /*  Custom dropdown arrow */
+                content: "\25BC";
+                position: absolute;
+                right: 0;
+                bottom: 1.9em;
+                height: emCalc(12px);
+                padding: 1em 0.75em 1em 1em;
+                font-size: emCalc(12px);
+            }
+
+            select[disabled] {
+                color: rgba(0,0,0,.3);
+            }
+
+            select::after {
+                color: rgba(0,0,0,.1);
+            }
+
+            /* White dropdown style */
+            select::before {
+                top: .5em;
+                bottom: .5em;
+                background-color: #d0d0d0;
+                border-left: 1px solid rgba(0,0,0,.1);
+            }
+
+            select::after {
+                color: rgba(0,0,0,.9);
+            }
+
+            /* FF only temp fix */
+            @-moz-document url-prefix() {
+                select { padding-right: .9em }
+            }
         }
     }
 }

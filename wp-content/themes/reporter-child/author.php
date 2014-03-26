@@ -1,17 +1,23 @@
-<?php get_header(); ?>
+<?php
+
+$opt = engine_layout_options();
+$total = $wp_query->post_count;
+$count = 0;
+
+$author_avatar = get_avatar( get_the_author_meta('ID') );
+
+get_header();
+
+?>
 
     <div class="row">
-
-        <?php the_ad_position('Leaderboard', 'Top'); ?>
 
         <div id="content" class="content small-12 column <?php echo engine_content_position(); ?>">
 
             <?php
 
-            $opt = engine_layout_options();
-
             if( !is_paged() && $opt['archive_first'] != $opt['archive_layout']) {
-                get_template_part('parts/archive-author');
+                include( locate_template("parts/archive-author.php") );
             } else {
                 get_template_part('parts/archive-list');
             }
@@ -28,8 +34,6 @@
                 <?php get_sidebar(); ?>
             </div>
         <?php endif; ?>
-
-        <?php the_ad_position('Leaderboard', 'Bottom'); ?>
 
     </div>
     <!-- /.row -->

@@ -1491,10 +1491,13 @@ Ad Styles
 ****************************************/
 // removes margin for ad positions to collapse when empty
 .soldPosition {
+
     margin: auto!important;
+
     > div {
         margin: auto;
-        margin-bottom: 30px;
+        margin-top: 15px;
+        margin-bottom: 15px;
     }
 }
 
@@ -1743,6 +1746,7 @@ Subscribe Form
                 background-color: #f0f0f0;
                 font-size: emCalc(12px);
                 color: #4d4d4d;
+                word-wrap: normal;
                 margin: 0 0 emCalc(16px) 0;
                 padding: 0 2.5em 0 1em;
                 appearance: none;

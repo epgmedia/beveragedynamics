@@ -2,8 +2,6 @@
 
 	<div class="row">
 
-        <?php the_ad_position('Leaderboard', 'Top'); ?>
-
 		<div class="content small-12 column <?php echo engine_content_position(); ?>">
 
             <?php dimox_breadcrumbs(); ?>
@@ -21,10 +19,14 @@
 					<div class="entry-meta">
                         <span class="entry-comments"><a href="<?php comments_link(); ?>"><i class="icon-comments"></i><?php comments_number(0, 1, '%'); ?></a></span>
 						<span class="entry-date"><i class="icon-calendar"></i><?php the_time( get_option('date_format') ); ?></span>
-                        <?php
-                        get_template_part('parts/entry-author');
-                        get_template_part('parts/entry-photographer');
-                        ?>
+
+                        <?php if ( get_epg_the_author() !== NULL ): ?>
+                        <span class="entry-author"><?php epg_the_author(); ?></span>
+                        <?php endif; ?>
+
+                        <?php if ( epg_the_photographer() !== FALSE ): ?>
+                        <span class="entry-photographer"><?php epg_the_photographer(); ?></span>
+                        <?php endif; ?>
 
 						<span class="entry-tags hide"><?php the_tags(); ?></span>
 					</div>
@@ -61,9 +63,7 @@
 		<!-- /#sidebar.sidebar small-12 large-4 column -->
 		<?php endif; ?>
 
-        <?php the_ad_position('Leaderboard', 'Bottom'); ?>
-
-	</div>
+    </div>
 	<!-- /.row -->
 
 <?php get_footer(); ?>

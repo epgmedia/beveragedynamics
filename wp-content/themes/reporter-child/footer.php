@@ -1,4 +1,6 @@
-	</div>
+	    <?php the_ad_position('Leaderboard', 'Bottom'); ?>
+
+    </div>
 	<!-- /.main.row -->
 
 	<?php if( is_active_sidebar('footer_top') ) : ?>
@@ -19,7 +21,7 @@
 			<?php dynamic_sidebar('footer_bottom'); ?>
 		</ul>
 
-		<p class="footer-info"><?php bloginfo('name'); ?> &copy; <?php echo date('Y'); ?> | Hand Crafted by <a href="http://www.designerthemes.com/" target="_parent">DesignerThemes.com</a></p>
+		<p class="footer-info"><?php bloginfo('name'); ?> &copy; <?php echo date('Y'); ?> | Theme by <a href="http://www.epgmediallc.com/" target="_blank">EPG Media</a> and  <a href="http://www.designerthemes.com/" target="_parent">DesignerThemes.com</a></p>
 
 	</div>
 	<!-- /.footer-widgets container -->

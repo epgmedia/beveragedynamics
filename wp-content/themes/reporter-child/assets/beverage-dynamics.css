@@ -5556,7 +5556,8 @@ Ad Styles
   margin: auto !important; }
   .soldPosition > div {
     margin: auto;
-    margin-bottom: 30px; }
+    margin-top: 15px;
+    margin-bottom: 15px; }
 
 .leaderboard > div {
   min-width: 728px; }
@@ -5749,6 +5750,7 @@ Subscribe Form
       background-color: #f0f0f0;
       font-size: 1em;
       color: #4d4d4d;
+      word-wrap: normal;
       margin: 0 0 1.33333em 0;
       padding: 0 2.5em 0 1em;
       appearance: none;

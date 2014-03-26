@@ -174,3 +174,5 @@
 	<!-- /.header -->
 	
 	<div class="main container">
+
+        <?php the_ad_position('Leaderboard', 'Top'); ?>

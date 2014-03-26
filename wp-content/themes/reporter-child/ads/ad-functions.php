@@ -25,7 +25,7 @@ function the_ad_position($name, $pos, $inline = FALSE) {
 
     switch ($name):
         case 'leaderboard':
-            $classes = 'small-12 large-12 column center-column soldPosition leaderboard';
+            $classes = 'small-12 large-12 center-column soldPosition leaderboard';
             echo '<div class="' . $classes . '">';
             include("$the_ad");
             echo '</div>';

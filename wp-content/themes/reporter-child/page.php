@@ -1,8 +1,10 @@
-<?php get_header(); wp_reset_query(); ?>
+<?php
+get_header();
+
+wp_reset_query();
+?>
 
 	<div class="row">
-
-        <?php the_ad_position('Leaderboard', 'Top'); ?>
 
 		<div class="content small-12 column <?php echo engine_content_position(); ?>">
 
@@ -31,9 +33,8 @@
 		<!-- /#sidebar.sidebar small-12 large-4 column -->
 		<?php endif; ?>
 
-        <?php the_ad_position('Leaderboard', 'Bottom'); ?>
-
 	</div>
 	<!-- /.row -->
 
-<?php get_footer(); ?>
+<?php
+get_footer();

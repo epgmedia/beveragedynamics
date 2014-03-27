@@ -24,6 +24,7 @@ class epg_social_widget extends WP_Widget {
             'YouTube' => '',
             'Instagram' => '',
             'Pinterest' => '',
+            'RSS' => '',
             'Digg' => ''
 
         );

@@ -37,9 +37,11 @@
                 <!-- /.entry-header -->
 
                 <!-- Sharing -->
+                <?php if ( get_post_type(get_the_ID()) !== 'ai1ec_event'): ?>
                 <div class="sharing">
-                    <?php echo get_post_type(get_the_ID() !== 'ai1ec_event' ? do_shortcode('[ssba]') : ''); ?>
+                    <?php echo do_shortcode('[ssba]'); ?>
                 </div>
+                <?php endif; ?>
 
 				<div class="entry-content">
 					<?php the_content(); ?>

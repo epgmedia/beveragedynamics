@@ -8,8 +8,8 @@
 class epg_google_ad_position_widget extends WP_Widget {
 
     function __construct() {
-        $widget_ops = array('classname' => 'widget_google_ad_position', 'description' => __("A simple DoubleClick ad position.", 'reactor') );
-        parent::__construct('dbc-ad-position', __('Double Click Ad Position', 'reactor'), $widget_ops);
+        $widget_ops = array('classname' => 'epg_google_ad_position_widget', 'description' => __("A simple DoubleClick ad position.", 'reactor') );
+        parent::__construct('epg_google_ad_position_widget', __('Double Click Ad Position', 'reactor'), $widget_ops);
         $this->alt_option_name = 'widget_dbc_ad_position';
     }
 

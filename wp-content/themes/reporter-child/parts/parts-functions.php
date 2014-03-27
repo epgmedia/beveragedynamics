@@ -271,13 +271,11 @@ XML;
 }
 
 /**
- *
  * Class Walker_Category_Find_Parents -
  * Extends the Walker_Category
  *
  * Adds "has-children" class to parent lists that have sub lists. Used in category
  * list widget
- *
  */
 class Walker_Category_Find_Parents extends Walker_Category {
 
@@ -336,13 +334,11 @@ class Walker_Category_Find_Parents extends Walker_Category {
 }
 
 /**
- *
  * Display categories
  *
  * Displays child categories in list display. If no children, returns siblings.
  *
  * @var object $post_cat get_categories() object
- *
  */
 function display_category_list($post_cat) {
 
@@ -401,13 +397,11 @@ function display_category_list($post_cat) {
 }
 
 /**
- *
  * Slider for Category Pages
  *
  * Displays Top or Recent stories on category pages.
  *
  * @param array $arguments Array of query arguments
- *
  */
 function display_category_slider($arguments) {
 
@@ -522,7 +516,6 @@ function display_category_slider($arguments) {
 }
 
 /**
- *
  * Subcategory Posts
  *
  * Posts for each subcategory on a category page.
@@ -530,7 +523,6 @@ function display_category_slider($arguments) {
  * @param object $category get_categories object
  * @param array $args Array of WP_Query arguments
  * @param int $clear_div Clears sections on 1,
- *
  */
 function category_page_subcategories($category, $args, $clear_div = 1) {
 

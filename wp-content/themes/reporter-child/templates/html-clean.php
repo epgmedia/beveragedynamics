@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Template Name: Post/Excerpt HTML Clean
+ * Template Name: Do Not Use - Post/Excerpt HTML Clean
  */
 header('Content-type: text/html; charset=utf-8');
 
@@ -142,7 +142,7 @@ foreach ($data as $row) {
     );
     $updateSQL = "UPDATE wp_posts SET post_excerpt = :post WHERE ID = :postID";
     //$db->getData($updateSQL, $insert);
-    $update = $db->getData($updateSQL, $insert);
+    //$update = $db->getData($updateSQL, $insert);
     if ($update != 0) {
         $i++;
     }

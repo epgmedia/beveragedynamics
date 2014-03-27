@@ -1551,17 +1551,14 @@ Widget Styles
 #sidebar {
     h3.widget-title {
         font-size: emCalc(16px);
-        text-align:right;
-        @media only screen and (max-width:"#{$small-screen}") {
-            text-align:left;
-        }
     }
 }
 
 // Formatting category list and top stories
 #related-material,
 .subcategories,
-.wpp-list {
+.wpp-list,
+.popular-stories {
 
     list-style:none;
 
@@ -1569,8 +1566,7 @@ Widget Styles
         text-decoration: none;
     }
     .widget-title,
-    h5,
-    .wpp-post-title {
+    h5 {
         font-size: emCalc(16px);
     }
     .widget-title,
@@ -1587,7 +1583,7 @@ Widget Styles
 
 // Formatting for "You Might Like" and most popular
 .related-stories-meta,
-.wpp-category {
+.most-popular-meta { //wpp-category
     text-transform: uppercase;
     font-size: emCalc(12px);
     display:block;
@@ -1813,3 +1809,59 @@ Subscribe Form
         }
     }
 }
+
+/********************************************
+
+Social Media Widget
+
+*********************************************/
+
+.epg_social_widget {
+
+    li:first-child:nth-last-child(1) {
+        margin: auto;
+    }
+
+    /* two items */
+    li:first-child:nth-last-child(2),
+    li:first-child:nth-last-child(2) ~ li {
+        margin: 0 13px;
+    }
+
+    /* three items */
+    li:first-child:nth-last-child(3),
+    li:first-child:nth-last-child(3) ~ li {
+        margin: 0 10px;
+    }
+
+    /* four items */
+    li:first-child:nth-last-child(4),
+    li:first-child:nth-last-child(4) ~ li {
+        margin: 0 8px;
+    }
+}
+
+
+.epg-social-media-links {
+
+    width: 60px;
+    height: 60px;
+    list-style:none;
+    display: inline-block;
+    background-image: url('sprites/simple-flat-social-icons.png');
+
+    margin: 5px 7px;
+
+    .epg-social-box {
+        width: 60px;
+        height: 60px;
+    }
+}
+.epg-facebook-icon { background-position: -157px 0; }
+.epg-twitter-icon { background-position: 0 0; }
+.epg-youtube-icon { background-position: -82px 0; }
+.epg-linkedin-icon { background-position: 60px 0; }
+.epg-googleplus-icon { background-position: -157px -164px; }
+.epg-instagram-icon { background-position: -82px 60px; }
+.epg-pinterest-icon { background-position: 0 -82px; }
+.epg-digg-icon { background-position: -82px -247px; }

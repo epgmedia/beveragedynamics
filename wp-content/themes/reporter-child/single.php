@@ -34,11 +34,11 @@
 					<h2 class="entry-title"><?php the_title(); ?></h2>
 
 				</header>
-				<!-- /.entry-header -->
+                <!-- /.entry-header -->
+
+                <!-- Sharing -->
                 <div class="sharing">
-                    <?php // Share buttons
-                    echo do_shortcode('[ssba]');
-                    ?>
+                    <?php echo get_post_type(get_the_ID() !== 'ai1ec_event' ? do_shortcode('[ssba]') : ''); ?>
                 </div>
 
 				<div class="entry-content">

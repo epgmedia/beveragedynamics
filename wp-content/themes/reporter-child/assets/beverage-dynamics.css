@@ -5549,11 +5549,56 @@ Custom Styles
 
 /****************************************
 
+Entry Content Search
+
+*****************************************/
+.entry-content-search {
+  padding: 15px 20px 15px 10px; }
+  .entry-content-search .collapse {
+    height: auto; }
+  @media (min-width: 768px) {
+    .entry-content-search {
+      padding-left: 0;
+      padding-right: 20px; } }
+  .entry-content-search form {
+    margin: 0;
+    padding: 20px 0; }
+    @media (min-width: 768px) {
+      .entry-content-search form {
+        padding-right: 0;
+        padding-top: 0;
+        padding-bottom: 0; } }
+  .entry-content-search input {
+    height: 40px;
+    margin: 0; }
+  .entry-content-search input[type="text"] {
+    color: #2e2e2e;
+    height: 40px;
+    -webkit-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+    background-clip: padding-box;
+    /* stops bg color from leaking outside the border: */ }
+  .entry-content-search input[type="submit"] {
+    color: #2e2e2e;
+    height: 40px;
+    border: none;
+    padding: 0;
+    font-weight: normal;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    background-clip: padding-box;
+    /* stops bg color from leaking outside the border: */ }
+  .entry-content-search input[type="submit"]:hover {
+    color: #ffffff; }
+
+/****************************************
+
 Ad Styles
 
 ****************************************/
 .soldPosition {
-  margin: auto !important; }
+  margin: auto !important;
+  clear: both; }
   .soldPosition > div {
     margin: auto;
     margin-top: 15px;
@@ -5808,21 +5853,21 @@ Social Media Widget
     margin: auto; }
   .epg_social_widget li:first-child:nth-last-child(2),
   .epg_social_widget li:first-child:nth-last-child(2) ~ li {
-    margin: 0 13px; }
+    margin: 0 15px; }
   .epg_social_widget li:first-child:nth-last-child(3),
   .epg_social_widget li:first-child:nth-last-child(3) ~ li {
-    margin: 0 10px; }
+    margin: 0 20px; }
   .epg_social_widget li:first-child:nth-last-child(4),
   .epg_social_widget li:first-child:nth-last-child(4) ~ li {
-    margin: 0 8px; }
+    margin: 0 9px; }
 
 .epg-social-media-links {
   width: 60px;
   height: 60px;
-  list-style: none;
   display: inline-block;
   background-image: url("sprites/simple-flat-social-icons.png");
-  margin: 5px 7px; }
+  margin: 5px 9px;
+  padding: 0px; }
   .epg-social-media-links .epg-social-box {
     width: 60px;
     height: 60px; }

@@ -33,8 +33,8 @@ function the_ad_position($name, $pos, $inline = FALSE) {
             break;
 
         case 'box':
-            //small-12 large-4 column right right-rail soldPosition
-            $classes = 'small-12 large-4 column right right-rail soldPosition box';
+            //small-12 large-4 column right-rail soldPosition
+            $classes = 'small-12 large-4 column soldPosition box';
             echo '<div class="' . $classes . '">';
             include("$the_ad");
             echo '</div>';

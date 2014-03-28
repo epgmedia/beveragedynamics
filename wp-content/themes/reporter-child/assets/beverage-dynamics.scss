@@ -1426,6 +1426,11 @@ Custom Styles
 
 ****************************************/
 
+#wpadminbar #wp-admin-bar-epg-media-link > .ab-item:before {
+    top: 2px;
+    content: "\f319";
+}
+
 .secondary-bar-section {
     width:100%;
     ul {
@@ -1867,7 +1872,6 @@ Subscribe Form
 Social Media Widget
 
 *********************************************/
-
 .epg_social_widget {
 
     li:first-child:nth-last-child(1) {
@@ -1892,7 +1896,6 @@ Social Media Widget
         margin: 0 9px;
     }
 }
-
 
 .epg-social-media-links {
 

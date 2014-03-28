@@ -13,12 +13,11 @@
  *      otherwise will return the current stylesheet or root stylesheet, depending
  *      on conditions.
  */
-function auto_version_css($file, $run = TRUE) {
+function auto_version_css($file) {
     // turns function on and off.
-    if ($run !== TRUE) {
+    if ( !VERSIONCSS ) {
         return $file;
     }
-
     clearstatcache();
     $update_option = 'child_stylesheet_modified_time';
     $lastModifiedTime = get_option($update_option, "Time Not Set");
@@ -73,23 +72,24 @@ function auto_version_css($file, $run = TRUE) {
     if (is_writable(CHILDDIR . $newStyleSheetDirectory)) {
         // check if the file was created
         if (!$handle = fopen($newStyleSheet, 'w')) {
-            return $stylesheet;
+            return $file;
         }
         $oldStylesheet = file_get_contents(CHILDDIR . $stylesheet); // data
         // Write data to new stylesheet.
         if (fwrite($handle, $oldStylesheet) === FALSE) {
-            return $stylesheet;
+            return $file;
         }
         // Success, wrote data to file new stylesheet;
         fclose($handle);
     } else {
-        return $stylesheet;
+        return $file;
     }
     /*
      * Update Database
      * Everything worked and now it's time to update the database and return the new file
      * and then delete the old file.
      */
+
     $newFileName = $newStyleSheetDirectory . $newFileName;
     update_option($update_option, $modifiedTime);
     update_option($file, $newFileName);
@@ -97,7 +97,9 @@ function auto_version_css($file, $run = TRUE) {
     if ($currentStylesheet !== "Stylesheet Not Set" ) {
         unlink(CHILDDIR . $currentStylesheet);
     }
-
+    if (!file_exists(CHILDDIR . $newFileName)) {
+        return $stylesheet;
+    }
     return $newFileName;
 }
 
@@ -109,9 +111,12 @@ function auto_version_css($file, $run = TRUE) {
 add_action( 'wp_enqueue_scripts', function() {
 
     // Child Stylesheet
-    $fileName = auto_version_css( '/assets/beverage-dynamics.css', TRUE );
+    $fileName = auto_version_css( '/assets/beverage-dynamics.css' );
     wp_register_style( 'BDX-Styles', CHILDURI . $fileName, array('theme-style') );
     wp_enqueue_style( 'BDX-Styles' );
+
+    $adminFileName = '/assets/beverage-admin.css';
+    wp_enqueue_style( 'BDX-Admin', CHILDURI . $adminFileName );
 
     // Extra JS
     wp_enqueue_script(
@@ -128,5 +133,13 @@ add_action( 'wp_enqueue_scripts', function() {
         CHILDURI . '/assets/google-ads.js',
         array( 'jquery' )
     );
+
+});
+
+add_action( 'admin_head', function() {
+
+    // Child Stylesheet
+    $adminFileName = auto_version_css( '/assets/beverage-admin.css' );
+    wp_enqueue_style( 'BDX-Admin', CHILDURI . $adminFileName );
 
 });

@@ -5501,6 +5501,10 @@ textarea {
 Custom Styles
 
 ****************************************/
+#wpadminbar #wp-admin-bar-epg-media-link > .ab-item:before {
+  top: 2px;
+  content: "\f319"; }
+
 .secondary-bar-section {
   width: 100%; }
   .secondary-bar-section ul {

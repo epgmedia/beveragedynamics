@@ -1,7 +1,8 @@
 #Beverage Dynamics
 
 ##Theme: 
-Reporter  
+
+Reporter
 
 ###Child Theme:
 

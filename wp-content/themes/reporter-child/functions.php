@@ -7,7 +7,7 @@ define('CHILDDIR', get_stylesheet_directory());
 define('CHILDURI', get_stylesheet_directory_uri());
 
 /** Current Child Theme Version  @name CHILDVERSION */
-define('CHILDVERSION', 'v0.0.1');
+define('CHILDVERSION', '1.0.0');
 
 /** Auto Version CSS  @name VERSIONCSS */
 define('VERSIONCSS', TRUE);

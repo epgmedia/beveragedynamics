@@ -29,7 +29,7 @@
 
 <?php wp_footer(); ?>
 
-<?php include_once("analytics.php"); ?>
+<?php get_template_part('parts/analytics'); ?>
 
     </body>
 </html>

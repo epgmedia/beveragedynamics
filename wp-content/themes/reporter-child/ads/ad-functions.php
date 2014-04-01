@@ -7,7 +7,7 @@
  *
  * @param string $name Name of position. E.g. "Leaderboard".
  * @param string $pos Position of ad. E.g. "Top".
- * @param bool $inline Display box inline. Defaults to false
+ * @param bool $inline Display box inline or send to a variable. Defaults to false
  */
 function the_ad_position($name, $pos, $inline = FALSE) {
 
@@ -34,7 +34,7 @@ function the_ad_position($name, $pos, $inline = FALSE) {
 
         case 'box':
             //small-12 large-4 column right-rail soldPosition
-            $classes = 'small-12 large-4 column soldPosition box';
+            $classes = 'column soldPosition box';
             echo '<div class="' . $classes . '">';
             include("$the_ad");
             echo '</div>';

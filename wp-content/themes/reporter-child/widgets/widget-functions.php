@@ -67,11 +67,19 @@ add_action('widgets_init', function() {
     require_once( CHILDDIR . '/widgets/epg-most-popular-widget.php');
 
     /**
+     * EPG Social Media Widget
+     * A new widget for social media profiles. Yeah. I know. But this
+     * one is slightly different and not as annoying.
+     */
+    require_once( CHILDDIR . '/widgets/epg-social-media-widget.php');
+
+    /**
      * Register New Wordpress Widgets
      */
     register_widget('epg_google_ad_position_widget');
     register_widget('displayCategoriesWidget');
     register_widget('epg_related_stories_widget');
     register_widget('epg_most_popular_stories');
+    register_widget('epg_social_widget');
 
 });

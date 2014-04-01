@@ -91,7 +91,7 @@ function engine_content_position() {
 /**
  * Breadcrumb Nav
  *
- * Simple website breadcrumb. Placed on Post pages.
+ * Simple website breadcrumb. Placed on Post pages but compatible with others.
  *
  * Link: http://dimox.net/wordpress-breadcrumbs-without-a-plugin/
  */
@@ -271,13 +271,11 @@ XML;
 }
 
 /**
- *
  * Class Walker_Category_Find_Parents -
  * Extends the Walker_Category
  *
  * Adds "has-children" class to parent lists that have sub lists. Used in category
  * list widget
- *
  */
 class Walker_Category_Find_Parents extends Walker_Category {
 
@@ -336,13 +334,11 @@ class Walker_Category_Find_Parents extends Walker_Category {
 }
 
 /**
- *
  * Display categories
  *
  * Displays child categories in list display. If no children, returns siblings.
  *
  * @var object $post_cat get_categories() object
- *
  */
 function display_category_list($post_cat) {
 
@@ -401,13 +397,11 @@ function display_category_list($post_cat) {
 }
 
 /**
- *
  * Slider for Category Pages
  *
  * Displays Top or Recent stories on category pages.
  *
  * @param array $arguments Array of query arguments
- *
  */
 function display_category_slider($arguments) {
 
@@ -522,7 +516,6 @@ function display_category_slider($arguments) {
 }
 
 /**
- *
  * Subcategory Posts
  *
  * Posts for each subcategory on a category page.
@@ -530,7 +523,6 @@ function display_category_slider($arguments) {
  * @param object $category get_categories object
  * @param array $args Array of WP_Query arguments
  * @param int $clear_div Clears sections on 1,
- *
  */
 function category_page_subcategories($category, $args, $clear_div = 1) {
 
@@ -623,4 +615,86 @@ function category_page_subcategories($category, $args, $clear_div = 1) {
     endforeach;
 
     echo $content_end;
+}
+
+/**
+ * Post Authors
+ *
+ * 1. Checks for certain author names and returns nothing for
+ * Beverage Dynamics and Digital
+ *
+ * 2. Checks for Custom Author field and displays author
+ * 3. If no custom author, displays Wordpress default.
+ * 4. Adds "By " if missing.
+ *
+ * @return string|bool|null $author Echos the author or returns nothing.
+ *      True on success, false on nothing
+ */
+
+function epg_author($return = TRUE) {
+    global $post;
+
+    // quick author check to filter "Digital" and "Beverage Dynamics"
+    $authorId = get_the_author_meta( 'ID' );
+    if ( get_field('author_name') == NULL && ($authorId === 1 || $authorId === 16) ) {
+        return NULL;
+    }
+
+    $author = ( get_field('author_name') != NULL ? get_field('author_name') : get_the_author() );
+
+    if ( $author == get_the_author() ) {
+        $authorPostsUrl = get_author_posts_url( $authorId );
+        $author = '<a href="' . $authorPostsUrl . '">' . $author . '</a>';
+        $author = 'By ' . $author;
+    } elseif ( $author == get_field('author_name') ) {
+        if ( mb_substr($author, 0, 3) !== 'By ' ) {
+            $author = 'By ' . $author;
+        }
+    }
+    // if we have something to work with, display it on page. Otherwise, panic
+    if ( $author !== NULL ){
+
+        return $author;
+
+    }
+
+    return NULL;
+
+}
+/** Returns the Author for Var/Checks */
+function get_epg_the_author() {
+
+    if ( epg_author() !== NULL ){
+
+        return epg_author();
+    }
+
+    return NULL;
+
+}
+
+/** Prints the Author if available */
+function epg_the_author() {
+
+    if ( epg_author() !== NULL ){
+
+        echo epg_author();
+
+        return TRUE;
+    }
+
+    return NULL;
+}
+
+/**
+ * Adds photographer credit
+ */
+function epg_the_photographer() {
+    if ( get_field('photographer') != NULL ) {
+        echo 'Photos by ' . get_field('photographer');
+
+        return TRUE;
+    }
+
+    return FALSE;
 }

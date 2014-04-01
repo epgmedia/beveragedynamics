@@ -1426,6 +1426,11 @@ Custom Styles
 
 ****************************************/
 
+#wpadminbar #wp-admin-bar-epg-media-link > .ab-item:before {
+    top: 2px;
+    content: "\f319";
+}
+
 .secondary-bar-section {
     width:100%;
     ul {
@@ -1448,7 +1453,11 @@ Custom Styles
     }
 }
 
-#main-content { min-height: emCalc(410px); }
+#main-content {
+    .entry-content {
+        min-height: emCalc(310px);
+    }
+}
 
 
 .sharing { float:right; }
@@ -1482,15 +1491,70 @@ Custom Styles
 
 /****************************************
 
+Entry Content Search
+
+*****************************************/
+
+.entry-content-search {
+
+    .collapse {
+        height: auto;
+    }
+
+    padding: 15px 20px 15px 10px;
+    @include breakpoint(large) { padding-left: 0; padding-right: 20px; }
+
+    form {
+        margin: 0;
+        padding: 20px 0;
+        @include breakpoint(large) {
+            padding-right: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    }
+
+    input {
+        height: 40px;
+        margin: 0;
+    }
+
+    input[type="text"] {
+        color: #2e2e2e;
+        height: 40px;
+        @include border-radius( 3px 0 0 3px );
+    }
+
+    input[type="submit"] {
+        color: #2e2e2e;
+        height: 40px;
+        border: none;
+        padding: 0;
+        font-weight: normal;
+        @include border-radius( 0);
+    }
+
+    input[type="submit"]:hover {
+        color: #ffffff;
+    }
+}
+
+/****************************************
+
 Ad Styles
 
 ****************************************/
+
 // removes margin for ad positions to collapse when empty
 .soldPosition {
+
     margin: auto!important;
+    clear:both;
+
     > div {
         margin: auto;
-        margin-bottom: 30px;
+        margin-top: 15px;
+        margin-bottom: 15px;
     }
 }
 
@@ -1544,17 +1608,14 @@ Widget Styles
 #sidebar {
     h3.widget-title {
         font-size: emCalc(16px);
-        text-align:right;
-        @media only screen and (max-width:"#{$small-screen}") {
-            text-align:left;
-        }
     }
 }
 
 // Formatting category list and top stories
 #related-material,
 .subcategories,
-.wpp-list {
+.wpp-list,
+.popular-stories {
 
     list-style:none;
 
@@ -1562,8 +1623,7 @@ Widget Styles
         text-decoration: none;
     }
     .widget-title,
-    h5,
-    .wpp-post-title {
+    h5 {
         font-size: emCalc(16px);
     }
     .widget-title,
@@ -1580,7 +1640,7 @@ Widget Styles
 
 // Formatting for "You Might Like" and most popular
 .related-stories-meta,
-.wpp-category {
+.most-popular-meta { //wpp-category
     text-transform: uppercase;
     font-size: emCalc(12px);
     display:block;
@@ -1683,3 +1743,181 @@ Widget Styles
         }
     }
 }
+
+/*********************************************
+
+Subscribe Form
+
+*********************************************/
+.subscribe-form {
+
+    h2 {
+        padding: 0;
+        background-color: #d12f2f;
+        color: #ffffff;
+        input[type=submit] { background-color: #d12f2f; }
+    }
+
+    label {
+
+        font-size: emCalc(14px);
+
+        span {
+            color: #d12f2f;
+        }
+
+        input {
+            font-size: emCalc(12px);
+        }
+
+        select {
+        }
+
+    }
+    @-moz-document url-prefix() {
+        label { padding-right: 1.3em }
+    }
+}
+@supports (pointer-events: none) and
+      ((-webkit-appearance: none) or
+      (-moz-appearance: none) or
+      (appearance: none)) {
+    .subscribe-form {
+
+        label {
+
+            position: relative;
+
+            span.dropdown {
+                height: 2.2em;
+            }
+
+            select {
+                height: 2.2em;
+                border: 1px solid #e6e6e6;
+                border-radius: 3px;
+                background-color: #f0f0f0;
+                font-size: emCalc(12px);
+                color: #4d4d4d;
+                word-wrap: normal;
+                margin: 0 0 emCalc(16px) 0;
+                padding: 0 2.5em 0 1em;
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+
+                option {
+                    overflow:hidden;
+                }
+
+            }
+
+            span.dropdown::before,
+            span.dropdown::after {
+                content: "";
+                pointer-events: none;
+            }
+
+            span.dropdown::before { /*  Custom dropdown arrow cover */
+                z-index: 0;
+                background-color: #d0d0d0;
+                width: 2.5em;
+                height: 34px;
+                right: 0;
+                bottom: 1.3em;
+                border-radius: 0 3px 3px 0;
+                position: absolute;
+            }
+
+            span.dropdown::after { /*  Custom dropdown arrow */
+                content: "\25BC";
+                position: absolute;
+                right: 0;
+                bottom: 1.9em;
+                height: emCalc(12px);
+                padding: 1em 0.75em 1em 1em;
+                font-size: emCalc(12px);
+            }
+
+            select[disabled] {
+                color: rgba(0,0,0,.3);
+            }
+
+            select::after {
+                color: rgba(0,0,0,.1);
+            }
+
+            /* White dropdown style */
+            select::before {
+                top: .5em;
+                bottom: .5em;
+                background-color: #d0d0d0;
+                border-left: 1px solid rgba(0,0,0,.1);
+            }
+
+            select::after {
+                color: rgba(0,0,0,.9);
+            }
+
+            /* FF only temp fix */
+            @-moz-document url-prefix() {
+                select { padding-right: .9em }
+            }
+        }
+    }
+}
+
+/********************************************
+
+Social Media Widget
+
+*********************************************/
+.epg_social_widget {
+
+    li:first-child:nth-last-child(1) {
+        margin: auto;
+    }
+
+    /* two items */
+    li:first-child:nth-last-child(2),
+    li:first-child:nth-last-child(2) ~ li {
+        margin: 0 15px;
+    }
+
+    /* three items */
+    li:first-child:nth-last-child(3),
+    li:first-child:nth-last-child(3) ~ li {
+        margin: 0 20px;
+    }
+
+    /* four items */
+    li:first-child:nth-last-child(4),
+    li:first-child:nth-last-child(4) ~ li {
+        margin: 0 9px;
+    }
+}
+
+.epg-social-media-links {
+
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    background-image: url('sprites/simple-flat-social-icons.png');
+
+    margin: 5px 9px;
+    padding: 0px;
+
+    .epg-social-box {
+        width: 60px;
+        height: 60px;
+    }
+}
+.epg-facebook-icon { background-position: -157px 0; }
+.epg-twitter-icon { background-position: 0 0; }
+.epg-youtube-icon { background-position: -82px 0; }
+.epg-linkedin-icon { background-position: 60px 0; }
+.epg-googleplus-icon { background-position: -157px -164px; }
+.epg-instagram-icon { background-position: -82px 60px; }
+.epg-pinterest-icon { background-position: 0 -82px; }
+.epg-digg-icon { background-position: -82px -247px; }
+.epg-rss-icon { background-position: 60px -82px; }

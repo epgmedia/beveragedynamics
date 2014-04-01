@@ -37,11 +37,27 @@ class epg_most_popular_stories extends WP_Widget {
         $post_type = '';
         if ( is_category() ) { $post_type = 'category'; }
 
-        echo $before_widget;
+        $args = array();
+
+        $args['header'] = 'Most Popular Stories';
+        $args['header_start'] = '<h3 class=widget-title>';
+        $args['header_end'] = '</h3>';
+        $args['limit']  = '6';
+        $args['range']  = 'monthly';
+        $args['cat']    = $wpp_cat_id;
+        $args['post_type'] = 'post';
+        $args['stats_comments'] = '0';
+        $args['stats_category'] = '1';
+        $args['post_html'] = "<li class='popular-stories'><div class='most-popular-meta'>" .
+            "<span class='wpp-category'>{category}</span></div>" .
+            "<h5><a href='{url}' class='wpp-post-title'>{text_title}</a></h5></li>";
 
         switch($post_type):
 
             case "category":
+
+                echo $before_widget;
+
                 $category = get_category( get_query_var( 'cat' ) );
                 $wpp_cats = get_categories(array( 'child_of' => $category->cat_ID ));
 
@@ -51,58 +67,30 @@ class epg_most_popular_stories extends WP_Widget {
                 }
                 $wpp_cat_id = implode(', ', $wpp_cat_id);
 
-                $args = array();
-
                 $args['header'] = 'Most Popular - ' . $category->name;
-                $args['header_start'] = '<h3 class=widget-title>';
-                $args['header_end'] = '</h3>';
-                $args['limit']  = '7';
-                $args['range']  = 'monthly';
                 $args['cat']    = $wpp_cat_id;
-                $args['post_type'] = 'post';
-                $args['stats_comments'] = '0';
-                $args['stats_category'] = '1';
-                $args['post_html'] = '<li>' .
-                    '<div class=most-popular-meta><span class=wpp-category>{category}</span></div>' .
-                    '<a href={url} class=wpp-post-title>{text_title}</a>' .
-                    '</li>';
 
                 $variables = '';
+
                 foreach ($args as $key => $val) {
                     $variables .= ' ' . $key . '="' . $val . '"';
                 }
-
                 echo do_shortcode('[wpp ' . $variables . ']');
-
                 echo $after_widget;
-
-                break;
 
             default:
 
-                $args = array();
+                echo $before_widget;
 
-                $args['header'] = 'Most Popular Stories';
-                $args['header_start'] = '<h3 class=widget-title>';
-                $args['header_end'] = '</h3>';
-                $args['limit']  = '7';
-                $args['range']  = 'monthly';
-                $args['cat']    = $wpp_cat_id;
-                $args['post_type'] = 'post';
-                $args['stats_comments'] = '0';
-                $args['stats_category'] = '1';
-                $args['post_html'] = '<li>' .
-                    '<div class=most-popular-meta><span class=wpp-category>{category}</span></div>' .
-                    '<a href={url} class=wpp-post-title>{text_title}</a>' .
-                    '</li>';
+                $args['header'] = 'Most Popular';
+                $args['cat']    = '';
 
                 $variables = '';
+
                 foreach ($args as $key => $val) {
                     $variables .= ' ' . $key . '="' . $val . '"';
                 }
-
                 echo do_shortcode('[wpp ' . $variables . ']');
-
                 echo $after_widget;
 
         endswitch;

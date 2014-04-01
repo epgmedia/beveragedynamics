@@ -1,10 +1,31 @@
 <?php
+$opt = engine_layout_options();
 
-get_header(); ?>
+
+/** Category Information */
+$category = get_category( get_query_var( 'cat' ) );
+$cat_id = $category->cat_ID;
+$args = array(
+    'parent' => $cat_id,
+    'orderby' => 'count',
+    'order' => 'desc'
+);
+$cat_args = array( "posts" => 2 );
+$categoryArgs = wp_parse_args($cat_args, $args);
+
+$cats = get_categories($args);
+
+/** Loop Information */
+$total = $wp_query->post_count;
+$count = 0;
+
+/** Begin Content */
+
+get_header();
+
+?>
 
 	<div class="row">
-
-        <?php the_ad_position('Leaderboard', 'Top'); ?>
 
 		<div id="content" class="content small-12 column <?php echo engine_content_position(); ?>">
 
@@ -14,7 +35,26 @@ get_header(); ?>
 
                 <div class="content small-12 column large-12 left">
 
-                    <?php get_template_part("parts/category-content");?>
+                    <div class="large-3 small-12 engine-block column left-rail">
+                        <!-- Subcategory Menu -->
+                        <?php display_category_list($category); ?>
+                    </div>
+
+                    <?php
+
+                    if ( !empty($cats) ):
+
+                        include( locate_template( "parts/category-slider.php" ) );
+
+                        category_page_subcategories($category, $categoryArgs, 0);
+
+                    else:
+
+                        include( locate_template( "parts/category-content.php") );
+
+                        include( locate_template( "parts/pagination.php" ) );
+
+                    endif; ?>
 
                 </div>
 
@@ -28,9 +68,11 @@ get_header(); ?>
 
         </div>
 
-        <?php the_ad_position('Leaderboard', 'Bottom'); ?>
+
 
 	</div>
 	<!-- /.row -->
 
-<?php get_footer();
+<?php
+
+get_footer();

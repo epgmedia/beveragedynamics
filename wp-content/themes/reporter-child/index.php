@@ -1,23 +1,15 @@
-<?php get_header(); ?>
+<?php
+get_header();
+?>
 
 	<div class="row">
-
-        <?php the_ad_position('Leaderboard', 'Top'); ?>
 
 		<div id="content" class="content small-12 column <?php echo engine_content_position(); ?>">
 
 			<?php
 
 				$opt = engine_layout_options();
-                if ( is_search() ) { ?>
-                    <h1 class="page-title">
-                        <?php wp_title(); ?>
-                        <?php if( is_paged() ) : ?><span class="radius secondary label"><?php _e('Page','engine'); ?> <?php echo $paged; ?></span><?php endif; ?>
-                    </h1>
-                    <?php get_template_part('parts/archive-list');
-                }
-
-                if ( is_tag() ) { ?>
+                if ( is_search() || is_tag() ) { ?>
                     <h1 class="page-title">
                         <?php wp_title(); ?>
                         <?php if( is_paged() ) : ?><span class="radius secondary label"><?php _e('Page','engine'); ?> <?php echo $paged; ?></span><?php endif; ?>
@@ -44,9 +36,8 @@
 		</div>
 		<?php endif; ?>
 
-        <?php the_ad_position('Leaderboard', 'Bottom'); ?>
-
 	</div>
 	<!-- /.row -->
 
-<?php get_footer(); ?>
+<?php
+get_footer();

@@ -1,9 +1,6 @@
 <?php
 /**
- * Template Name: About Us
  */
-
-
 get_header(); wp_reset_query(); ?>
 
 	<div class="row">

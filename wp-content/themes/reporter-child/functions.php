@@ -1,4 +1,5 @@
 <?php
+
 /** Child Theme Directory  @name CHILDURI */
 define('CHILDDIR', get_stylesheet_directory());
 
@@ -6,14 +7,10 @@ define('CHILDDIR', get_stylesheet_directory());
 define('CHILDURI', get_stylesheet_directory_uri());
 
 /** Current Child Theme Version  @name CHILDVERSION */
-define('CHILDVERSION', 'v0.0.1');
+define('CHILDVERSION', '1.0.0');
 
-/**
- * View Parts
- *
- * @see parts/parts-functions.php
- */
-require_once( CHILDDIR . '/parts/parts-functions.php');
+/** Auto Version CSS  @name VERSIONCSS */
+define('VERSIONCSS', TRUE);
 
 /**
  * Additional Scripts and Styles
@@ -21,6 +18,20 @@ require_once( CHILDDIR . '/parts/parts-functions.php');
  * @see assets/styles.php
  */
 require_once( CHILDDIR . '/assets/styles.php');
+
+/**
+ * Admin page functions
+ *
+ * @see admin/admin-functions.php
+ */
+require_once( CHILDDIR . '/admin/admin-functions.php');
+
+/**
+ * View Parts
+ *
+ * @see parts/parts-functions.php
+ */
+require_once( CHILDDIR . '/parts/parts-functions.php');
 
 /**
  * Ads
@@ -41,4 +52,3 @@ require_once( CHILDDIR . '/blocks/block-functions.php');
  * @see widgets/widget-functions.php
  */
 require_once( CHILDDIR . '/widgets/widget-functions.php');
-

@@ -36,17 +36,21 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
     <div class="row">
 
         <div id="content" class="content small-12 column <?php echo engine_content_position(); ?>">
-            <h2 class="page-title">Uh oh...</h2>
-            <p>You <?php echo $returnMessage; ?> <samp><?php echo $website.$_SERVER['REQUEST_URI']; ?></samp></p>
-            <p>
-                and it doesn't exist or we just can't find it right now.
-            </p>
-            <h3><strong><?php echo $caseMessage; ?></strong></h3>
-            <p>
-                You can click back and try again or try searching below for what you are looking for:
-            </p>
-            <?php include(TEMPLATEPATH . "/searchform.php"); ?>
 
+            <div class="entry-content">
+                <h2 class="page-title">Uh oh...</h2>
+                <p>You <?php echo $returnMessage; ?> <samp><?php echo $website.$_SERVER['REQUEST_URI']; ?></samp></p>
+                <p>
+                    and it doesn't exist or we just can't find it right now.
+                </p>
+                <h3><strong><?php echo $caseMessage; ?></strong></h3>
+                <p>
+                    You can click back and try again or try searching below for what you are looking for:
+                </p>
+                <div class="entry-content-search">
+                    <?php get_template_part("searchform"); ?>
+                </div>
+            </div>
 
         </div>
         <!-- /.content small-12 large-8 column -->

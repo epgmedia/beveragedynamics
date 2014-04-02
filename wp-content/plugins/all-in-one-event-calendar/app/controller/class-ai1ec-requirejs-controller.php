@@ -262,7 +262,7 @@ JSC;
 	 * 
 	 */
 	public function render_js() {
-		header( 'HTTP/1.1 200 OK' );
+		header( 'HTTP/1.0 200 OK' );
 		header( 'Content-Type: application/javascript; charset=utf-8', true, 200 );
 		// Aggressive caching to save future requests from the same client.
 		$etag = '"' . md5( __FILE__ . $_GET[self::LOAD_JS_PARAMETER] ) . '"';
@@ -293,7 +293,7 @@ JSC;
 				empty( $zlib_output_handler )
 			) {
 				ob_start( 'ob_gzhandler' );
-				header( 'Content-Encoding: gzip' );
+				//header( 'Content-Encoding: gzip' );
 			} else {
 				ob_start();
 			}

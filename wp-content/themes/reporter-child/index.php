@@ -17,7 +17,7 @@ get_header();
                     <?php get_template_part('parts/archive-list');
                 }
 
-				if( !is_paged() && $opt['archive_first'] != $opt['archive_layout']) {
+				if( !is_search() || !is_tag() || !is_paged() && $opt['archive_first'] != $opt['archive_layout']) {
                     get_template_part('parts/archive-list');
 				} else {
 					get_template_part('parts/archive-list');

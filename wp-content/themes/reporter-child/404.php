@@ -17,8 +17,8 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
         $_SERVER['HTTP_REFERER'] .
         "\n\n";
     // email you about problem
-    mail($adminEmail, "Broken Link Notification",
-        $failureMessage, "From: $websiteName <noreply@$website>");
+    //mail($adminEmail, "Broken Link Notification - " . $_SERVER['REQUEST_URI'],
+    //    $failureMessage, "From: $websiteName <noreply@$website>");
     // set a friendly message
     $caseMessage = "An email was sent to the administrator about this problem.";
 }
@@ -32,7 +32,7 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
                 <h2 class="page-title">Uh oh...</h2>
                 <p>You attempted to reach</p>
                 <p>
-                    <samp><?php echo $website.$_SERVER['REQUEST_URI']; ?></samp>
+                    <samp><?php echo $website . $_SERVER['REQUEST_URI']; ?></samp>
                 </p>
                 <p>
                     and it doesn't exist or we just can't find it right now.

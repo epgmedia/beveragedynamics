@@ -150,7 +150,28 @@ $logo_width: emCalc(275px);
 
 html, body { height: 100%; }
 
-body { font-size: 12px; }
+body {
+    //, url(http://beveragedynamics.com/wp-content/uploads/2014/04/bg13.jpg)!important
+    font-size: 12px;
+    /*background: -moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 66%, rgba(0,0,0,0.2) 85%, rgba(0,0,0,0.3) 96%, rgba(0,0,0,0.3) 100%), url(http://beveragedynamics.com/wp-content/uploads/2014/04/parchment.jpg)!important;
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,0,0)), color-stop(66%,rgba(0,0,0,0.05)), color-stop(85%,rgba(0,0,0,0.2)), color-stop(96%,rgba(0,0,0,0.3)), color-stop(100%,rgba(0,0,0,0.3))), url(http://beveragedynamics.com/wp-content/uploads/2014/04/parchment.jpg)!important;
+    background: -webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.05) 66%,rgba(0,0,0,0.2) 85%,rgba(0,0,0,0.3) 96%,rgba(0,0,0,0.3) 100%), url(http://beveragedynamics.com/wp-content/uploads/2014/04/parchment.jpg)!important;
+    background: -o-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.05) 66%,rgba(0,0,0,0.2) 85%,rgba(0,0,0,0.3) 96%,rgba(0,0,0,0.3) 100%), url(http://beveragedynamics.com/wp-content/uploads/2014/04/parchment.jpg)!important;
+    background: -ms-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.05) 66%,rgba(0,0,0,0.2) 85%,rgba(0,0,0,0.3) 96%,rgba(0,0,0,0.3) 100%), url(http://beveragedynamics.com/wp-content/uploads/2014/04/parchment.jpg)!important;
+    background: radial-gradient(ellipse at center,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.05) 66%,rgba(0,0,0,0.2) 85%,rgba(0,0,0,0.3) 96%,rgba(0,0,0,0.3) 100%), url(http://beveragedynamics.com/wp-content/uploads/2014/04/parchment.jpg)!important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#4d000000',GradientType=1 ), url(http://beveragedynamics.com/wp-content/uploads/2014/04/parchment.jpg)!important;
+    */
+    background: -moz-linear-gradient(left, rgba(216,180,118,0.6) 0%, rgba(224,198,157,0.6) 3%, rgba(240,224,198,0.6) 10%, rgba(240,224,198,0.6) 90%, rgba(224,198,157,0.6) 97%, rgba(216,180,118,0.6) 100%), url(http://beveragedynamics.com/wp-content/uploads/2014/04/bg13.jpg)!important;
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(216,180,118,0.6)), color-stop(3%,rgba(224,198,157,0.6)), color-stop(10%,rgba(240,224,198,0.6)), color-stop(90%,rgba(240,224,198,0.6)), color-stop(97%,rgba(224,198,157,0.6)), color-stop(100%,rgba(216,180,118,0.6))), url(http://beveragedynamics.com/wp-content/uploads/2014/04/bg13.jpg)!important;
+    background: -webkit-linear-gradient(left, rgba(216,180,118,0.6) 0%,rgba(224,198,157,0.6) 3%,rgba(240,224,198,0.6) 10%,rgba(240,224,198,0.6) 90%,rgba(224,198,157,0.6) 97%,rgba(216,180,118,0.6) 100%), url(http://beveragedynamics.com/wp-content/uploads/2014/04/bg13.jpg)!important;
+    background: -o-linear-gradient(left, rgba(216,180,118,0.6) 0%,rgba(224,198,157,0.6) 3%,rgba(240,224,198,0.6) 10%,rgba(240,224,198,0.6) 90%,rgba(224,198,157,0.6) 97%,rgba(216,180,118,0.6) 100%), url(http://beveragedynamics.com/wp-content/uploads/2014/04/bg13.jpg)!important;
+    background: -ms-linear-gradient(left, rgba(216,180,118,0.6) 0%,rgba(224,198,157,0.6) 3%,rgba(240,224,198,0.6) 10%,rgba(240,224,198,0.6) 90%,rgba(224,198,157,0.6) 97%,rgba(216,180,118,0.6) 100%), url(http://beveragedynamics.com/wp-content/uploads/2014/04/bg13.jpg)!important;
+    background: linear-gradient(to right, rgba(216,180,118,0.6) 0%,rgba(224,198,157,0.6) 3%,rgba(240,224,198,0.6) 10%,rgba(240,224,198,0.6) 90%,rgba(224,198,157,0.6) 97%,rgba(216,180,118,0.6) 100%), url(http://beveragedynamics.com/wp-content/uploads/2014/04/bg13.jpg)!important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99d8b476', endColorstr='#99d8b476',GradientType=1 );
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+    background-attachment: fixed!important;
+}
 
 ul, ol, dl, p, .content { line-height: 1.6em; }
 
@@ -220,7 +241,7 @@ a:hover { text-decoration: underline; }
     text-shadow: 0 1px 0 rgba(0,0,0,0.2);
     text-transform: uppercase;
     margin: 0;
-    background-image: url(assets/img/shine.png);
+    background-image: url('img/shine.png');
     background-position: left top;
     background-repeat: no-repeat;
     display: table;
@@ -445,7 +466,7 @@ a:hover { text-decoration: underline; }
     top: 0;
     right: 0;
     z-index: 20;
-    background: url(assets/img/flash-news-shadow.png);
+    background: url('img/flash-news-shadow.png');
 }
 
 .flash-news a { color: $body-font-color; }

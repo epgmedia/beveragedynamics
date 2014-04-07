@@ -13,7 +13,6 @@ function unregister_default_wp_widgets() {
     unregister_widget('WP_Widget_Search');
 }
 
-
 /**
  *
  * Displays stat in footer
@@ -116,7 +115,6 @@ function namespace_login_style() {
 STYLESHEET;
 }
 
-
 /**
  * Remove some unneeded menu bar items
  */
@@ -166,67 +164,3 @@ add_action( 'login_head', 'namespace_login_style' );
 add_action( 'wp_before_admin_bar_render', 'remove_admin_bar_links' );
 // Add EPG Media menu links
 add_action('admin_bar_menu', 'add_admin_bar_link', 50);
-
-/*
-Add Theme editor link to admin bar for admins
-*/
-
-/** Remove the menu button called 'appearance' (including widgets and menus) because you will add the links manually.
-function remove_admin_bar_menu() {
-    global $wp_admin_bar;
-    $wp_admin_bar->remove_menu('appearance');
-} add_action( 'wp_before_admin_bar_render', 'remove_admin_bar_menu' );
-
-**/
-
-/** Now add your own appearance button. I named it 'design'.
-function add_admin_bar_menu1() {
-    global $wp_admin_bar;
-
-    if ( current_user_can('edit_theme_options') ) {
-        return null;
-    }
-    $wp_admin_bar->add_menu( array(
-        'parent' => 'design',
-        'id' => 'themes',
-        'title' => __('Themes'),
-        'href' => admin_url('themes.php')
-    ) );
-
-    $wp_admin_bar->add_menu(
-        array(
-            'id' => 'design',
-            'title' => __('Theme'),
-            'href' => admin_url('theme-editor.php')
-        )
-    );
-
-    $wp_admin_bar->add_menu( array(
-        'parent' => 'design',
-        'id' => 'editor',
-        'title' => __('Editor'),
-        'href' => admin_url('theme-editor.php')
-    ) );
-
-
-    if ( current_theme_supports( 'widgets' )  ) {
-        $wp_admin_bar->add_menu( array(
-            'parent' => 'design',
-            'id' => 'widgets',
-            'title' => __('Widgets'),
-            'href' => admin_url('widgets.php')
-        ) );
-    }
-
-    if ( current_theme_supports( 'menus' ) ) {
-        $wp_admin_bar->add_menu( array(
-            'parent' => 'design',
-            'id' => 'menus',
-            'title' => __('Menus'),
-            'href' => admin_url('nav-menus.php')
-        ) );
-    }
-}
-
-add_action( 'admin_bar_menu', 'add_admin_bar_menu1', 80 );
- **/

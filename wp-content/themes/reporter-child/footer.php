@@ -10,6 +10,8 @@
 			<?php dynamic_sidebar('footer_top'); ?>
 		</ul>
 
+        <?php get_template_part('parts/adchoices'); ?>
+
 	</div>
 	<!-- /.footer-fullwidth-widgets container -->
 	<?php endif; ?>
@@ -28,6 +30,7 @@
 	<?php endif; ?>
 
 <?php wp_footer(); ?>
+<?php get_template_part('parts/quantcast'); ?>
 
     </body>
 </html>

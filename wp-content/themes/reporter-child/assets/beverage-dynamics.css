@@ -5621,9 +5621,9 @@ Ad Styles
 .soldPosition {
   margin: auto !important;
   clear: both; }
-  .soldPosition > div {
+  .soldPosition div {
+    text-align: center;
     margin: auto;
-    margin-top: 15px;
     margin-bottom: 15px; }
 
 .leaderboard > div {

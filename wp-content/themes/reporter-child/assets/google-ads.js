@@ -12,12 +12,13 @@ googletag.cmd = googletag.cmd || [];
 })();
 
 googletag.cmd.push(function() {
-    googletag.defineSlot('/35190362/BDX_ROS_728_Top', [[468, 60], [728, 90]], 'div-gpt-ad-1395769760364-0').addService(googletag.pubads());
-    googletag.defineSlot('/35190362/BDX_ROS_728_Middle', [[468, 60], [728, 90]], 'div-gpt-ad-1395769716433-0').addService(googletag.pubads());
-    googletag.defineSlot('/35190362/BDX_ROS_728_Bottom', [[468, 60], [728, 90]], 'div-gpt-ad-1395769676079-0').addService(googletag.pubads());
-    googletag.defineSlot('/35190362/BDX_ROS_300_Top', [[120, 600], [160, 300], [160, 600], [200, 200], [240, 400], [250, 250], [300, 100], [300, 250], [300, 600]], 'div-gpt-ad-1395769613001-0').addService(googletag.pubads());
-    googletag.defineSlot('/35190362/BDX_ROS_300_Middle', [[120, 600], [160, 300], [160, 600], [250, 250], [300, 100], [300, 250], [300, 600]], 'div-gpt-ad-1395769555120-0').addService(googletag.pubads());
-    googletag.defineSlot('/35190362/BDX_ROS_300_Bottom', [[120, 240], [120, 600], [160, 300], [160, 600], [240, 400], [250, 250], [300, 100], [300, 250], [300, 600]], 'div-gpt-ad-1395769285648-0').addService(googletag.pubads());
+    googletag.defineSlot('/35190362/BDX_ROS_728_Top', [[468, 60], [728, 90], [970, 90]], 'div-gpt-ad-1396889327311-0').addService(googletag.pubads());
+    googletag.defineSlot('/35190362/BDX_ROS_728_Middle', [[468, 60], [728, 90], [970, 90]], 'div-gpt-ad-1396892756873-0').addService(googletag.pubads());
+    googletag.defineSlot('/35190362/BDX_ROS_728_Bottom', [[468, 60], [728, 90], [970, 90]], 'div-gpt-ad-1396892793150-0').addService(googletag.pubads());
+    googletag.defineSlot('/35190362/BDX_ROS_300_Top', [[300, 100], [300, 250], [300, 600]], 'div-gpt-ad-1396892666018-0').addService(googletag.pubads());
+    googletag.defineSlot('/35190362/BDX_ROS_300_Middle', [[300, 100], [300, 250], [300, 600]], 'div-gpt-ad-1396892582309-0').addService(googletag.pubads());
+    googletag.defineSlot('/35190362/BDX_ROS_300_Bottom', [[300, 100], [300, 250], [300, 600]], 'div-gpt-ad-1396890556483-0').addService(googletag.pubads());
+    googletag.defineSlot('/35190362/BDX_ROS_Tower_Top', [[120, 90], [120, 240], [120, 600], [160, 600]], 'div-gpt-ad-1396894647499-0').addService(googletag.pubads());
     googletag.pubads().collapseEmptyDivs(true);
     googletag.pubads().enableSingleRequest();
     googletag.enableServices();

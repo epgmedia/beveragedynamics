@@ -29,14 +29,20 @@ if(!class_exists('EPG_Ad_Position_Block')) {
             </p>
             <p class="description">
                 <label for="<?php echo $this->get_field_id('position') ?>">
-                    <?php _e('Position:','engine'); ?>
+                    <?php _e('Position (Leaderboard, Box, Tower)','engine'); ?>
                     <?php echo aq_field_input('position', $block_id, $position, $size = 'full') ?>
                 </label>
             </p>
             <p class="description">
                 <label for="<?php echo $this->get_field_id('location') ?>">
-                    <?php _e('Location','engine'); ?>
+                    <?php _e('Location (Top, Middle, Bottom)','engine'); ?>
                     <?php echo aq_field_input('location', $block_id, $location, $size = 'full') ?>
+                </label>
+            </p>
+            <p class="description">
+                <label for="<?php echo $this->get_field_id('container') ?>">
+                    <?php _e('Container div? ','engine'); ?>
+                    <?php echo aq_field_checkbox('container', $block_id, $container) ?>
                 </label>
             </p>
         <?php
@@ -45,7 +51,13 @@ if(!class_exists('EPG_Ad_Position_Block')) {
 
             extract($instance);
 
-            the_ad_position($position, $location, $inline = FALSE);
+            if ($container == 0) {
+                the_ad_position($position, $location, FALSE);
+
+                return;
+            }
+
+            the_ad_position($position, $location);
         }
     }
 }

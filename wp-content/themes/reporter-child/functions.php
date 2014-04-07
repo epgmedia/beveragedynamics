@@ -1,5 +1,8 @@
 <?php
 
+//error_reporting(E_ALL);
+
+
 /** Child Theme Directory  @name CHILDURI */
 define('CHILDDIR', get_stylesheet_directory());
 

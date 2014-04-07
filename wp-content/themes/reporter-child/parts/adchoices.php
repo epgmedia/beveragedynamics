@@ -1,0 +1,3 @@
+<!--BEGIN ADCHOICES HTML HERE-->
+<a id="adChoicesLogo" href="//quantcast.com/adchoices-pub?pub=Wvx97PHo-bUl73-cdEte1A" target="_blank" style="display:block; width:75px; height:16px; line-height: 16px; text-align:left; background: transparent url(//aboutads.quantcast.com?icon=Wvx97PHo-bUl73-cdEte1A) right 0 no-repeat; color:#333; text-decoration:none; font-size:11px; font-family:arial,helvetica,sans-serif;">AdChoices</a>
+<!--END ADCHOICES HTML HERE-->

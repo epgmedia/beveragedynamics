@@ -42,6 +42,8 @@ class epg_google_ad_position_widget extends WP_Widget {
             $location_options[] = '<option value="' . $loc . '"' . $selected . '>' . $loc . '</option>';
         }
 
+        $checked = isset($instance['container']) ? 'checked' : '';
+
         ?>
         <p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'engine'); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>"
@@ -56,6 +58,9 @@ class epg_google_ad_position_widget extends WP_Widget {
                 <?php echo implode('', $location_options); ?>
             </select>
         </p>
+        <p><label for="<?php echo $this->get_field_id('container'); ?>"><?php _e('Container Div? ', 'engine'); ?></label>
+            <input type="checkbox" <?php echo $checked; ?> class="widefat" id="<?php echo $this->get_field_id('container'); ?>" name="<?php echo $this->get_field_name('container'); ?>" />
+        </p>
         <?php
     }
 
@@ -65,6 +70,7 @@ class epg_google_ad_position_widget extends WP_Widget {
         $instance['title'] = $new_instance['title'];
         $instance['position'] = $new_instance['position'];
         $instance['location'] = $new_instance['location'];
+        $instance['container'] = $new_instance['container'];
 
         return $instance;
     }
@@ -73,8 +79,14 @@ class epg_google_ad_position_widget extends WP_Widget {
 
         extract($args);
         extract($instance);
+
+        $wrapper = FALSE;
+
         echo $before_widget;
-        the_ad_position($position, $location, $inline = FALSE);
+        if ($container == "on") {
+            $wrapper = TRUE;
+        }
+        the_ad_position($position, $location, $wrapper);
         echo $after_widget;
 
     }

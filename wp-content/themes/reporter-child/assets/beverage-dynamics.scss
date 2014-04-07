@@ -1572,9 +1572,9 @@ Ad Styles
     margin: auto!important;
     clear:both;
 
-    > div {
+    div {
+        text-align:center;
         margin: auto;
-        margin-top: 15px;
         margin-bottom: 15px;
     }
 }

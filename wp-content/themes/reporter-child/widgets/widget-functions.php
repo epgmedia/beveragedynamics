@@ -15,16 +15,16 @@ add_action('init', function() {
      * Will not display on site directly, only through AQPB
      */
     $sidebars = array(
-        'optional_sidebar_1' => __('Optional Sidebar 1', 'engine'),
-        'optional_sidebar_2' => __('Optional Sidebar 2', 'engine')
+        'optional_sidebar_1' => __('Home Page Widget', 'engine'),
+        'optional_sidebar_2' => __('Optional Sidebar 1', 'engine')
     );
 
     foreach ($sidebars as $key => $value) {
         register_sidebar(array(
                 'name' => $value,
                 'id' => $key,
-                'before_widget' => '<li id="%1$s" class="widget %2$s">',
-                'after_widget' => '</li>',
+                'before_widget' => '<div id="%1$s" class="widget %2$s">',
+                'after_widget' => '</div>',
                 'before_title' => '<h3 class="widget-title">',
                 'after_title' => '</h3>'
             )

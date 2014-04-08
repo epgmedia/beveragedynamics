@@ -1,5 +1,14 @@
 <?php
 
+add_action( 'wp_enqueue_scripts', function() {
+    // Double Click Ads
+    wp_enqueue_script(
+        'google-ads',
+        CHILDURI . '/assets/google-ads.js',
+        array( 'jquery' )
+    );
+});
+
 /**
  * The Ad Position
  *
@@ -25,7 +34,7 @@ function the_ad_position($name, $pos, $container = TRUE) {
 
     switch ($name):
         case 'leaderboard':
-            $classes = 'large-12 center-column soldPosition leaderboard';
+            $classes = 'large-12 column soldPosition leaderboard';
             echo '<div class="' . $classes . '">';
             include("$the_ad");
             echo '</div>';

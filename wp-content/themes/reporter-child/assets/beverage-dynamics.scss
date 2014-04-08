@@ -287,10 +287,9 @@ a:hover { text-decoration: underline; }
 
     .trigger {
         display: block;
-        color: #FFF;
+        color: $primary_color;
         font-size: emCalc(18px);
         padding: 20px 0;
-        text-align: left;
         white-space: nowrap;
         overflow: hidden;
         position: relative;
@@ -305,7 +304,7 @@ a:hover { text-decoration: underline; }
 
     .trigger:hover,
     .trigger.active {
-        @include breakpoint(large) { @include gradient(#1f1f1f, $secondary_color, $secondary_color); }
+        @include breakpoint(large) { @include gradient(#d3caac, $secondary_color, $secondary_color); }
         text-decoration: none;
     }
 
@@ -343,21 +342,22 @@ a:hover { text-decoration: underline; }
     .widget {
         padding: 0 10px 20px 10px;
         margin-bottom: 20px;
-        color: rgba(255,255,255, 0.5);
+        color: rgba(209, 47, 47, 0.5);
     }
 
     .widget li { border-bottom: 0; }
 
-    .widget a { color: rgba(255,255,255, 0.5); }
+    .widget a { color: #000000; }
 
     .widget a:hover {
-        color: rgba(255,255,255, 1);
+        color: $primary_color;
         text-decoration: none;
     }
 
     .widget-title {
-        color: #FFF;
+        color: $primary_color;
         font-size: emCalc(14px);
+        font-weight: bold;
         border-color: rgba(255,255,255, 0.1);
         margin-bottom: 10px;
         padding-bottom: 10px;
@@ -1583,7 +1583,7 @@ Ad Styles
 .leaderboard {
 
     > div {
-        min-width: 728px;
+        min-width: 468px;
     }
 
     @media only screen and (min-width:"#{$small-screen}") {
@@ -1605,6 +1605,22 @@ Ad Styles
         border-top:1px solid #DFDFDF;
         border-bottom:1px solid #DFDFDF;
         padding:10px 0;
+    }
+
+    @media only screen and (min-width:"#{$topbar-breakpoint}") {
+        visibility: visible;
+    }
+
+    @media only screen and (max-width:"#{$topbar-breakpoint}") {
+        display:none;
+        visibility: hidden;
+    }
+}
+
+.tower {
+
+    > div {
+        min-width: 120px;
     }
 
     @media only screen and (min-width:"#{$topbar-breakpoint}") {
@@ -1919,26 +1935,57 @@ Social Media Widget
 }
 
 .epg-social-media-links {
-
+    background-color: $secondary-color!important;
     width: 60px;
     height: 60px;
     display: inline-block;
-    background-image: url('sprites/simple-flat-social-icons.png');
-
+    background-image: url('sprites/simple-flat-social-icons.png')!important;
     margin: 5px 9px;
     padding: 0px;
-
+    border: 0!important;
     .epg-social-box {
         width: 60px;
         height: 60px;
     }
 }
-.epg-facebook-icon { background-position: -157px 0; }
-.epg-twitter-icon { background-position: 0 0; }
-.epg-youtube-icon { background-position: -82px 0; }
-.epg-linkedin-icon { background-position: 60px 0; }
-.epg-googleplus-icon { background-position: -157px -164px; }
-.epg-instagram-icon { background-position: -82px 60px; }
-.epg-pinterest-icon { background-position: 0 -82px; }
-.epg-digg-icon { background-position: -82px -247px; }
-.epg-rss-icon { background-position: 60px -82px; }
+.epg-social-media-links:hover {
+    background-color: $secondary-color!important;
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    background-image: url('sprites/simple-flat-social-icons.png')!important;
+    margin: 5px 9px;
+    padding: 0px;
+    border: 0!important;
+    .epg-social-box {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+.epg-facebook-icon {background-position: -157px 0;}
+.epg-facebook-icon:hover {background-position: -157px 0!important;}
+
+.epg-twitter-icon {background-position: 0 0;}
+.epg-twitter-icon:hover {background-position: 0 0!important;}
+
+.epg-youtube-icon {background-position: -82px 0;}
+.epg-youtube-icon:hover {background-position: -82px 0!important;}
+
+.epg-linkedin-icon {background-position: 60px 0;}
+.epg-linkedin-icon:hover {background-position: 60px 0!important;}
+
+.epg-googleplus-icon {background-position: -157px -164px;}
+.epg-googleplus-icon:hover {background-position: -157px -164px!important;}
+
+.epg-instagram-icon {background-position: -82px 60px;}
+.epg-instagram-icon:hover {background-position: -82px 60px!important;}
+
+.epg-pinterest-icon {background-position: 0 -82px;}
+.epg-pinterest-icon:hover {background-position: 0 -82px!important;}
+
+.epg-digg-icon {background-position: -82px -247px;}
+.epg-digg-icon:hover {background-position: -82px -247px!important;}
+
+.epg-rss-icon {background-position: 60px -82px;}
+.epg-rss-icon:hover {background-position: 60px -82px!important;}

@@ -127,13 +127,6 @@ add_action( 'wp_enqueue_scripts', function() {
         TRUE
     );
 
-    // Double Click Ads
-    wp_enqueue_script(
-        'google-ads',
-        CHILDURI . '/assets/google-ads.js',
-        array( 'jquery' )
-    );
-
 });
 
 add_action( 'admin_head', function() {

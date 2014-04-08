@@ -4291,10 +4291,9 @@ a:hover {
       padding: 0; } }
   .header-main-menu .trigger {
     display: block;
-    color: #FFF;
+    color: #911d1f;
     font-size: 1.5em;
     padding: 20px 0;
-    text-align: left;
     white-space: nowrap;
     overflow: hidden;
     position: relative;
@@ -4314,13 +4313,13 @@ a:hover {
         /* fallback/image non-cover color */
         background-color: #e7e4d1;
         /* Firefox 3.6+ */
-        background-image: -moz-linear-gradient(#1f1f1f, #e7e4d1);
+        background-image: -moz-linear-gradient(#d3caac, #e7e4d1);
         /* Safari 4+, Chrome 1+ */
-        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1f1f1f), to(#e7e4d1));
+        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d3caac), to(#e7e4d1));
         /* Safari 5.1+, Chrome 10+ */
-        background-image: -webkit-linear-gradient(#1f1f1f, #e7e4d1);
+        background-image: -webkit-linear-gradient(#d3caac, #e7e4d1);
         /* Opera 11.10+ */
-        background-image: -o-linear-gradient(#1f1f1f, #e7e4d1); } }
+        background-image: -o-linear-gradient(#d3caac, #e7e4d1); } }
   .header-main-menu .trigger i {
     display: inline;
     color: #000;
@@ -4357,17 +4356,18 @@ a:hover {
   .header-main-menu .widget {
     padding: 0 10px 20px 10px;
     margin-bottom: 20px;
-    color: rgba(255, 255, 255, 0.5); }
+    color: rgba(209, 47, 47, 0.5); }
   .header-main-menu .widget li {
     border-bottom: 0; }
   .header-main-menu .widget a {
-    color: rgba(255, 255, 255, 0.5); }
+    color: #000000; }
   .header-main-menu .widget a:hover {
-    color: white;
+    color: #911d1f;
     text-decoration: none; }
   .header-main-menu .widget-title {
-    color: #FFF;
+    color: #911d1f;
     font-size: 1.16667em;
+    font-weight: bold;
     border-color: rgba(255, 255, 255, 0.1);
     margin-bottom: 10px;
     padding-bottom: 10px; }
@@ -5627,7 +5627,7 @@ Ad Styles
     margin-bottom: 15px; }
 
 .leaderboard > div {
-  min-width: 728px; }
+  min-width: 468px; }
 @media only screen and (min-width: 768px) {
   .leaderboard {
     visibility: visible; } }
@@ -5646,6 +5646,16 @@ Ad Styles
     visibility: visible; } }
 @media only screen and (max-width: 940px) {
   .box {
+    display: none;
+    visibility: hidden; } }
+
+.tower > div {
+  min-width: 120px; }
+@media only screen and (min-width: 940px) {
+  .tower {
+    visibility: visible; } }
+@media only screen and (max-width: 940px) {
+  .tower {
     display: none;
     visibility: hidden; } }
 
@@ -5884,39 +5894,81 @@ Social Media Widget
     margin: 0 9px; }
 
 .epg-social-media-links {
+  background-color: #e7e4d1 !important;
   width: 60px;
   height: 60px;
   display: inline-block;
-  background-image: url("sprites/simple-flat-social-icons.png");
+  background-image: url("sprites/simple-flat-social-icons.png") !important;
   margin: 5px 9px;
-  padding: 0px; }
+  padding: 0px;
+  border: 0 !important; }
   .epg-social-media-links .epg-social-box {
+    width: 60px;
+    height: 60px; }
+
+.epg-social-media-links:hover {
+  background-color: #e7e4d1 !important;
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  background-image: url("sprites/simple-flat-social-icons.png") !important;
+  margin: 5px 9px;
+  padding: 0px;
+  border: 0 !important; }
+  .epg-social-media-links:hover .epg-social-box {
     width: 60px;
     height: 60px; }
 
 .epg-facebook-icon {
   background-position: -157px 0; }
 
+.epg-facebook-icon:hover {
+  background-position: -157px 0 !important; }
+
 .epg-twitter-icon {
   background-position: 0 0; }
+
+.epg-twitter-icon:hover {
+  background-position: 0 0 !important; }
 
 .epg-youtube-icon {
   background-position: -82px 0; }
 
+.epg-youtube-icon:hover {
+  background-position: -82px 0 !important; }
+
 .epg-linkedin-icon {
   background-position: 60px 0; }
+
+.epg-linkedin-icon:hover {
+  background-position: 60px 0 !important; }
 
 .epg-googleplus-icon {
   background-position: -157px -164px; }
 
+.epg-googleplus-icon:hover {
+  background-position: -157px -164px !important; }
+
 .epg-instagram-icon {
   background-position: -82px 60px; }
+
+.epg-instagram-icon:hover {
+  background-position: -82px 60px !important; }
 
 .epg-pinterest-icon {
   background-position: 0 -82px; }
 
+.epg-pinterest-icon:hover {
+  background-position: 0 -82px !important; }
+
 .epg-digg-icon {
   background-position: -82px -247px; }
 
+.epg-digg-icon:hover {
+  background-position: -82px -247px !important; }
+
 .epg-rss-icon {
   background-position: 60px -82px; }
+
+.epg-rss-icon:hover {
+  background-position: 60px -82px !important; }

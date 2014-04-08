@@ -4,7 +4,7 @@ add_action( 'wp_enqueue_scripts', function() {
     // Double Click Ads
     wp_enqueue_script(
         'google-ads',
-        CHILDURI . '/assets/google-ads.js',
+        CHILDURI . '/ads/google-ads.js',
         array( 'jquery' )
     );
 });

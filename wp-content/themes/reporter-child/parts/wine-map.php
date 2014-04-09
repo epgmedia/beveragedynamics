@@ -20,13 +20,13 @@
                 map = new google.maps.Map(document.getElementById("wineRegionMap"),
                     mapOptions);
 
-            map.data.loadGeoJson('wp-content/themes/reporter-child/widgets/wine-map/land.json');
-            map.data.loadGeoJson('wp-content/themes/reporter-child/widgets/wine-map/australia.json');
-            map.data.loadGeoJson('wp-content/themes/reporter-child/widgets/wine-map/california.json');
-            map.data.loadGeoJson('wp-content/themes/reporter-child/widgets/wine-map/chile-argentina.json');
-            map.data.loadGeoJson('wp-content/themes/reporter-child/widgets/wine-map/france.json');
-            map.data.loadGeoJson('wp-content/themes/reporter-child/widgets/wine-map/italy.json');
-            map.data.loadGeoJson('wp-content/themes/reporter-child/widgets/wine-map/spain.json');
+            map.data.loadGeoJson('/wp-content/themes/reporter-child/widgets/wine-map/land.json');
+            map.data.loadGeoJson('/wp-content/themes/reporter-child/widgets/wine-map/australia.json');
+            map.data.loadGeoJson('/wp-content/themes/reporter-child/widgets/wine-map/california.json');
+            map.data.loadGeoJson('/wp-content/themes/reporter-child/widgets/wine-map/chile-argentina.json');
+            map.data.loadGeoJson('/wp-content/themes/reporter-child/widgets/wine-map/france.json');
+            map.data.loadGeoJson('/wp-content/themes/reporter-child/widgets/wine-map/italy.json');
+            map.data.loadGeoJson('/wp-content/themes/reporter-child/widgets/wine-map/spain.json');
 
             map.data.setStyle(function(feature) {
                 var loc = feature.getProperty('loc'),
@@ -56,7 +56,7 @@
 
             map.data.addListener('click', function (event) {
                 var href = event.feature.getProperty('loc') === 'land' ? 'other-regions' : event.feature.getProperty('name');
-                window.location = 'category/' + href + '/';
+                window.location = '/tag/' + href + '/';
             });
         }
         function loadScript() {

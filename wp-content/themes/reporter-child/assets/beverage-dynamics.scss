@@ -1989,3 +1989,34 @@ Social Media Widget
 
 .epg-rss-icon {background-position: 60px -82px;}
 .epg-rss-icon:hover {background-position: 60px -82px!important;}
+
+
+/**
+Clickable Map
+**/
+#wineMap {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    border: 1px solid #ececec;
+    margin-bottom: 30px;
+    #wineRegionMap {
+        height: 400px;
+        img { max-width: none; }
+        .gm-style img { max-width: none; }
+        .gm-style label { width: auto; display: inline; }
+    }
+    #wineCountry {
+        z-index: 1;
+        max-width: 598px;
+        width: 100%;
+        height: auto;
+        position: absolute;
+        margin: auto;
+        padding: 10px 0;
+        background-color: #E7E4D1;
+        border-top: 1px solid #c6c4b4;
+        border-bottom: 2px solid #c6c4b4;
+        text-align: center;
+    }
+}

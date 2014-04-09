@@ -127,6 +127,15 @@ add_action( 'wp_enqueue_scripts', function() {
         TRUE
     );
 
+    /*// Maps
+    wp_enqueue_script(
+        'wine-map',
+        CHILDURI . '/widgets/wine-map/wi.js',
+        array('jquery', 'foundation'),
+        '',
+        TRUE
+    );*/
+
 });
 
 add_action( 'admin_head', function() {

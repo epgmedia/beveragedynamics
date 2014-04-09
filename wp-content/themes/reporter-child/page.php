@@ -10,7 +10,14 @@ wp_reset_query();
 
 			<div <?php post_class(); ?>>
 
-				<div class="entry-content">
+                <?php
+                $page = get_page_by_title("Wine Regions");
+
+                if ( is_page($page->ID) ) :
+                    get_template_part("parts/wine-map");
+                endif; ?>
+
+                <div class="entry-content">
 					<h1 class="page-title"><?php the_title(); ?></h1>
 					<?php the_content(); ?>
 					<?php engine_link_pages('before=<div class="page-links pagination">&after=</div>'); ?>

@@ -24,7 +24,7 @@
                         <span class="entry-author"><?php epg_the_author(); ?></span>
                         <?php endif; ?>
 
-                        <?php if ( epg_the_photographer() !== FALSE ): ?>
+                        <?php if ( get_epg_the_photographer() !== FALSE ): ?>
                         <span class="entry-photographer"><?php epg_the_photographer(); ?></span>
                         <?php endif; ?>
 

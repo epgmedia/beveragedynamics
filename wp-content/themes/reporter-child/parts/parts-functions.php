@@ -689,6 +689,18 @@ function epg_the_author() {
 /**
  * Adds photographer credit
  */
+function get_epg_the_photographer() {
+
+    if ( get_field('photographer') != NULL ) {
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+/**
+ * Adds photographer credit
+ */
 function epg_the_photographer() {
     if ( get_field('photographer') != NULL ) {
         echo 'Photos by ' . get_field('photographer');

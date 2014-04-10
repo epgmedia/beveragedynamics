@@ -71,7 +71,7 @@
 					
 					<?php if($logo != '') : ?>
 					
-						<h1 class="logo-image"><a href="<?php echo home_url(); ?>" title="<?php bloginfo( 'name' ); ?>" rel="home"><img src="<?php echo $logo; ?>" alt="<?php bloginfo('name'); ?>" /></a></h1>
+						<h1 class="logo-image"><a href="<?php echo home_url(); ?>" title="<?php bloginfo( 'name' ); ?>" rel="home"><img src="<?php echo $logo; ?>" alt="<?php bloginfo('name'); ?>" itemprop="logo" /></a></h1>
 						
 					<?php else: ?>
 						

@@ -8,6 +8,7 @@
  */
 
 /**
+ * Abstract Subject Controller
  *
  * @package AAM
  * @author Vasyl Martyniuk <support@wpaam.com>
@@ -16,6 +17,11 @@
  */
 abstract class aam_Control_Subject {
 
+    /**
+     * Flag that idicates that subject has been modified
+     */
+    const FLAG_MODIFIED = 'modified_flag';
+    
     /**
      * Subject ID
      *
@@ -145,7 +151,9 @@ abstract class aam_Control_Subject {
      */
     public function __get($name) {
         $subject = $this->getSubject();
-        return $subject->$name;
+        //TODO - In multisite Wp_User roles are not initialized if admin not a part
+        //of the site
+        return @$subject->$name;
     }
 
     /**
@@ -254,14 +262,14 @@ abstract class aam_Control_Subject {
             $class_name = 'aam_Control_Object_' . ucfirst($object);
             if (class_exists($class_name)) {
                 $this->_objects[$object][$object_id] = new $class_name(
-                    $this, $object_id
+                    $this, $object_id, $this
                 );
             } else {
                 $this->_objects[$object][$object_id] = apply_filters(
-                        'aam_object', null, $object, $object_id
+                        'aam_object', null, $object, $object_id, $this
                 );
             }
-           
+
             //set update cache flag to true if object can be cached
             if ($this->_objects[$object][$object_id]->cacheObject() === true){
                 $this->_updateCache = true;
@@ -284,6 +292,22 @@ abstract class aam_Control_Subject {
     public function setObject(aam_Control_Object $object, $uid) {
         $this->_objects[$uid] = $object;
     }
+    
+    /**
+     * Release the object
+     * 
+     * @param string      $uid
+     * @param string|int  $object_id
+     * 
+     * @return void
+     * 
+     * @access public
+     */
+    public function releaseObject($uid, $object_id = 0){
+        if (isset($this->_objects[$uid][$object_id])){
+            unset($this->_objects[$uid][$object_id]);
+        }
+    }
 
     /**
      * Get Subject Type
@@ -303,6 +327,26 @@ abstract class aam_Control_Subject {
      */
     public function hasCapability($capability) {
         return $this->getSubject()->has_cap($capability);
+    }
+    
+    /**
+     * Save Access Parameters
+     *
+     * @param array $params
+     *
+     * @return boolean
+     *
+     * @access public
+     */
+    public function save(array $params) {
+        foreach ($params as $object_type => $dump) {
+            if ($object = $this->getObject($object_type)) {
+                $object->save($dump);
+            }
+        }
+
+        //clear cache
+        $this->clearCache();
     }
 
     /**
@@ -346,33 +390,39 @@ abstract class aam_Control_Subject {
     abstract public function clearCache();
 
     /**
-     * Save Access Parameters
+     * Clear all options
      *
-     * @param array $params
+     * Remove all options related to current user from database and any other
+     * custom storage
+     *
+     * @return void
+     *
+     * @access public
+     */
+    abstract public function clearAllOptions();
+
+    /**
+     * Check if subject has specified flag
+     *
+     * @param string flag
      *
      * @return boolean
      *
      * @access public
      */
-    public function save(array $params) {
-        //initialize the backup first
-        $backup = array();
+    abstract public function hasFlag($flag);
 
-        foreach ($params as $object_type => $dump) {
-            if ($object = $this->getObject($object_type)) {
-                if (method_exists($object, 'backup')) {
-                    $backup[$object_type] = $object->backup();
-                }
-                $object->save($dump);
-            }
-        }
-
-        //store backup
-        $this->getObject(aam_Control_Object_Backup::UID)->save($backup);
-
-        //clear cache
-        $this->clearCache();
-    }
+    /**
+     * Set Subject Flag
+     *
+     * @param string   $flag
+     * @param boolean  $value
+     *
+     * @return void
+     *
+     * @access protected
+     */
+    abstract public function setFlag($flag, $value = true);
 
     /**
      * Retrieve subject based on used class
@@ -382,4 +432,5 @@ abstract class aam_Control_Subject {
      * @access protected
      */
     abstract protected function retrieveSubject();
+    
 }

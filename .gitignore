@@ -1,3 +1,51 @@
+######################################
+# Ignore All                         #
+######################################
+
+/*
+
+######################################
+# Except ...
+######################################
+
+# Not WP-Content
+!/wp-content
+
+######################################
+# But keep ignoring ...
+######################################
+
+# Image folders
+/wp-content/uploads**
+/wp-content/gallery**
+/wp-content/cache**
+
+######################################
+# But not ...
+######################################
+
+# Plugins and Themes
+!/wp-content/plugins**
+!/wp-content/themes**
+!/wp-content/maintenance.php
+!/wp-content/index.php
+
+
+# Or Hidden Files
+!.*
+
+######################################
+# But always ignore....
+######################################
+
+# Stupid Files
+.DS_Store
+._*
+.idea
+*.log
+*_log.txt
+error_log
+
 ._*
 .DS_Store
 .htaccess
@@ -5,12 +53,8 @@ wp-content/uploads/
 wp-content/blogs.dir/
 wp-content/upgrade/
 wp-content/backup-db/
-wp-content/advanced-cache.php
-wp-content/wp-cache-config.php
 sitemap.xml
 *.log
-wp-content/cache/
-wp-content/backups/
 sitemap.xml.gz
 wp-config.php
 error_log

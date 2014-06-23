@@ -46,18 +46,9 @@
 *_log.txt
 error_log
 
-._*
-.DS_Store
 .htaccess
-wp-content/uploads/
 wp-content/blogs.dir/
 wp-content/upgrade/
 wp-content/backup-db/
-sitemap.xml
-*.log
-sitemap.xml.gz
 wp-config.php
-error_log
-wp-admin/
-wp-includes/
 .idea

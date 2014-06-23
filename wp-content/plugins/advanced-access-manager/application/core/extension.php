@@ -37,7 +37,18 @@ class AAM_Core_Extension {
     public function __construct(aam $parent) {
         $this->setParent($parent);
     }
-
+    
+    /**
+     * Activate hook
+     * 
+     * @return boolean
+     * 
+     * @access public
+     */
+    public function activate(){
+        return true;
+    }
+    
     /**
      * Set Parent Object
      * 

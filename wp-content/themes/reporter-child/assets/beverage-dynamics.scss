@@ -815,7 +815,7 @@ pre {
 
 .featured-image {
     width: 100%;
-    background: #e8e8e8;
+    background: #ffffff;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -1164,16 +1164,19 @@ textarea {
 }
 
 .widget-epgStockIndex {
-    th,
-    td {
-        margin: 0;
-        padding: emCalc(3px) emCalc(3px) emCalc(5px);
-        font-size: emCalc(13px);
-    }
+    width: 100%;
+
+	thead,
+	th,
+	td {
+		  margin: 0;
+		  padding: emCalc(3px) emCalc(3px) emCalc(5px);
+		  font-size: emCalc(13px);
+		}
     tbody {
         td {
             border-bottom: 1px solid #DFDFDF;
-            font-size: emCalc(12px);
+            font-size: emCalc(11px);
         }
     }
 
@@ -1574,8 +1577,7 @@ Ad Styles
 
     div {
         text-align:center;
-        margin: auto;
-        margin-bottom: 15px;
+        margin: 7px auto;
     }
 }
 

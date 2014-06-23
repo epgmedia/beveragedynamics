@@ -2,11 +2,10 @@
 Contributors: smashballoon
 Tags: Facebook, Facebook feed, Facebook posts, Facebook wall, Facebook events, Facebook page, Facebook group, Facebook Like box, Customizable Facebook Feed, custom, customizable, seo, responsive, mobile, social
 Requires at least: 3.0
-Tested up to: 3.8.1
-Stable tag: 1.8.2.3
+Tested up to: 3.9.1
+Stable tag: 1.9.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=H5XFD33R3FHMG
 
 The Custom Facebook Feed allows you to display a completely customizable Facebook feed of any public Facebook page or group on your website
 
@@ -29,11 +28,13 @@ Display a **completely customizable**, **responsive** and **search engine crawla
 * Show **events** from your Facebook feed with name, date/time, location and description
 * Add your own **custom CSS**
 * **Caching** means that your Facebook posts load lightning fast. Set your own caching time - check for new posts on Facebook every few seconds, minutes, hours or days. You decide.
+* **Super simple to set up**. Just enter your Facebook page ID and you're done.
 * Show and hide certain parts of each Facebook post
-* Choose to show the Facebook profile picture and name above each post
+* Show or hide the Facebook profile picture and name of the author above each post
 * Display Facebook posts by just the page owner, everyone who posts on your Facebook page, or only other people
 * Control the width, height, padding and background color of your Facebook feed
 * Customize the size, weight and color of text
+* Supports Facebook tags - creates links when using the @ symbol to tag people in your Facebook posts
 * Select from a range of date formats or enter your own
 * Use your own custom link text in place of the defaults
 * Use the shortcode options to style multiple Facebook feeds in completely different ways
@@ -84,10 +85,6 @@ The Facebook feed you're trying to display has to be from a publicly accessible 
 If your Facebook page has any restrictions on it (age, for example) then it means that people have to be signed into Facebook in order to view your page. This isn't desirable for most Facebook pages as it means that it isn't accessible by people who don't have a Facebook account and that your Facebook page can't be crawled and indexed by search engines.
 
 An easy way to determine whether your Facebook page is set to public is to sign out of your Facebook account and try to visit your page. If Facebook forces you to sign in to view your page then it isn't public. You can change your Facebook page to public in your Facebook page settings simply by removing any age or location restrictions you have on it ([screenshot](http://smashballoon.com/wp-content/uploads/2013/06/facebook-page-restrictions.png)), which will then allow the Custom Facebook Feed plugin to access and display your feed.
-
-= What's an Access Token and why do I need one? =
-
-An Access Token is required by Facebook in order to access their feeds.  Don't worry, it's easy to get one.  Just follow the step-by-step instructions [here](http://smashballoon.com/custom-facebook-feed/access-token/ "Getting an Access Token"). to get yours. Your Access Token will never expire.
 
 = Can I display feeds from multiple Facebook pages or groups? =
 
@@ -150,7 +147,7 @@ We understand that sometimes you need help, have issues or just have questions. 
 
 **For step-by-step instructions and screenshots on how to get a Facebook Access Token just follow the [Facebook Access Token instructions](http://smashballoon.com/custom-facebook-feed/access-token/ "Facebook Access Token instructions") on the Smash Balloon website.**
 
-In order to use the Custom Facebook Feed Plugin you will need to obtain an Access Token from Facebook.  Don't worry though, this is really easy to do.  Just follow the steps below:
+You no longer need your own Access Token to use the Custom Facebook Feed Plugin, but if you'd like to use your own then you will need to obtain one from Facebook.  Don't worry though, this is really easy to do.  Just follow the steps below:
 
 **1)** Go to [developers.facebook.com](http://developers.facebook.com "Facebook developers website") and click on Log In in the top right.  Log in using your personal Facebook credentials.
 
@@ -272,6 +269,57 @@ Credit [iMarketing Factory](http://www.imarketingfactory.com/facebook/ "The Impo
 9. It's super easy to display your Facebook feed in any page or post
 
 == Changelog ==
+= 1.9.8.1 =
+* Fix: Fixed an admin JavaScript error introduced by the last update
+
+= 1.9.8 =
+* Tweak: The Access Token field is now hidden by default and is revealed by a checkbox
+* Fix: Fixed an issue with link colors not being applied to all links
+* Fix: Removed the link box container from posts which contain non-youtube/vimeo links
+* Fix: Links which don't contain a 'http://' protocol are now linked correctly
+
+= 1.9.7 =
+* Fix: Fixed an issue with a generic function name which was occasionally causing an error
+
+= 1.9.6 =
+* Tweak: Added an HTML wrapper element around the feed
+
+= 1.9.5 =
+* New: Added an option to set a height on the Like box. This allows you to display more faces of your fans if you have that option selected.
+* Tweak: Added a few stricter CSS styles to help minimize the chance of theme stylesheets distorting post formatting
+* Tweak: Added a span to the header text to allow CSS to be applied
+* Fix: Fixed a bug with the post author text bumping down below the author image in the Firefox browser
+* Fix: Corrected a bug which caused some links not to have the color applied
+* Fix: Fixed a float issue in Firefox which sometimes caused the feed to be pushed off the page
+
+= 1.9.4 =
+* New: Added background and border styling options to shared links
+* Tweak: Reduced the clickable area of the post author
+* Tweak: Added a 'Customize' tab to the Settings page
+* Fix: Fixed an issue with post tag linking not working correctly in some languages
+* Fix: Fixed an issue with line breaks not being respected in IE8
+
+= 1.9.2 =
+* Fix: Added title and alt attributes to the post author's Facebook profile picture
+* Fix: Improved the reliability of the post tag linking
+* Fix: Fixed an issue with HTML characters not rendering correctly when linking the post text
+* Fix: Improved the reliability of the CSS clearing method used on the feed container
+* Compatible with WordPress 3.9
+
+= 1.9.1 =
+* Fix: Fixed an issue with the 'textlink' shortcode option
+* Fix: Fixed an bug with post text sometimes being duplicated when linked
+* Fix: Removed error_reporting(0);
+
+= 1.9.0 =
+* New: Added the ability to change the text size and color of the post author
+* New: Define the format, size and color of shared link titles
+* New: You can now define the color of the links in your post text, descriptions and Facebook events
+* Tweak: Moved the Feed Header options to the Typography page
+* Tweak: Moved the Ajax setting to the Misc page
+* Tweak: Now removes any query strings attached to the Facebook Page ID
+* Fix: Fixed an issue with some themes causing the clear element to prevent links being clickable
+* Fix: Some minor bug fixes
 
 = 1.8.2.3 =
 * New: Now supports Facebook tags - creates links when using the @ symbol to tag other people or Facebook pages in your posts
@@ -291,33 +339,33 @@ Credit [iMarketing Factory](http://www.imarketingfactory.com/facebook/ "The Impo
 = 1.8.0 =
 * New: Added a built-in color picker
 * New: Added class to posts based on the author to allow for independent styling
-* Tweak: Now loads the author avatar image in using JavaScript to help speed up load times
-* Tweak: Now automatically set the post limit based on the number of posts to be displayed
-* Tweak: Core improvements to the way posts are output
+* Tweak: Now loads the author's Facebook profile picture in using JavaScript to help speed up load times
+* Tweak: Now automatically set the Facebook post limit based on the number of Facebook posts to be displayed
+* Tweak: Core improvements to the way Facebook posts are output
 * Tweak: Changed 'Layout & Style' page name to 'Customize'
 * Tweak: Moved the Support information to a tab on the Settings page
 * Tweak: Improved the 'Test connection to Facebook API' function
-* Fix: Encode URLs so that they pass HTML validation
-* Fix: Fixed an issue with post captions not displaying under some circumstances
-* Fix: More robust method for stripping the URL when user enters Facebook page URL instead of their Page ID
+* Fix: Encode Facebook URLs so that they pass HTML validation
+* Fix: Fixed an issue with Facebook post captions not displaying under some circumstances
+* Fix: More robust method for stripping the URL when a user enters Facebook page URL instead of their Facebook Page ID
 
 = 1.7.2 =
 * Tweak: Moved the 'Show post author' option from the General settings tab to the Post Layout tab
 * Tweak: Added the ability to show or hide the author to the 'include' shortcode option
 * Fix: Added CSS box-sizing property to feed header so that padding doesn't increase its width
 * Fix: Fixed showheader=false and headeroutside=false shortcode options
-* Fix: Now allows users to enter their Facebook page URL as their Page ID
+* Fix: Now allows users to enter their Facebook page URL as their Facebook Page ID
 
 = 1.7.0 =
 * New: Added ability to add a customizable header to your feed
 * New: Added a Custom JavaScript section to allow you to add your own JS or jQuery functionality to the feed
 * New: Added a 'Custom Text / Translate' tab to house all customizable text
-* New: You can now choose to show posts only by other people on your page
+* New: You can now choose to show posts only by other people on your Facebook page
 * New: Set your timezone so that dates/times are displayed in your local time
-* New: When a post contains a link to multiple images it now states the number of photos after the post text and links to the album
+* New: When a Facebook post contains a link to multiple images it now states the number of photos after the post text and links to the Facebook album
 * Tweak: Plugin now detects whether the page is using SSL and pulls https resources
 * Tweak: Added a button to test the connection to Facebook's API for easier troubleshooting
-* Fix: Now using HTML encoding to parse any raw HTML tags in the post text or descriptions
+* Fix: Now using HTML encoding to parse any raw HTML tags in the Facebook post text or descriptions
 * Fix: Added a protocol to the beginning of links which don't include one
 * Fix: Fixed date width issue in IE7
 * Fix: Removed stray PHP notices
@@ -328,47 +376,47 @@ Credit [iMarketing Factory](http://www.imarketingfactory.com/facebook/ "The Impo
 
 = 1.6.8.1 =
 * Tweak: Moved 'View on Facebook' link up to be level with the date rather than on the line below it
-* Fix: Don't show the caption when it is the same as the post text
+* Fix: Don't show the caption when it is the same as the Facebook post text
 * Fix: Fixed issue with enqueueing JavaScript file
 
 = 1.6.8 =
-* New: Added option to remove border from the Like box when showing faces
-* New: Set "Like" box text color to either blue or white
+* New: Added option to remove border from the Facebook Like box when showing faces
+* New: Set Facebook "Like" box text color to either blue or white
 * Tweak: Moved descripion below video or link title and added link source
 * Tweak: Added ability to manually translate the '2 weeks ago' text
 * Tweak: Replaced 'View Link' with 'View on Facebook' so that shared links now link to the Facebook post
-* Tweak: "Like" box is now responsive
-* Tweak: Displays post caption if no description is available
-* Tweak: Vertically center multi-line author names rather than bumping them down below the avatar
+* Tweak: Facebook "Like" box is now responsive
+* Tweak: Displays Facebook post caption if no description is available
+* Tweak: Vertically center multi-line author names rather than bumping them down below the Facebook profile picture
 * Tweak: Checks whether the Access Token is inputted in the correct format
 * Fix: Fixed bug in the 'Show posts on my page by others' option
-* Fix: If displaying a group then automatically hides the "Like" box
+* Fix: If displaying a Facebook group then automatically hides the Facebook "Like" box
 * Fix: 'others=false' shortcode option now working correctly
-* Fix: Strip any white space characters from beginning or end of Access Token and Page ID
+* Fix: Strip any white space characters from beginning or end of Access Token and Facebook Page ID
 
 = 1.6.7.1 =
-* Fix: Fixed a bug in 1.6.7 which was causing an issue displaying the feed in some circumstances
+* Fix: Fixed a bug in 1.6.7 which was causing an issue displaying the Facebook feed in some circumstances
 
 = 1.6.7 =
-* New: Your feed can now be completely displayed in any language - added i18n support for date translation
+* New: Your Facebook feed can now be completely displayed in any language - added i18n support for date translation
 * Tweak: Improved documentation within the plugin
-* Tweak: Changed order of methods used to retrieve feed data
+* Tweak: Changed order of methods used to retrieve Facebook feed data
 
 = 1.6.6.3 =
-* New: Added support for group events
+* New: Added support for Facebook group events
 
 = 1.6.6.1 =
 * Fix: Resolved jQuery UI draggable bug which was causing issues with drag and drop
 
 = 1.6.6 =
-* New: Now works with groups
+* New: Now works with Facebook groups
 * Fix: Fixed an issue with the 'Show posts by others' option not working correctly in the previous version
 
 = 1.6.4 =
 * New: Added localization support. Full support for various languages coming soon
-* New: Added CSS classes to different post types to allow for different styling based on post type
-* New: Option to link statuses to either the status post itself or the directly to the page/timeline
-* New: Added option to add thumbnail faces of fans to the Like box and define a width
+* New: Added CSS classes to different Facebook post types to allow for different styling based on post type
+* New: Option to link statuses to either the status post itself or the directly to the Facebook page/timeline
+* New: Added option to add thumbnail faces of fans to the Facebook Like box and define a width
 * Tweak: Added separate classes to 'View on Facebook' and 'View Link' links so that they can be targeted with CSS
 * Tweak: Prefixed every CSS class to prevent styling conflicts with theme stylesheets. Please note that if you used custom CSS to style parts of the feed that the CSS classes are now prefixed with 'cff-' to prevent theme conflicts. Eg. '.more' is now '.cff-more'.
 
@@ -382,8 +430,8 @@ Credit [iMarketing Factory](http://www.imarketingfactory.com/facebook/ "The Impo
 * New: Define your own caching time. Check for new Facebook posts every few seconds, minutes, hours or days. You decide.
 * New: Define your own custom text for the 'See More' and 'See Less' buttons
 * New: Add your own CSS class to your Custom Facebook Feeds
-* New: Define a post limit which is higher or lower than the default 25
-* New: Include the Like box inside or outside of the Facebook feed's container
+* New: Define a Facebook post limit which is higher or lower than the default 25
+* New: Include the Facebook Like box inside or outside of the Facebook feed's container
 * New: Customize the Facebook event date independently
 * New: Improved layout of admin pages for easier navigation and customization
 * Fix: Provided a fix for the Facebook API duplicate post bug

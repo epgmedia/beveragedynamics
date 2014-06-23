@@ -4,7 +4,7 @@ class A_Reset_Form extends Mixin
 {
 	function get_title()
 	{
-		return 'Reset Options';
+		return __('Reset Options', 'nggallery');
 	}
 
 	function render()
@@ -12,10 +12,10 @@ class A_Reset_Form extends Mixin
 		return $this->object->render_partial(
             'photocrati-nextgen_other_options#reset_tab',
             array(
-                'reset_value'			=> _('Reset all options to default settings'),
-                'reset_warning'			=> _('Replace all existing options and gallery options with their default settings'),
-                'reset_label'			=> _('Reset settings'),
-                'reset_confirmation'	=> _("Reset all options to default settings?\n\nChoose [Cancel] to Stop, [OK] to proceed.")
+                'reset_value'			=> __('Reset all options to default settings', 'nggallery'),
+                'reset_warning'			=> __('Replace all existing options and gallery options with their default settings', 'nggallery'),
+                'reset_label'			=> __('Reset settings', 'nggallery'),
+                'reset_confirmation'	=> __("Reset all options to default settings?\n\nChoose [Cancel] to Stop, [OK] to proceed.", 'nggallery')
                 // 'uninstall_label'		=> _('Deactivate & Uninstall'),
 				// 'uninstall_confirmation'=>_("Completely uninstall NextGEN Gallery (will reset settings and de-activate)?\n\nChoose [Cancel] to Stop, [OK] to proceed."),
             ),
@@ -31,9 +31,12 @@ class A_Reset_Form extends Mixin
         C_Photocrati_Cache::flush('all');
 
         // Uninstall the plugin
-		$installer = C_Photocrati_Installer::get_instance();
-        $settings  = C_NextGen_Settings::get_instance();
-		$installer->uninstall(NGG_PLUGIN_BASENAME);
+        $settings = C_NextGen_Settings::get_instance();
+
+        if (defined('NGG_PRO_PLUGIN_VERSION') || defined('NEXTGEN_GALLERY_PRO_VERSION'))
+		    C_Photocrati_Installer::uninstall('photocrati-nextgen-pro');
+
+		C_Photocrati_Installer::uninstall('photocrati-nextgen');
 
         // removes all ngg_options entry in wp_options
         $settings->reset();
@@ -46,7 +49,14 @@ class A_Reset_Form extends Mixin
         $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->posts} WHERE post_type = %s", 'lightbox_library'));
 
         // the installation will run on the next page load; so make our own request before reloading the browser
-        wp_remote_get(admin_url('plugins.php'));
+        wp_remote_get(
+            admin_url('plugins.php'),
+            array(
+                'timeout' => 180,
+                'blocking' => true,
+                'sslverify' => false
+            )
+        );
 
         header('Location: ' . $_SERVER['REQUEST_URI']);
         throw new E_Clean_Exit();

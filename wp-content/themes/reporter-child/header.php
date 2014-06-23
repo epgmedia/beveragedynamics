@@ -21,6 +21,8 @@
     <?php get_template_part('parts/analytics'); ?>
 	
 	<div class="header">
+
+		<?php the_ad_position('Leaderboard', 'Top'); ?>
 		
 		<div class="header-top container">
 
@@ -176,5 +178,3 @@
 	<!-- /.header -->
 	
 	<div class="main container">
-
-        <?php the_ad_position('Leaderboard', 'Top'); ?>

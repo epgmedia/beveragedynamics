@@ -5,19 +5,12 @@ jQuery(document).ready(function() {
 		jQuery(this).closest('tr').find('.cff-tooltip').slideToggle();
 	});
 
-	//Check Access Token length
-	jQuery("#cff_access_token").change(function() {
-
-		var cff_token_string = jQuery('#cff_access_token').val(),
-			cff_token_check = cff_token_string.indexOf('|');
-
-  		if ( (cff_token_check == -1) && (cff_token_string.length < 50) && (cff_token_string.length !== 0) ) {
-  			jQuery('.cff-profile-error.cff-access-token').fadeIn();
-  		} else {
-  			jQuery('.cff-profile-error.cff-access-token').fadeOut();
-  		}
-
+	//Toggle Access Token field
+	if( jQuery('#cff_show_access_token').is(':checked') ) jQuery('.cff-access-token-hidden').show();
+	jQuery('#cff_show_access_token').change(function(){
+		jQuery('.cff-access-token-hidden').fadeToggle();
 	});
+
 
 	//Is this a page, group or profile?
 	var cff_page_type = jQuery('.cff-page-type select').val(),
@@ -57,15 +50,6 @@ jQuery(document).ready(function() {
 	    var $self = jQuery(this);
 
 	    jQuery('#cff-header-icon-example').removeClass().addClass('fa fa-' + $self.val() );
-	});
-
-	//Icon style
-	var iconStyles = 'color: #' + jQuery('#cff-header-icon-color').val() + '; font-size: ' + jQuery('#cff-header-icon-size').val() + 'px;';
-	jQuery('#cff-header-icon-example').attr('style', iconStyles);
-
-	jQuery('#cff-header-icon-size, #cff-header-icon-color').change(function() {
-	    var iconStyles = 'color: #' + jQuery('#cff-header-icon-color').val() + '; font-size: ' + jQuery('#cff-header-icon-size').val() + 'px;';
-	    jQuery('#cff-header-icon-example').attr('style', iconStyles);
 	});
 
 

@@ -5,27 +5,10 @@
  * ======================================================================
 */
 
-.aam-beta-version{
-    margin: 15px 10px;
-    border: 1px solid #FF8888;
-    border-radius: 4px;
-    padding: 4px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.1em;
-}
 
 /** GLOBAL AAM STYLES */
 #aam_form{
     position: relative;
-}
-
-.aam-hidden{
-    display: none;
-}
-
-.aam-dialog{
-    display: none;
 }
 
 .aam-asterix{
@@ -80,28 +63,32 @@
     margin: 10px 0px;
 }
 
-.wrap a{
-    outline: 0;
+.aam-medium-loader span{
+    background-image: url('images/common/medium-loader.gif');
+    background-position: 0 0 !important;
 }
 
-.aam-tooltip {
-    display:none;
-    position:absolute;
-    border:1px solid #CCCCCC;
-    background-color: #F5F5F5;
-    border-radius: 4px;
-    box-shadow: 0 0 5px #AAAAAA;
-    padding: 5px 10px;
-    z-index: 9999;
-    color: #333333;
-    font-size: 1em;
-    max-width: 300px;
-    left:0px;
-    top: 0px;
-    font-weight: bold;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+.aam-list-top-actions{
+    float: right;
+    display: inline-table;
+    width: auto;
+    text-align: right;
 }
 
+.aam-list-top-actions a{
+    display: table-cell;
+    min-width: 30px;
+}
+
+.aam-list-row-actions{
+    width: 100%;
+    display: inline-table;
+    text-align: center;
+}
+
+.aam-list-row-actions .aam-icon{
+    display: table-cell;
+}
 
 .clear{
     line-height: 0;
@@ -211,104 +198,6 @@
 }
 
 /** CONTROL PANEL STYLES */
-.cpanel-major{
-    display: table;
-    width: 100%;
-    margin-bottom: 5px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #CCCCCC;
-}
-
-.cpanel-major .cpanel-item{
-    height: 64px;
-    width: 50%;
-    display: table-cell;
-    text-align: center;
-    vertical-align: bottom;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 10px;
-    font-weight: bold;
-    color: #333333;
-    background-repeat: no-repeat;
-    background-position: center top;
-}
-
-.cpanel-major .cpanel-item-disabled{
-    opacity: 0.8;
-    cursor: none;
-    pointer-events: none;
-    text-decoration: line-through;
-}
-
-.cpanel-minor{
-    display: table;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.cpanel-minor .cpanel-item{
-    height: 40px;
-    width: 25%;
-    display: table-cell;
-    text-align: center;
-    vertical-align: bottom;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 9px;
-    font-weight: bold;
-    color: #333333;
-    background-repeat: no-repeat;
-    background-position: center top;
-}
-
-.cpanel-item-restore{
-    background-image: url('images/cpanel/restore.png');
-}
-
-.cpanel-item-restore:hover{
-    background-image: url('images/cpanel/restore-active.png');
-}
-
-.cpanel-item-save{
-    background-image: url('images/cpanel/save.png');
-}
-
-.cpanel-item-save:hover{
-    background-image: url('images/cpanel/save-active.png');
-}
-
-.cpanel-item-help{
-    background-image: url('images/cpanel/help-forum.png');
-}
-
-.cpanel-item-help:hover{
-    background-image: url('images/cpanel/help-forum-active.png');
-}
-
-.cpanel-item-twitter{
-    background-image: url('images/cpanel/twitter.png');
-}
-
-.cpanel-item-twitter:hover{
-    background-image: url('images/cpanel/twitter-active.png');
-}
-
-.cpanel-item-message{
-    background-image: url('images/cpanel/message.png');
-}
-
-.cpanel-item-message:hover{
-    background-image: url('images/cpanel/message-active.png');
-}
-
-.cpanel-item-star{
-    background-image: url('images/cpanel/star.png');
-}
-
-.cpanel-item-star:hover{
-    background-image: url('images/cpanel/star-active.png');
-}
 
 #major-publishing-actions{
     margin-top: 5px;
@@ -339,6 +228,7 @@
 
 .control-manager-content{
     border-top: 1px solid #F5F5F5;
+    visibility: hidden;
 }
 
 /**
@@ -356,97 +246,6 @@
     background-image: url('images/cmanager/role-active.png');
 }
 
-.role-top-actions{
-    float: right;
-    display: inline-table;
-    width: auto;
-    text-align: right;
-}
-
-.role-top-action{
-    width: 24px;
-    height: 24px;
-    display: table-cell;
-    text-indent: -9999px;
-    padding-right: 10px;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.role-top-action-add{
-    background-image: url('images/cmanager/add.png');
-}
-
-.role-top-action-add:hover{
-    background-image: url('images/cmanager/add-active.png');
-}
-
-.role-top-action-add-active{
-    background-image: url('images/cmanager/add-active.png');
-}
-
-.role-actions{
-    width: 100%;
-    display: table;
-}
-
-.role-action{
-    width: 16px;
-    height: 16px;
-    display: table-cell;
-    text-indent: -9999px;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.role-action-edit{
-    background-image: url('images/cmanager/edit.png');
-}
-
-.role-action-edit:hover{
-    background-image: url('images/cmanager/edit-active.png');
-}
-
-.role-action-edit-active{
-    background-image: url('images/cmanager/edit-active.png');
-}
-
-.role-action-delete{
-    background-image: url('images/cmanager/delete.png');
-}
-
-.role-action-delete-active{
-    background-image: url('images/cmanager/delete-active.png');
-}
-
-.role-action-delete:hover{
-    background-image: url('images/cmanager/delete-active.png');
-}
-
-.role-action-manage{
-    background-image: url('images/cmanager/settings.png');
-}
-
-.role-action-manage-active{
-    background-image: url('images/cmanager/settings-active.png');
-}
-
-.role-action-manage:hover{
-    background-image: url('images/cmanager/settings-active.png');
-}
-
-.role-action-duplicate{
-    background-image: url('images/cmanager/duplicate.png');
-}
-
-.role-action-duplicate-active{
-    background-image: url('images/cmanager/duplicate-active.png');
-}
-
-.role-action-duplicate:hover{
-    background-image: url('images/cmanager/duplicate-active.png');
-}
-
 /** USER MANAGER STYLES */
 .manager-item-user{
     background-image: url('images/cmanager/user.png');
@@ -454,133 +253,6 @@
 
 .manager-item-user-active{
     background-image: url('images/cmanager/user-active.png');
-}
-
-.user-top-actions{
-    float: right;
-    display: inline-table;
-    width: auto;
-    text-align: right;
-}
-
-.user-top-action{
-    width: 24px;
-    height: 24px;
-    display: table-cell;
-    text-indent: -9999px;
-    padding-right: 10px;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.user-top-action-add{
-    background-image: url('images/cmanager/add.png');
-}
-
-.user-top-action-add:hover{
-    background-image: url('images/cmanager/add-active.png');
-}
-
-.user-top-action-filter{
-    background-image: url('images/cmanager/filter.png');
-}
-
-.user-top-action-filter:hover{
-    background-image: url('images/cmanager/filter-active.png');
-}
-
-.user-top-action-filter-active{
-    background-image: url('images/cmanager/filter-active.png');
-}
-
-.user-top-action-refresh{
-    background-image: url('images/cmanager/refresh.png');
-}
-
-.user-top-action-refresh:hover{
-    background-image: url('images/cmanager/refresh-active.png');
-}
-
-.user-actions{
-    width: 100%;
-    display: table;
-}
-
-.user-action{
-    width: 16px;
-    height: 16px;
-    display: table-cell;
-    text-indent: -9999px;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.user-action-edit{
-    background-image: url('images/cmanager/edit-user.png');
-}
-
-.user-action-edit-active{
-    background-image: url('images/cmanager/edit-user-active.png');
-}
-
-.user-action-edit:hover{
-    background-image: url('images/cmanager/edit-user-active.png');
-}
-
-.user-action-block{
-    background-image: url('images/cmanager/block-user.png');
-}
-
-.user-action-block-active{
-    background-image: url('images/cmanager/block-user-active.png');
-}
-
-.user-action-block:hover{
-    background-image: url('images/cmanager/block-user-active.png');
-}
-
-.user-action-restore{
-    background-image: url('images/cmanager/restore.png');
-}
-
-.user-action-restore:hover{
-    background-image: url('images/cmanager/restore-active.png');
-}
-
-.user-action-delete{
-    background-image: url('images/cmanager/delete.png');
-}
-
-.user-action-delete-active{
-    background-image: url('images/cmanager/delete-active.png');
-}
-
-.user-action-delete:hover{
-    background-image: url('images/cmanager/delete-active.png');
-}
-
-.user-action-manage{
-    background-image: url('images/cmanager/settings.png');
-}
-
-.user-action-manage-active{
-    background-image: url('images/cmanager/settings-active.png');
-}
-
-.user-action-manage:hover{
-    background-image: url('images/cmanager/settings-active.png');
-}
-
-.user-action-select{
-    background-image: url('images/cmanager/select.png');
-}
-
-.user-action-select:hover{
-    background-image: url('images/cmanager/select-active.png');
-}
-
-.user-action-locked{
-    background-image: url('images/cmanager/lock.png');
 }
 
 .user-settings{
@@ -607,6 +279,13 @@
     border: 0px solid transparent;
 }
 
+.user-action-locked{
+    display: inline-block;
+    width:16px;
+    height: 16px;
+    background: transparent url('images/cmanager/lock.png') no-repeat center;
+}
+
 
 /** VISITOR MANAGER STYLES */
 .manager-item-visitor{
@@ -631,53 +310,6 @@
 
 
 /** ADMIN MENU STYLES */
-.menu-top-actions{
-    padding: 2px 0;
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: right;
-    position: relative;
-}
-
-.menu-top-action-item{
-    width:24px;
-    height: 24px;
-    display: inline-block;
-    background-repeat: no-repeat;
-    background-position: center;
-    text-indent: -9999px;
-    text-decoration: none;
-}
-
-.menu-top-action-sort-description{
-    border: 1px solid #257DA6;
-    height: 24px;
-    position: absolute;
-    left: 0px;
-    width: 80%;
-    text-align: left;
-    padding-left: 10px;
-    vertical-align: middle;
-    display: inline-table;
-    border-radius: 4px;
-    font-family: 'Lucida Console', Monaco, monospace;
-    visibility: hidden;
-    font-weight: bold;
-}
-
-.menu-top-action-sort-description span{
-    display: table-cell;
-    vertical-align: middle;
-}
-
-.menu-top-action-sort{
-    background-image: url('images/menu/sorting.png');
-}
-
-.menu-top-action-sort-active{
-    background-image: url('images/menu/sorting-active.png');
-}
-
 .menu-item-action{
     background-repeat: no-repeat;
     background-position: center;
@@ -795,41 +427,14 @@
     background-image: url('images/metabox/link-active.png');
 }
 
-.metabox-top-action{
-    width:24px;
-    height: 24px;
-    display: block;
-    background-repeat: no-repeat;
-    background-position: center;
-    text-indent: -9999px;
-    text-decoration: none;
-}
-
-.metabox-top-action-add{
-    background-image: url('images/metabox/add.png');
-    float: left;
+.metabox-top-actions .aam-icon-medium-add{
     margin-left: 10px;
+    display: inline-block;
 }
 
-.metabox-top-action-add:hover{
-    background-image: url('images/metabox/add-active.png');
-}
-
-.metabox-top-action-add-active{
-    background-image: url('images/metabox/add-active.png');
-    float: left;
-    margin-left: 10px;
-}
-
-.metabox-top-action-refresh{
-    background-position: right center;
-    background-image: url('images/metabox/refresh.png');
+.metabox-top-actions .aam-icon-medium-refresh{
     float: right;
-}
-
-.metabox-top-action-refresh:hover{
-    background-position: right center;
-    background-image: url('images/metabox/refresh-active.png');
+    display: inline-block;
 }
 
 .metabox-group{
@@ -883,71 +488,6 @@
 }
 
 /** CAPABILITIES STYLES */
-.capability-top-actions{
-    float: right;
-    display: inline-table;
-    width: auto;
-    text-align: right;
-}
-
-.capability-top-action{
-    width: 24px;
-    height: 24px;
-    display: table-cell;
-    text-indent: -9999px;
-    padding-right: 10px;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.capability-top-action-add{
-    background-image: url('images/capability/add.png');
-}
-
-.capability-top-action-add:hover{
-    background-image: url('images/capability/add-active.png');
-}
-
-.capability-top-action-add-active{
-    background-image: url('images/capability/add-active.png');
-}
-
-.capability-top-action-copy{
-    background-image: url('images/capability/copy.png');
-}
-
-.capability-top-action-copy:hover{
-    background-image: url('images/capability/copy-active.png');
-}
-
-.capability-top-action-copy-active{
-    background-image: url('images/capability/copy-active.png');
-}
-
-.capability-top-action-filter{
-    background-image: url('images/capability/filter.png');
-}
-
-.capability-top-action-filter:hover{
-    background-image: url('images/capability/filter-active.png');
-}
-
-.capability-top-action-filter-active{
-    background-image: url('images/capability/filter-active.png');
-}
-
-.capability-top-action-restore{
-    background-image: url('images/capability/restore.png');
-}
-
-.capability-top-action-restore:hover{
-    background-image: url('images/capability/restore-active.png');
-}
-
-.capability-top-action-restore-running{
-    background-image: url('images/capability/ajax-loader.gif');
-}
-
 .capability-actions{
     display: table;
     width: 100%;
@@ -1031,43 +571,6 @@ a.capability-action{
 
 
 /** POSTS & CATEGORIES STYLES */
-.post-top-actions{
-    float: right;
-    display: inline-table;
-    width: auto;
-    text-align: right;
-}
-
-.post-top-action{
-    width: 24px;
-    height: 24px;
-    display: table-cell;
-    text-indent: -9999px;
-    padding-right: 10px;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.post-top-action-filter{
-    background-image: url('images/post/filter.png');
-}
-
-.post-top-action-filter:hover{
-    background-image: url('images/post/filter-active.png');
-}
-
-.post-top-action-filter-active{
-    background-image: url('images/post/filter-active.png');
-}
-
-.post-top-action-refresh{
-    background-image: url('images/post/refresh.png');
-}
-
-.post-top-action-refresh:hover{
-    background-image: url('images/post/refresh-active.png');
-}
-
 .post-type-post{
     height: 16px;
     background: transparent url('images/post/post.png') no-repeat left center;
@@ -1076,77 +579,9 @@ a.capability-action{
     text-decoration: none;
 }
 
-.post-actions{
-    display: table;
-    width: 100%;
-}
-
-.post-action{
-    width: 16px;
-    height: 16px;
-    display: table-cell;
-    padding: 2px 0;
-    background-repeat: no-repeat;
-    background-position: center;
+.post-action-check{
     text-align: center;
 }
-
-.post-action-manage{
-    background-image: url('images/post/settings.png');
-}
-
-.post-action-manage:hover{
-    background-image: url('images/post/settings-active.png');
-}
-
-.post-action-manage-active{
-    background-image: url('images/post/settings-active.png');
-}
-
-.post-action-edit{
-    background-image: url('images/post/edit.png');
-}
-
-.post-action-edit:hover{
-    background-image: url('images/post/edit-active.png');
-}
-
-.post-action-edit-active{
-    background-image: url('images/post/edit-active.png');
-}
-
-.post-action-restore{
-    background-image: url('images/post/restore.png');
-}
-
-.post-action-restore:hover{
-    background-image: url('images/post/restore-active.png');
-}
-
-.post-action-delete{
-    background-image: url('images/post/delete.png');
-}
-
-.post-action-delete:hover{
-    background-image: url('images/post/delete-active.png');
-}
-
-.post-action-delete-active{
-    background-image: url('images/post/delete-active.png');
-}
-
-.post-action-trash{
-    background-image: url('images/post/trash.png');
-}
-
-.post-action-trash:hover{
-    background-image: url('images/post/trash-active.png');
-}
-
-.post-action-trash-active{
-    background-image: url('images/post/trash-active.png');
-}
-
 
 .post-action-lock{
     background-image: url('images/lock.png');
@@ -1235,34 +670,15 @@ a.capability-action{
     display:inline-table;
     border-left: 1px solid #CCCCCC;
     vertical-align: middle;
+    text-align: center;
 }
 
-.post-breadcrumb-line-action{
+.post-breadcrumb-line-actions a{
     display: table-cell;
     width: 16px;
     height: 16px;
     background-position: center;
     background-repeat: no-repeat;
-}
-
-.post-breadcrumb-line-action-edit{
-    background-image: url('images/post/edit.png');
-}
-
-.post-breadcrumb-line-action-edit:hover{
-    background-image: url('images/post/edit-active.png');
-}
-
-.post-breadcrumb-line-action-manage{
-    background-image: url('images/post/settings.png');
-}
-
-.post-breadcrumb-line-action-manage:hover{
-    background-image: url('images/post/settings-active.png');
-}
-
-.post-breadcrumb-line-action-manage-active{
-    background-image: url('images/post/settings-active.png');
 }
 
 .post-breadcrumb-line-action-lock{
@@ -1280,6 +696,19 @@ a.capability-action{
     background: transparent url('images/lock.png') no-repeat 5px center;
     display: table;
     width: 100%;
+}
+
+.attachment-access-block{
+    border: 1px solid #257DA6;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding-left: 22px;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    background: transparent url('images/post/info-active.png') no-repeat 2px center;
+    font-size: 0.8em; 
 }
 
 .aam-lock-message span{
@@ -1384,36 +813,6 @@ a.aam-lock-big{
 
 
 /** EVENT MANAGER STYLES */
-.event-top-actions{
-    float: right;
-    display: inline-table;
-    width: auto;
-    text-align: right;
-}
-
-.event-top-action{
-    width: 24px;
-    height: 24px;
-    display: table-cell;
-    text-indent: -9999px;
-    padding-right: 10px;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.event-top-action-add{
-    background-image: url('images/event/add.png');
-}
-
-.event-top-action-add:hover{
-    background-image: url('images/event/add-active.png');
-}
-
-.event-top-action-add-active{
-    background-image: url('images/event/add-active.png');
-}
-
-
 .event-actions{
     display: table;
     width: 100%;
@@ -1454,22 +853,4 @@ a.aam-lock-big{
 
 .event-specifier{
     display:none;
-}
-
-.aam-warning{
-    width: 100%;
-    height: 40px;
-    display: table-row;
-    background: transparent url('images/warning.png') no-repeat 2px center;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    margin-top: 1px;
-}
-
-.aam-warning span{
-    display: table-cell;
-    vertical-align: middle;
-    padding-left: 30px;
-    font-size: 0.9em;
 }

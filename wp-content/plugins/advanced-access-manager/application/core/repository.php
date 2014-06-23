@@ -31,6 +31,25 @@ class aam_Core_Repository {
      * Extensions installed successfully
      */
     const STATUS_INSTALLED = 'installed';
+    
+    /**
+     * Single instance of itself
+     * 
+     * @var aam_Core_Repository
+     * 
+     * @access private
+     * @static 
+     */
+    private static $_instance = null;
+    
+    /**
+     * Extension repository
+     * 
+     * @var array
+     * 
+     * @access private 
+     */
+    private $_repository = array();
 
     /**
      * Basedir to Extentions repository
@@ -73,11 +92,34 @@ class aam_Core_Repository {
      *
      * @return void
      *
-     * @access public
+     * @access protected
      */
-    public function __construct(aam $parent = null) {
+    protected function __construct(aam $parent = null) {
         $this->setParent($parent);
         $this->_basedir = AAM_BASE_DIR . 'extension';
+        //retrieve list of extensions from the database
+        $repository = aam_Core_API::getBlogOption('aam_extensions', array(), 1);
+        if (is_array($repository)){
+            $this->_repository = $repository;
+        }
+    }
+    
+    /**
+     * Get single instance of itself
+     * 
+     * @param aam $parent
+     * 
+     * @return aam_Core_Repository
+     * 
+     * @access public
+     * @static
+     */
+    public static function getInstance(aam $parent = null){
+        if (is_null(self::$_instance)){
+            self::$_instance = new self($parent);
+        }
+        
+        return self::$_instance;
     }
 
     /**
@@ -99,6 +141,42 @@ class aam_Core_Repository {
                 }
             }
         }
+    }
+    
+    /**
+     * Check if extensions exists
+     *
+     * @param string $extension
+     *
+     * @return boolean
+     *
+     * @access public
+     */
+    public function hasExtension($extension){
+        $response = false;
+        
+        if (isset($this->_repository[$extension])){
+            $info = $this->_repository[$extension];
+            if ($info->status == self::STATUS_INSTALLED 
+                                && file_exists($info->basedir)){
+                $response = true;
+            }
+        }
+        
+        return $response;
+    }
+    
+    /**
+     * Get Extension info
+     * 
+     * @param string $ext
+     * 
+     * @return stdClass
+     * 
+     * @access public
+     */
+    public function getExtension($ext){
+        return ($this->hasExtension($ext) ? $this->_repository[$ext] : new stdClass);
     }
 
     /**
@@ -144,7 +222,7 @@ class aam_Core_Repository {
                 'status' => self::STATUS_INSTALLED,
                 'license' => $license,
                 //ugly way but quick
-                'basedir' => $this->_basedir . '/' . str_replace(' ', '_', $extension)
+                'basedir' => "{$this->_basedir}/" . str_replace(' ', '_', $extension)
             );
             aam_Core_API::updateBlogOption('aam_extensions', $repository, 1);
             $response = true;
@@ -212,7 +290,7 @@ class aam_Core_Repository {
      */
     protected function retrieve($license) {
         global $wp_filesystem;
-
+        
         $url = WPAAM_REST_API . '?method=extension&license=' . $license;
         $res = wp_remote_request($url, array('timeout' => 10));
         $response = false;
@@ -270,12 +348,7 @@ class aam_Core_Repository {
         if (file_exists($bootstrap) && !isset($this->_cache[$extension])) {
             //bootstrap the extension
             $this->_cache[$extension] = require_once($bootstrap);
-            //check if activation hook still present and trigger warning if yes
-            if (file_exists($this->_basedir . "/{$extension}/activation.php")){
-                aam_Core_Console::add(
-                        "Activation hook for {$extension} is not deleted"
-                );
-            }
+            $this->_cache[$extension]->activate();
         }
     }
 

@@ -247,18 +247,29 @@ class aam_Control_Subject_User extends aam_Control_Subject {
                 $this->getOptionName($object, $object_id), $this->getId()
         );
         if (empty($option) && $inherit) {
-            //try to get this option from the User's Role
-            $roles = $this->getSubject()->roles;
-            //first user role is counted only. AAM does not support multi-roles
-            $subject_role = array_shift($roles);
-            //in case of multisite & current user does not belong to the site
-            if ($subject_role){
-                $role = new aam_Control_Subject_Role($subject_role);
-                $option = $role->getObject($object, $object_id)->getOption();
-            }
+            $option = $this->readParentSubject($object, $object_id);
         }
 
         return $option;
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function getParentSubject() {
+        //try to get this option from the User's Role
+        $roles = $this->getSubject()->roles;
+        //first user role is counted only. AAM does not support multi-roles
+        $subject_role = array_shift($roles);
+        
+        if ($subject_role){
+            //in case of multisite & current user does not belong to the site
+            $role = new aam_Control_Subject_Role($subject_role);
+        } else {
+            $role = null;
+        }
+        
+        return $role;
     }
 
     /**
@@ -298,15 +309,14 @@ class aam_Control_Subject_User extends aam_Control_Subject {
     {
         global $wpdb;
 
-        $mask = 'aam_%_' . $this->getId();
-        
         //clear all settings in usermeta table
         $prefix = $wpdb->get_blog_prefix();
-        $wpdb->query(
-            "DELETE FROM {$wpdb->usermeta} WHERE meta_key LIKE '{$prefix}{$mask}'"
-        );
+        $query  = "DELETE FROM {$wpdb->usermeta} WHERE ";
+        $query .= "meta_key LIKE '{$prefix}aam_%' AND user_id = " . $this->getId();
+        $wpdb->query($query);
 
         //clear all settings in postmeta table
+        $mask = 'aam_%_' . $this->getId();
         $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '{$mask}'");
 
         $this->clearCache(); //delete cache

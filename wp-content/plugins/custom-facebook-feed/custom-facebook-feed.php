@@ -3,7 +3,7 @@
 Plugin Name: Custom Facebook Feed
 Plugin URI: http://smashballoon.com/custom-facebook-feed
 Description: Add a completely customizable Facebook feed to your WordPress site
-Version: 1.8.2.3
+Version: 1.9.8.1
 Author: Smash Balloon
 Author URI: http://smashballoon.com/
 License: GPLv2 or later
@@ -73,11 +73,25 @@ function display_cff($atts) {
         'textsize' => isset($options[ 'cff_title_size' ]) ? $options[ 'cff_title_size' ] : '',
         'textweight' => isset($options[ 'cff_title_weight' ]) ? $options[ 'cff_title_weight' ] : '',
         'textcolor' => isset($options[ 'cff_title_color' ]) ? $options[ 'cff_title_color' ] : '',
+        'textlinkcolor' => isset($options[ 'cff_posttext_link_color' ]) ? $options[ 'cff_posttext_link_color' ] : '',
         'textlink' => isset($options[ 'cff_title_link' ]) ? $options[ 'cff_title_link' ] : '',
         'posttags' => isset($options[ 'cff_post_tags' ]) ? $options[ 'cff_post_tags' ] : '',
+        //Description
         'descsize' => isset($options[ 'cff_body_size' ]) ? $options[ 'cff_body_size' ] : '',
         'descweight' => isset($options[ 'cff_body_weight' ]) ? $options[ 'cff_body_weight' ] : '',
         'desccolor' => isset($options[ 'cff_body_color' ]) ? $options[ 'cff_body_color' ] : '',
+        'linktitleformat' => isset($options[ 'cff_link_title_format' ]) ? $options[ 'cff_link_title_format' ] : '',
+        'linktitlesize' => isset($options[ 'cff_link_title_size' ]) ? $options[ 'cff_link_title_size' ] : '',
+        'linktitlecolor' => isset($options[ 'cff_link_title_color' ]) ? $options[ 'cff_link_title_color' ] : '',
+        'linkurlcolor' => isset($options[ 'cff_link_url_color' ]) ? $options[ 'cff_link_url_color' ] : '',
+        'linkbgcolor' => isset($options[ 'cff_link_bg_color' ]) ? $options[ 'cff_link_bg_color' ] : '',
+        'linkbordercolor' => isset($options[ 'cff_link_border_color' ]) ? $options[ 'cff_link_border_color' ] : '',
+        'disablelinkbox' => isset($options[ 'cff_disable_link_box' ]) ? $options[ 'cff_disable_link_box' ] : '',
+
+        //Author
+        'authorsize' => isset($options[ 'cff_author_size' ]) ? $options[ 'cff_author_size' ] : '',
+        'authorcolor' => isset($options[ 'cff_author_color' ]) ? $options[ 'cff_author_color' ] : '',
+
         //Event title
         'eventtitleformat' => isset($options[ 'cff_event_title_format' ]) ? $options[ 'cff_event_title_format' ] : '',
         'eventtitlesize' => isset($options[ 'cff_event_title_size' ]) ? $options[ 'cff_event_title_size' ] : '',
@@ -95,6 +109,7 @@ function display_cff($atts) {
         'eventdetailssize' => isset($options[ 'cff_event_details_size' ]) ? $options[ 'cff_event_details_size' ] : '',
         'eventdetailsweight' => isset($options[ 'cff_event_details_weight' ]) ? $options[ 'cff_event_details_weight' ] : '',
         'eventdetailscolor' => isset($options[ 'cff_event_details_color' ]) ? $options[ 'cff_event_details_color' ] : '',
+        'eventlinkcolor' => isset($options[ 'cff_event_link_color' ]) ? $options[ 'cff_event_link_color' ] : '',
         //Date
         'datepos' => isset($options[ 'cff_date_position' ]) ? $options[ 'cff_date_position' ] : '',
         'datesize' => isset($options[ 'cff_date_size' ]) ? $options[ 'cff_date_size' ] : '',
@@ -122,6 +137,7 @@ function display_cff($atts) {
         'likeboxcolor' => isset($options[ 'cff_likebox_bg_color' ]) ? $options[ 'cff_likebox_bg_color' ] : '',
         'likeboxtextcolor' => isset($options[ 'cff_like_box_text_color' ]) ? $options[ 'cff_like_box_text_color' ] : '',
         'likeboxwidth' => isset($options[ 'cff_likebox_width' ]) ? $options[ 'cff_likebox_width' ] : '',
+        'likeboxheight' => isset($options[ 'cff_likebox_height' ]) ? $options[ 'cff_likebox_height' ] : '',
         'likeboxfaces' => isset($options[ 'cff_like_box_faces' ]) ? $options[ 'cff_like_box_faces' ] : '',
         'likeboxborder' => isset($options[ 'cff_like_box_border' ]) ? $options[ 'cff_like_box_border' ] : '',
 
@@ -265,6 +281,18 @@ function display_cff($atts) {
     if ( !empty($cff_title_color) ) $cff_title_styles .= 'color:#' . str_replace('#', '', $cff_title_color) . ';';
     $cff_title_styles .= '"';
     $cff_title_link = $atts[ 'textlink' ];
+
+    ( $cff_title_link == 'on' || $cff_title_link == 'true' || $cff_title_link == true ) ? $cff_title_link = true : $cff_title_link = false;
+    if( $atts[ 'textlink' ] == 'false' ) $cff_title_link = false;
+
+    //Author
+    $cff_author_size = $atts[ 'authorsize' ];
+    $cff_author_color = $atts[ 'authorcolor' ];
+    $cff_author_styles = 'style="';
+    if ( !empty($cff_author_size) && $cff_author_size != 'inherit' ) $cff_author_styles .=  'font-size:' . $cff_author_size . 'px; ';
+    if ( !empty($cff_author_color) ) $cff_author_styles .= 'color:#' . str_replace('#', '', $cff_author_color) . ';';
+    $cff_author_styles .= '"';
+
     //Description
     $cff_body_size = $atts[ 'descsize' ];
     $cff_body_weight = $atts[ 'descweight' ];
@@ -274,6 +302,29 @@ function display_cff($atts) {
     if ( !empty($cff_body_weight) && $cff_body_weight != 'inherit' ) $cff_body_styles .= 'font-weight:' . $cff_body_weight . '; ';
     if ( !empty($cff_body_color) ) $cff_body_styles .= 'color:#' . str_replace('#', '', $cff_body_color) . ';';
     $cff_body_styles .= '"';
+
+    //Shared link title
+    $cff_link_title_format = $atts[ 'linktitleformat' ];
+    if (empty($cff_link_title_format)) $cff_link_title_format = 'p';
+    $cff_link_title_size = $atts[ 'linktitlesize' ];
+    $cff_link_title_color = $atts[ 'linktitlecolor' ];
+    $cff_link_url_color = $atts[ 'linkurlcolor' ];
+
+    $cff_link_title_styles = 'style="';
+    if ( !empty($cff_link_title_size) && $cff_link_title_size != 'inherit' ) $cff_link_title_styles .=  'font-size:' . $cff_link_title_size . 'px;';
+    $cff_link_title_styles .= '"';
+
+    //Shared link box
+    $cff_link_bg_color = $atts[ 'linkbgcolor' ];
+    $cff_link_border_color = $atts[ 'linkbordercolor' ];
+    $cff_disable_link_box = $atts['disablelinkbox'];
+    ($cff_disable_link_box == 'true' || $cff_disable_link_box == 'on') ? $cff_disable_link_box = true : $cff_disable_link_box = false;
+
+    $cff_link_box_styles = 'style="';
+    if ( !empty($cff_link_border_color) ) $cff_link_box_styles .=  'border: 1px solid #' . str_replace('#', '', $cff_link_border_color) . '; ';
+    if ( !empty($cff_link_bg_color) ) $cff_link_box_styles .= 'background-color: #' . str_replace('#', '', $cff_link_bg_color) . ';';
+    $cff_link_box_styles .= '"';
+
     //Event Title
     $cff_event_title_format = $atts[ 'eventtitleformat' ];
     if (empty($cff_event_title_format)) $cff_event_title_format = 'p';
@@ -302,6 +353,7 @@ function display_cff($atts) {
     $cff_event_details_size = $atts[ 'eventdetailssize' ];
     $cff_event_details_weight = $atts[ 'eventdetailsweight' ];
     $cff_event_details_color = $atts[ 'eventdetailscolor' ];
+    $cff_event_link_color = $atts[ 'eventlinkcolor' ];
     $cff_event_details_styles = 'style="';
     if ( !empty($cff_event_details_size) && $cff_event_details_size != 'inherit' ) $cff_event_details_styles .=  'font-size:' . $cff_event_details_size . 'px; ';
     if ( !empty($cff_event_details_weight) && $cff_event_details_weight != 'inherit' ) $cff_event_details_styles .= 'font-weight:' . $cff_event_details_weight . '; ';
@@ -344,10 +396,10 @@ function display_cff($atts) {
     $cff_like_box_colorscheme = 'light';
     if ($cff_like_box_text_color == 'white') $cff_like_box_colorscheme = 'dark';
 
-    $cff_likebox_styles = 'style="';
-    if ( !empty($cff_likebox_bg_color) ) $cff_likebox_styles .=  'background-color:#' . str_replace('#', '', $cff_likebox_bg_color) . '; margin-left: 0; ';
-
     $cff_likebox_width = $atts[ 'likeboxwidth' ];
+    $cff_likebox_height = $atts[ 'likeboxheight' ];
+    $cff_likebox_height = preg_replace('/px$/', '', $cff_likebox_height);
+
     if ( !isset($cff_likebox_width) || empty($cff_likebox_width) || $cff_likebox_width == '' ) $cff_likebox_width = '100%';
     $cff_like_box_faces = $atts[ 'likeboxfaces' ];
     if ( !isset($cff_like_box_faces) || empty($cff_like_box_faces) ) $cff_like_box_faces = 'false';
@@ -360,7 +412,7 @@ function display_cff($atts) {
 
     //Compile Like box styles
     $cff_likebox_styles = 'style="width: ' . $cff_likebox_width . ';';
-    if ( !empty($cff_likebox_bg_color) ) $cff_likebox_styles .= 'background-color: #' . str_replace('#', '', $cff_likebox_bg_color) . ';';
+    if ( !empty($cff_likebox_bg_color) ) $cff_likebox_styles .= ' background-color: #' . str_replace('#', '', $cff_likebox_bg_color) . ';';
     if ( empty($cff_likebox_bg_color) && $cff_like_box_faces == 'false' ) $cff_likebox_styles .= ' margin-left: -10px;';
     $cff_likebox_styles .= '"';
 
@@ -391,7 +443,12 @@ function display_cff($atts) {
     $cff_sep_color = $atts[ 'sepcolor' ];
     if (empty($cff_sep_color)) $cff_sep_color = 'ddd';
     $cff_sep_size = $atts[ 'sepsize' ];
-    if (empty($cff_sep_size)) $cff_sep_size = 0;
+    //If empty then set a 0px border
+    if ( empty($cff_sep_size) || $cff_sep_size == '' ) {
+        $cff_sep_size = 0;
+        //Need to set a color otherwise the CSS is invalid
+        $cff_sep_color = 'fff';
+    }
     //CFF item styles
     $cff_item_styles = 'style="';
     $cff_item_styles .= 'border-bottom: ' . $cff_sep_size . 'px solid #' . str_replace('#', '', $cff_sep_color) . '; ';
@@ -416,18 +473,18 @@ function display_cff($atts) {
         $page_id = substr( $page_id, strrpos( $page_id, '/' )+1 );
     }
 
+    //If the Page ID contains a query string at the end then remove it
+    if ( stripos( $page_id, '?') !== false ) $page_id = substr($page_id, 0, strrpos($page_id, '?'));
+
     //Get show posts attribute. If not set then default to 25
     $show_posts = $atts['num'];
     if (empty($show_posts)) $show_posts = 25;
     if ( $show_posts == 0 || $show_posts == 'undefined' ) $show_posts = 25;
-    //Check whether the Access Token is present and valid
-    if ($access_token == '') {
-        echo 'Please enter a valid Access Token. You can do this in the Custom Facebook Feed plugin settings.<br /><br />';
-        return false;
-    }
+    //If there's no Access Token then use the default
+    if ($access_token == '') $access_token = '1436737606570258|MGh1BX4_b_D9HzJtKe702cwMRPI';
     //Check whether a Page ID has been defined
     if ($page_id == '') {
-        echo "Please enter the Page ID of the Facebook feed you'd like to display.  You can do this in either the Custom Facebook Feed plugin settings or in the shortcode itself. For example [custom_facebook_feed id=<b>YOUR_PAGE_ID</b>].<br /><br />";
+        echo "Please enter the Page ID of the Facebook feed you'd like to display. You can do this in either the Custom Facebook Feed plugin settings or in the shortcode itself. For example, [custom-facebook-feed id=YOUR_PAGE_ID_HERE].<br /><br />";
         return false;
     }
 
@@ -493,7 +550,7 @@ function display_cff($atts) {
     $like_box = '<div class="cff-likebox';
     if ($cff_like_box_outside) $like_box .= ' cff-outside';
     $like_box .= ($cff_like_box_position == 'top') ? ' top' : ' bottom';
-    $like_box .= '" ' . $cff_likebox_styles . '><script src="https://connect.facebook.net/' . $cff_locale . '/all.js#xfbml=1"></script><fb:like-box href="http://www.facebook.com/' . $page_id . '" show_faces="'.$cff_like_box_faces.'" stream="false" header="false" colorscheme="'. $cff_like_box_colorscheme .'" show_border="'. $cff_like_box_border .'"></fb:like-box></div>';
+    $like_box .= '" ' . $cff_likebox_styles . '><script src="https://connect.facebook.net/' . $cff_locale . '/all.js#xfbml=1"></script><fb:like-box href="http://www.facebook.com/' . $page_id . '" show_faces="'.$cff_like_box_faces.'" stream="false" header="false" colorscheme="'. $cff_like_box_colorscheme .'" show_border="'. $cff_like_box_border .'" data-height="'.$cff_likebox_height.'"></fb:like-box></div>';
     //Don't show like box if it's a group
     if($cff_is_group) $like_box = '';
 
@@ -515,11 +572,11 @@ function display_cff($atts) {
     $cff_header .= '"' . $cff_header_styles . '>';
     $cff_header .= '<i class="fa fa-' . $cff_header_icon . '"';
     if(!empty($cff_header_icon_color) || !empty($cff_header_icon_size)) $cff_header .= ' style="';
-    if(!empty($cff_header_icon_color)) $cff_header .= 'color: #' . $cff_header_icon_color . ';';
+    if(!empty($cff_header_icon_color)) $cff_header .= 'color: #' . str_replace('#', '', $cff_header_icon_color) . ';';
     if(!empty($cff_header_icon_size)) $cff_header .= ' font-size: ' . $cff_header_icon_size . 'px;';
     if(!empty($cff_header_icon_color) || !empty($cff_header_icon_size))$cff_header .= '"';
     $cff_header .= '></i>';
-    $cff_header .= $cff_header_text;
+    $cff_header .= '<span class="header-text" style="height: '.$cff_header_icon_size.'px;">' . $cff_header_text . '</span>';
     $cff_header .= '</h3>';
 
 
@@ -533,6 +590,7 @@ function display_cff($atts) {
     if ($cff_like_box_position == 'top' && $cff_show_like_box && $cff_like_box_outside) $cff_content .= $like_box;
 
     //Create CFF container HTML
+    $cff_content .= '<div class="cff-wrapper">';
     $cff_content .= '<div id="cff" rel="'.$title_limit.'" class="';
     if( !empty($cff_class) ) $cff_content .= $cff_class . ' ';
     if ( !empty($cff_feed_height) ) $cff_content .= 'cff-fixed-height ';
@@ -689,22 +747,21 @@ function display_cff($atts) {
                 }
 
                 //POST AUTHOR
-                $cff_author = '<a class="cff-author" href="https://facebook.com/' . $news->from->id . '" '.$target.' title="'.$news->from->name.' on Facebook">';
+                $cff_author = '<div class="cff-author"><a href="https://facebook.com/' . $news->from->id . '" '.$target.' title="'.$news->from->name.' on Facebook" '.$cff_author_styles.'>';
 
                 //Set the author image as a variable. If it already exists then don't query the api for it again.
                 $cff_author_img_var = '$cff_author_img_' . $news->from->id;
                 if ( !isset($$cff_author_img_var) ) $$cff_author_img_var = 'https://graph.facebook.com/' . $news->from->id . '/picture?type=square';
-
-                $cff_author .= '<img src="'.$$cff_author_img_var.'" width=50 height=50>';
+                $cff_author .= '<img src="'.$$cff_author_img_var.'" title="'.$news->from->name.'" alt="'.$news->from->name.'" width=50 height=50>';
                 $cff_author .= '<span class="cff-page-name">'.$news->from->name.'</span>';
-                $cff_author .= '</a>';
+                $cff_author .= '</a></div>';
 
                 //POST TEXT
                 $cff_translate_photos_text = $atts['photostext'];
                 if (!isset($cff_translate_photos_text) || empty($cff_translate_photos_text)) $cff_translate_photos_text = 'photos';
                 $cff_post_text = '<' . $cff_title_format . ' class="cff-post-text" ' . $cff_title_styles . '>';
                 $cff_post_text .= '<span class="cff-text">';
-                if ($cff_title_link == 'true') $cff_post_text .= '<a class="cff-post-text-link" href="'.$link.'" '.$target.'>';
+                if ($cff_title_link) $cff_post_text .= '<a class="cff-post-text-link" href="'.$link.'" '.$target.'>';
                 //Which content should we use?
                 $cff_post_text_type = '';
                 //Use the story
@@ -740,71 +797,78 @@ function display_cff($atts) {
                 //If the post tags option doesn't exist yet (ie. on plugin update) then set them as true
                 if ( !array_key_exists( 'cff_post_tags', $options ) ) $cff_post_tags = true;
                 //Add message and story tags if there are any and the post text is the message or the story
-                if( $cff_post_tags && ( isset($news->message_tags) || isset($news->story_tags) ) && ($cff_post_text_type == 'message' || $cff_post_text_type == 'story')  && $cff_title_link != 'true' ){
+                if( $cff_post_tags && ( isset($news->message_tags) || isset($news->story_tags) ) && ($cff_post_text_type == 'message' || $cff_post_text_type == 'story')  && !$cff_title_link){
                     //Use message_tags or story_tags?
-                    ( $cff_post_text_type == 'message' )? $text_tags = $news->message_tags : $text_tags = $news->story_tags;
+                    ( isset($news->message_tags) )? $text_tags = $news->message_tags : $text_tags = $news->story_tags;
 
-                    //Does the Post Text contain any html tags? - the & symbol is the best indicator of this
-                    $html_check = stripos($post_text, '&');
+                    //If message tags and message is being used as the post text, or same with story. This stops story tags being used to replace the message inadvertently.
+                    if( ( $cff_post_text_type == 'message' && isset($news->message_tags) ) || ( $cff_post_text_type == 'story' && !isset($news->message_tags) ) ) {
 
-                    //If it contains HTML tags then use the name replace method
-                    if( $html_check ) {
-                        //Loop through the tags
-                        foreach($text_tags as $message_tag ) {
-                            $tag_name = $message_tag[0]->name;
-                            $tag_link = '<a href="http://facebook.com/' . $message_tag[0]->id . '" target="_blank">' . $message_tag[0]->name . '</a>';
+                        //Does the Post Text contain any html tags? - the & symbol is the best indicator of this
+                        $cff_html_check_array = array('&lt;', '’', '“', '&quot;', '&amp;');
 
-                            $post_text = str_replace($tag_name, $tag_link, $post_text);
-                        }
+                        //always use the text replace method
+                        if( cff_stripos_arr($post_text, $cff_html_check_array) !== false ) {
+                            //Loop through the tags
+                            foreach($text_tags as $message_tag ) {
+                                $tag_name = $message_tag[0]->name;
+                                $tag_link = '<a href="http://facebook.com/' . $message_tag[0]->id . '" style="color: #'.str_replace('#', '', $atts['textlinkcolor']).';" target="_blank">' . $message_tag[0]->name . '</a>';
 
-                    } else {
-                    //If it doesn't contain HTMl tags then use the offset to replace message tags
-                        $message_tags_arr = array();
+                                $post_text = str_replace($tag_name, $tag_link, $post_text);
+                            }
 
-                        $i = 0;
-                        foreach($text_tags as $message_tag ) {
-                            $i++;
-                            $message_tags_arr = array_push_assoc(
-                                $message_tags_arr,
-                                $i,
-                                array(
-                                    'id' => $message_tag[0]->id,
-                                    'name' => $message_tag[0]->name,
-                                    'type' => $message_tag[0]->type,
-                                    'offset' => $message_tag[0]->offset,
-                                    'length' => $message_tag[0]->length
-                                )
-                            );
-                        }
+                        } else {
+                        //If it doesn't contain HTMl tags then use the offset to replace message tags
+                            $message_tags_arr = array();
 
-                        for($i = count($message_tags_arr); $i >= 1; $i--) {
-                           
-                            $b = '<a href="http://facebook.com/' . $message_tags_arr[$i]['id'] . '" target="_blank">' . $message_tags_arr[$i]['name'] . '</a>';
-                            $c = $message_tags_arr[$i]['offset'];
-                            $d = $message_tags_arr[$i]['length'];
+                            $i = 0;
+                            foreach($text_tags as $message_tag ) {
+                                $i++;
+                                $message_tags_arr = cff_array_push_assoc(
+                                    $message_tags_arr,
+                                    $i,
+                                    array(
+                                        'id' => $message_tag[0]->id,
+                                        'name' => $message_tag[0]->name,
+                                        'type' => $message_tag[0]->type,
+                                        'offset' => $message_tag[0]->offset,
+                                        'length' => $message_tag[0]->length
+                                    )
+                                );
+                            }
 
-                            $post_text = substr_replace( $post_text, $b, $c, $d);
+                            for($i = count($message_tags_arr); $i >= 1; $i--) {
+                               
+                                $b = '<a href="http://facebook.com/' . $message_tags_arr[$i]['id'] . '" style="color: #'.str_replace('#', '', $atts['textlinkcolor']).';" target="_blank">' . $message_tags_arr[$i]['name'] . '</a>';
+                                $c = $message_tags_arr[$i]['offset'];
+                                $d = $message_tags_arr[$i]['length'];
 
-                        }   
+                                $post_text = cff_mb_substr_replace( $post_text, $b, $c, $d);
 
-                    }         
+                            }   
+
+                        } // end if/else
+
+                    } // end message check
 
                 } //END MESSAGE TAGS
 
+                //Replace line breaks in text (needed for IE8)
+                $post_text = preg_replace("/\r\n|\r|\n/",'<br/>', $post_text);
 
                 //If the text is wrapped in a link then don't hyperlink any text within
                 if ($cff_title_link) {
                     //Wrap links in a span so we can break the text if it's too long
-                    $cff_post_text .= cff_autolink( htmlspecialchars($post_text), true ) . ' ';
+                    $cff_post_text .= cff_wrap_span( $post_text ) . ' ';
                 } else {
                     //Don't use htmlspecialchars for post_text as it's added above so that it doesn't mess up the message_tag offsets
-                    $cff_post_text .= cff_autolink( $post_text ) . ' ';
+                    $cff_post_text .= cff_autolink( $post_text, $link_color=str_replace('#', '', $atts['textlinkcolor']) ) . ' ';
                 }
                 
                 if ($cff_title_link) $cff_post_text .= '</a>';
                 $cff_post_text .= '</span>';
                 //'See More' link
-                $cff_post_text .= '<span class="cff-expand">... <a href="#"><span class="cff-more">' . $cff_see_more_text . '</span><span class="cff-less">' . $cff_see_less_text . '</span></a></span>';
+                $cff_post_text .= '<span class="cff-expand">... <a href="#" style="color: #'.str_replace('#', '', $atts['textlinkcolor']).'"><span class="cff-more">' . $cff_see_more_text . '</span><span class="cff-less">' . $cff_see_less_text . '</span></a></span>';
                 $cff_post_text .= '</' . $cff_title_format . '>';
 
                 //DESCRIPTION
@@ -832,15 +896,20 @@ function display_cff($atts) {
                 //LINK
                 $cff_shared_link = '';
                 //Display shared link
-                if ($news->type == 'link') {
-                    $cff_shared_link .= '<div class="cff-shared-link">';
+                if ($cff_post_type == 'link') {
+                    $cff_shared_link .= '<div class="cff-shared-link';
+                    if($cff_disable_link_box) $cff_shared_link .= ' cff-no-styles"';
+                    if(!$cff_disable_link_box) $cff_shared_link .= '" ' . $cff_link_box_styles;
+                    $cff_shared_link .= '>';
 
                     //Display link name and description
                     if (!empty($news->description)) {
                         $cff_shared_link .= '<div class="cff-text-link ';
                         $cff_shared_link .= 'cff-no-image';
-                        $cff_shared_link .= '"><a class="cff-link-title" href="'.$link.'" '.$target.'>'. '<b>' . $news->name . '</b></a>';
-                        if(!empty($news->caption)) $cff_shared_link .= '<p class="cff-link-caption">'.$news->caption.'</p>';
+                        //The link title:
+                        $cff_shared_link .= '"><'.$cff_link_title_format.' class="cff-link-title" '.$cff_link_title_styles.'><a href="'.$link.'" '.$target.' style="color:#' . str_replace('#', '', $cff_link_title_color) . ';">'. $news->name . '</a></'.$cff_link_title_format.'>';
+                        //The link source:
+                        if(!empty($news->caption)) $cff_shared_link .= '<p class="cff-link-caption" style="color:#' . str_replace('#', '', $cff_link_url_color) . ';">'.$news->caption.'</p>';
                         if ($cff_show_desc) {
                             $cff_shared_link .= $cff_description;
                         }
@@ -919,7 +988,7 @@ function display_cff($atts) {
                                 if (!empty($body_limit)) {
                                     if (strlen($description) > $body_limit) $description = substr($description, 0, $body_limit) . '...';
                                 }
-                                $cff_event .= '<p class="cff-info" ' . $cff_event_details_styles . '>' . cff_autolink($description) . '</p>';
+                                $cff_event .= '<p class="cff-info" ' . $cff_event_details_styles . '>' . cff_autolink($description, $link_color=str_replace('#', '', $cff_event_link_color) ) . '</p>';
                             }
                         }
                         $cff_event .= '</div>';
@@ -928,18 +997,50 @@ function display_cff($atts) {
                 }
 
                 /* VIDEO */
+
+                //Check to see whether it's an embedded video so that we can show the name above the post text if necessary
                 $cff_is_video_embed = false;
+                if ($news->type == 'video'){
+                    $url = $news->source;
+                    //Embeddable video strings
+                    $youtube = 'youtube';
+                    $youtu = 'youtu';
+                    $vimeo = 'vimeo';
+                    $youtubeembed = 'youtube.com/embed';
+                    //Check whether it's a youtube video
+                    $youtube = stripos($url, $youtube);
+                    $youtu = stripos($url, $youtu);
+                    $youtubeembed = stripos($url, $youtubeembed);
+                    //Check whether it's a youtube video
+                    if($youtube || $youtu || $youtubeembed || (stripos($url, $vimeo) !== false)) {
+                        $cff_is_video_embed = true;
+                    }
+                }
+
+
                 $cff_media = '';
                 if ($news->type == 'video') {
-                    $cff_is_video_embed = true;
                     //Add the name to the description if it's a video embed
                     if($cff_is_video_embed) {
                         isset($news->name) ? $video_name = $news->name : $video_name = $link;
                         isset($news->description) ? $description_text = $news->description : $description_text = '';
-                        $cff_description = '<div class="cff-desc-wrap ';
+                        //Add the 'cff-shared-link' class so that embedded videos display in a box
+                        $cff_description = '<div class="cff-desc-wrap cff-shared-link ';
                         if (empty($picture)) $cff_description .= 'cff-no-image';
-                        $cff_description .= '"><a class="cff-link-title" href="'.$link.'" '.$target.'>'. '<b>' . $video_name . '</b></a>';
+                        if($cff_disable_link_box) $cff_description .= ' cff-no-styles"';
+                        if(!$cff_disable_link_box) $cff_description .= '" ' . $cff_link_box_styles;
+                        $cff_description .= '>';
+
+                        if( isset($news->name) ) $cff_description .= '<'.$cff_link_title_format.' class="cff-link-title" '.$cff_link_title_styles.'><a href="'.$link.'" '.$target.' style="color:#' . str_replace('#', '', $cff_link_title_color) . ';">'. $news->name . '</a></'.$cff_link_title_format.'>';
+
+                        if (!empty($body_limit)) {
+                            if (strlen($description_text) > $body_limit) $description_text = substr($description_text, 0, $body_limit) . '...';
+                        }
+
                         $cff_description .= '<p class="cff-post-desc" '.$cff_body_styles.'><span>' . cff_autolink( htmlspecialchars($description_text) ) . '</span></p></div>';
+                    } else {
+                        isset($news->name) ? $video_name = $news->name : $video_name = $link;
+                        if( isset($news->name) ) $cff_description .= '<'.$cff_link_title_format.' class="cff-link-title" '.$cff_link_title_styles.'><a href="'.$link.'" '.$target.' style="color:#' . str_replace('#', '', $cff_link_title_color) . ';">'. $news->name . '</a></'.$cff_link_title_format.'>';
                     }
                 }
 
@@ -971,7 +1072,7 @@ function display_cff($atts) {
                 if ($cff_post_type == 'status') $cff_post_item .= 'cff-status-post';
                 if ($cff_post_type == 'offer') $cff_post_item .= 'cff-offer-post';
                 if ($cff_album) $cff_post_item .= ' cff-album';
-                $cff_post_item .=  ' author-'. to_slug($news->from->name) .'" id="'. $news->id .'" ' . $cff_item_styles . '>';
+                $cff_post_item .=  ' author-'. cff_to_slug($news->from->name) .'" id="'. $news->id .'" ' . $cff_item_styles . '>';
                 
                     //POST AUTHOR
                     if($cff_show_author) $cff_post_item .= $cff_author;
@@ -991,10 +1092,10 @@ function display_cff($atts) {
                     if($cff_show_link) $cff_post_item .= $cff_link;
                 
                 //End the post item
-                $cff_post_item .= '</div><div class="cff-clear"></div>';
+                $cff_post_item .= '</div>';
 
                 //PUSH TO ARRAY
-                $cff_posts_array = array_push_assoc($cff_posts_array, strtotime($post_time), $cff_post_item);
+                $cff_posts_array = cff_array_push_assoc($cff_posts_array, strtotime($post_time), $cff_post_item);
 
             } // End post type check
 
@@ -1033,6 +1134,8 @@ function display_cff($atts) {
     if( $atts[ 'ajax' ] == 'false' ) $ajax_theme = false;
     if ($ajax_theme) $cff_content .= '<script type="text/javascript" src="' . plugins_url( '/js/cff-scripts.js?8' , __FILE__ ) . '"></script>';
 
+    $cff_content .= '</div>';
+
     //Return our feed HTML to display
     return $cff_content;
 }
@@ -1062,6 +1165,49 @@ function cff_fetchUrl($url){
     }
     
     return $feedData;
+}
+
+//Make links into span instead when the post text is made clickable
+function cff_wrap_span($text) {
+    $pattern  = '#\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))#';
+    return preg_replace_callback($pattern, 'cff_wrap_span_callback', $text);
+}
+function cff_wrap_span_callback($matches) {
+    $max_url_length = 100;
+    $max_depth_if_over_length = 2;
+    $ellipsis = '&hellip;';
+    $target = 'target="_blank"';
+    $url_full = $matches[0];
+    $url_short = '';
+    if (strlen($url_full) > $max_url_length) {
+        $parts = parse_url($url_full);
+        $url_short = $parts['scheme'] . '://' . preg_replace('/^www\./', '', $parts['host']) . '/';
+        $path_components = explode('/', trim($parts['path'], '/'));
+        foreach ($path_components as $dir) {
+            $url_string_components[] = $dir . '/';
+        }
+        if (!empty($parts['query'])) {
+            $url_string_components[] = '?' . $parts['query'];
+        }
+        if (!empty($parts['fragment'])) {
+            $url_string_components[] = '#' . $parts['fragment'];
+        }
+        for ($k = 0; $k < count($url_string_components); $k++) {
+            $curr_component = $url_string_components[$k];
+            if ($k >= $max_depth_if_over_length || strlen($url_short) + strlen($curr_component) > $max_url_length) {
+                if ($k == 0 && strlen($url_short) < $max_url_length) {
+                    // Always show a portion of first directory
+                    $url_short .= substr($curr_component, 0, $max_url_length - strlen($url_short));
+                }
+                $url_short .= $ellipsis;
+                break;
+            }
+            $url_short .= $curr_component;
+        }
+    } else {
+        $url_short = $url_full;
+    }
+    return "<span class='cff-break-word'>$url_short</span>";
 }
 
 //2013-04-28T21:06:56+0000
@@ -1320,14 +1466,56 @@ if(!is_callable('stripos')){
         return strpos($haystack, stristr( $haystack, $needle ));
     }
 }
+function cff_stripos_arr($haystack, $needle) {
+    if(!is_array($needle)) $needle = array($needle);
+    foreach($needle as $what) {
+        if(($pos = stripos($haystack, ltrim($what) ))!==false) return $pos;
+    }
+    return false;
+}
+function cff_mb_substr_replace($string, $replacement, $start, $length=NULL) {
+    if (is_array($string)) {
+        $num = count($string);
+        // $replacement
+        $replacement = is_array($replacement) ? array_slice($replacement, 0, $num) : array_pad(array($replacement), $num, $replacement);
+        // $start
+        if (is_array($start)) {
+            $start = array_slice($start, 0, $num);
+            foreach ($start as $key => $value)
+                $start[$key] = is_int($value) ? $value : 0;
+        }
+        else {
+            $start = array_pad(array($start), $num, $start);
+        }
+        // $length
+        if (!isset($length)) {
+            $length = array_fill(0, $num, 0);
+        }
+        elseif (is_array($length)) {
+            $length = array_slice($length, 0, $num);
+            foreach ($length as $key => $value)
+                $length[$key] = isset($value) ? (is_int($value) ? $value : $num) : 0;
+        }
+        else {
+            $length = array_pad(array($length), $num, $length);
+        }
+        // Recursive call
+        return array_map(__FUNCTION__, $string, $replacement, $start, $length);
+    }
+    preg_match_all('/./us', (string)$string, $smatches);
+    preg_match_all('/./us', (string)$replacement, $rmatches);
+    if ($length === NULL) $length = mb_strlen($string);
+    array_splice($smatches[0], $start, $length, $rmatches[0]);
+    return join($smatches[0]);
+}
 
 //Push to assoc array
-function array_push_assoc($array, $key, $value){
+function cff_array_push_assoc($array, $key, $value){
     $array[$key] = $value;
     return $array;
 }
 //Convert string to slug
-function to_slug($string){
+function cff_to_slug($string){
     return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
 }
 
@@ -1342,7 +1530,7 @@ add_filter('widget_text', 'do_shortcode');
 add_action( 'wp_enqueue_scripts', 'cff_add_my_stylesheet' );
 function cff_add_my_stylesheet() {
     // Respects SSL, Style.css is relative to the current file
-    wp_register_style( 'cff', plugins_url('css/cff-style.css?5', __FILE__) );
+    wp_register_style( 'cff', plugins_url('css/cff-style.css?6', __FILE__) );
     wp_enqueue_style( 'cff' );
     wp_enqueue_style( 'cff-font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css', array(), '4.0.3' );
 }
@@ -1350,7 +1538,7 @@ function cff_add_my_stylesheet() {
 add_action( 'wp_enqueue_scripts', 'cff_scripts_method' );
 function cff_scripts_method() {
     //Register the script to make it available
-    wp_register_script( 'cffscripts', plugins_url( '/js/cff-scripts.js?5' , __FILE__ ), array('jquery'), '1.8', true );
+    wp_register_script( 'cffscripts', plugins_url( '/js/cff-scripts.js?6' , __FILE__ ), array('jquery'), '1.8', true );
     //Enqueue it to load it onto the page
     wp_enqueue_script('cffscripts');
 }
@@ -1362,7 +1550,6 @@ function cff_activate() {
     $options[ 'cff_show_video_type' ] = true;
     $options[ 'cff_show_photos_type' ] = true;
     $options[ 'cff_show_status_type' ] = true;
-    // Show all parts of the feed by default on activation
     $options[ 'cff_show_author' ] = true;
     $options[ 'cff_show_text' ] = true;
     $options[ 'cff_show_desc' ] = true;
@@ -1375,6 +1562,9 @@ function cff_activate() {
     $options[ 'cff_show_link' ] = true;
     $options[ 'cff_show_like_box' ] = true;
     update_option( 'cff_style_settings', $options );
+
+    get_option('cff_show_access_token');
+    update_option( 'cff_show_access_token', false );
 }
 register_activation_hook( __FILE__, 'cff_activate' );
 //Uninstall
@@ -1383,6 +1573,7 @@ function cff_uninstall()
     if ( ! current_user_can( 'activate_plugins' ) )
         return;
     //Settings
+    delete_option( 'cff_show_access_token' );
     delete_option( 'cff_access_token' );
     delete_option( 'cff_page_id' );
     delete_option( 'cff_num_show' );
@@ -1433,270 +1624,83 @@ function cff_js() {
 }
 
 
-    $GLOBALS['autolink_options'] = array(
 
-        # Should http:// be visibly stripped from the front
-        # of URLs?
-        'strip_protocols' => true,
+//AUTOLINK
+$GLOBALS['autolink_options'] = array(
 
-    );
+    # Should http:// be visibly stripped from the front
+    # of URLs?
+    'strip_protocols' => true,
 
-    ####################################################################
+);
 
-    function cff_autolink($text, $span_tag = false, $limit=100, $tagfill='class="cff-break-word"', $auto_title = true){
+####################################################################
 
-        $text = cff_autolink_do($text, '![a-z][a-z-]+://!i',    $limit, $tagfill, $auto_title, $span_tag);
-        $text = cff_autolink_do($text, '!(mailto|skype):!i',    $limit, $tagfill, $auto_title, $span_tag);
-        $text = cff_autolink_do($text, '!www\\.!i',         $limit, $tagfill, $auto_title, 'http://', $span_tag);
-        return $text;
-    }
+function cff_autolink($text, $link_color='', $span_tag = false, $limit=100, $tagfill='class="cff-break-word"', $auto_title = true){
 
-    ####################################################################
+    $text = cff_autolink_do($text, $link_color, '![a-z][a-z-]+://!i',    $limit, $tagfill, $auto_title, $span_tag);
+    $text = cff_autolink_do($text, $link_color, '!(mailto|skype):!i',    $limit, $tagfill, $auto_title, $span_tag);
+    $text = cff_autolink_do($text, $link_color, '!www\\.!i',         $limit, $tagfill, $auto_title, 'http://', $span_tag);
+    return $text;
+}
 
-    function cff_autolink_do($text, $sub, $limit, $tagfill, $auto_title, $span_tag, $force_prefix=null){
+####################################################################
 
-        $text_l = StrToLower($text);
-        $cursor = 0;
-        $loop = 1;
-        $buffer = '';
+function cff_autolink_do($text, $link_color, $sub, $limit, $tagfill, $auto_title, $span_tag, $force_prefix=null){
 
-        while (($cursor < strlen($text)) && $loop){
+    $text_l = StrToLower($text);
+    $cursor = 0;
+    $loop = 1;
+    $buffer = '';
 
-            $ok = 1;
-            $matched = preg_match($sub, $text_l, $m, PREG_OFFSET_CAPTURE, $cursor);
+    while (($cursor < strlen($text)) && $loop){
 
-            if (!$matched){
+        $ok = 1;
+        $matched = preg_match($sub, $text_l, $m, PREG_OFFSET_CAPTURE, $cursor);
 
-                $loop = 0;
+        if (!$matched){
+
+            $loop = 0;
+            $ok = 0;
+
+        }else{
+
+            $pos = $m[0][1];
+            $sub_len = strlen($m[0][0]);
+
+            $pre_hit = substr($text, $cursor, $pos-$cursor);
+            $hit = substr($text, $pos, $sub_len);
+            $pre = substr($text, 0, $pos);
+            $post = substr($text, $pos + $sub_len);
+
+            $fail_text = $pre_hit.$hit;
+            $fail_len = strlen($fail_text);
+
+            #
+            # substring found - first check to see if we're inside a link tag already...
+            #
+
+            $bits = preg_split("!</a>!i", $pre);
+            $last_bit = array_pop($bits);
+            if (preg_match("!<a\s!i", $last_bit)){
+
+                #echo "fail 1 at $cursor<br />\n";
+
                 $ok = 0;
-
-            }else{
-
-                $pos = $m[0][1];
-                $sub_len = strlen($m[0][0]);
-
-                $pre_hit = substr($text, $cursor, $pos-$cursor);
-                $hit = substr($text, $pos, $sub_len);
-                $pre = substr($text, 0, $pos);
-                $post = substr($text, $pos + $sub_len);
-
-                $fail_text = $pre_hit.$hit;
-                $fail_len = strlen($fail_text);
-
-                #
-                # substring found - first check to see if we're inside a link tag already...
-                #
-
-                $bits = preg_split("!</a>!i", $pre);
-                $last_bit = array_pop($bits);
-                if (preg_match("!<a\s!i", $last_bit)){
-
-                    #echo "fail 1 at $cursor<br />\n";
-
-                    $ok = 0;
-                    $cursor += $fail_len;
-                    $buffer .= $fail_text;
-                }
+                $cursor += $fail_len;
+                $buffer .= $fail_text;
             }
-
-            #
-            # looks like a nice spot to autolink from - check the pre
-            # to see if there was whitespace before this match
-            #
-
-            if ($ok){
-
-                if ($pre){
-                    if (!preg_match('![\s\(\[\{>]$!s', $pre)){
-
-                        #echo "fail 2 at $cursor ($pre)<br />\n";
-
-                        $ok = 0;
-                        $cursor += $fail_len;
-                        $buffer .= $fail_text;
-                    }
-                }
-            }
-
-            #
-            # we want to autolink here - find the extent of the url
-            #
-
-            if ($ok){
-                if (preg_match('/^([a-z0-9\-\.\/\-_%~!?=,:;&+*#@\(\)\$]+)/i', $post, $matches)){
-
-                    $url = $hit.$matches[1];
-
-                    $cursor += strlen($url) + strlen($pre_hit);
-                    $buffer .= $pre_hit;
-
-                    $url = html_entity_decode($url);
-
-
-                    #
-                    # remove trailing punctuation from url
-                    #
-
-                    while (preg_match('|[.,!;:?]$|', $url)){
-                        $url = substr($url, 0, strlen($url)-1);
-                        $cursor--;
-                    }
-                    foreach (array('()', '[]', '{}') as $pair){
-                        $o = substr($pair, 0, 1);
-                        $c = substr($pair, 1, 1);
-                        if (preg_match("!^(\\$c|^)[^\\$o]+\\$c$!", $url)){
-                            $url = substr($url, 0, strlen($url)-1);
-                            $cursor--;
-                        }
-                    }
-
-
-                    #
-                    # nice-i-fy url here
-                    #
-
-                    $link_url = $url;
-                    $display_url = $url;
-
-                    if ($force_prefix) $link_url = $force_prefix.$link_url;
-
-                    if ($GLOBALS['autolink_options']['strip_protocols']){
-                        if (preg_match('!^(http|https)://!i', $display_url, $m)){
-
-                            $display_url = substr($display_url, strlen($m[1])+3);
-                        }
-                    }
-
-                    $display_url = cff_autolink_label($display_url, $limit);
-
-
-                    #
-                    # add the url
-                    #
-                    
-                    if ($display_url != $link_url && !preg_match('@title=@msi',$tagfill) && $auto_title) {
-
-                        $display_quoted = preg_quote($display_url, '!');
-
-                        if (!preg_match("!^(http|https)://{$display_quoted}$!i", $link_url)){
-
-                            $tagfill .= ' title="'.$link_url.'"';
-                        }
-                    }
-
-                    $link_url_enc = HtmlSpecialChars($link_url);
-                    $display_url_enc = HtmlSpecialChars($display_url);
-
-                    if($span_tag == true){
-                        $buffer .= "<span $tagfill>{$display_url_enc}</span>";
-                    } else {
-                        $buffer .= "<a target='_blank' href=\"{$link_url_enc}\"$tagfill>{$display_url_enc}</a>";
-                    }
-                    
-                
-                }else{
-                    #echo "fail 3 at $cursor<br />\n";
-
-                    $ok = 0;
-                    $cursor += $fail_len;
-                    $buffer .= $fail_text;
-                }
-            }
-
         }
 
         #
-        # add everything from the cursor to the end onto the buffer.
+        # looks like a nice spot to autolink from - check the pre
+        # to see if there was whitespace before this match
         #
 
-        $buffer .= substr($text, $cursor);
+        if ($ok){
 
-        return $buffer;
-    }
-
-    ####################################################################
-
-    function cff_autolink_label($text, $limit){
-
-        if (!$limit){ return $text; }
-
-        if (strlen($text) > $limit){
-            return substr($text, 0, $limit-3).'...';
-        }
-
-        return $text;
-    }
-
-    ####################################################################
-
-    function cff_autolink_email($text, $tagfill=''){
-
-        $atom = '[^()<>@,;:\\\\".\\[\\]\\x00-\\x20\\x7f]+'; # from RFC822
-
-        #die($atom);
-
-        $text_l = StrToLower($text);
-        $cursor = 0;
-        $loop = 1;
-        $buffer = '';
-
-        while(($cursor < strlen($text)) && $loop){
-
-            #
-            # find an '@' symbol
-            #
-
-            $ok = 1;
-            $pos = strpos($text_l, '@', $cursor);
-
-            if ($pos === false){
-
-                $loop = 0;
-                $ok = 0;
-
-            }else{
-
-                $pre = substr($text, $cursor, $pos-$cursor);
-                $hit = substr($text, $pos, 1);
-                $post = substr($text, $pos + 1);
-
-                $fail_text = $pre.$hit;
-                $fail_len = strlen($fail_text);
-
-                #die("$pre::$hit::$post::$fail_text");
-
-                #
-                # substring found - first check to see if we're inside a link tag already...
-                #
-
-                $bits = preg_split("!</a>!i", $pre);
-                $last_bit = array_pop($bits);
-                if (preg_match("!<a\s!i", $last_bit)){
-
-                    #echo "fail 1 at $cursor<br />\n";
-
-                    $ok = 0;
-                    $cursor += $fail_len;
-                    $buffer .= $fail_text;
-                }
-            }
-
-            #
-            # check backwards
-            #
-
-            if ($ok){
-                if (preg_match("!($atom(\.$atom)*)\$!", $pre, $matches)){
-
-                    # move matched part of address into $hit
-
-                    $len = strlen($matches[1]);
-                    $plen = strlen($pre);
-
-                    $hit = substr($pre, $plen-$len).$hit;
-                    $pre = substr($pre, 0, $plen-$len);
-
-                }else{
+            if ($pre){
+                if (!preg_match('![\s\(\[\{>]$!s', $pre)){
 
                     #echo "fail 2 at $cursor ($pre)<br />\n";
 
@@ -1705,56 +1709,243 @@ function cff_js() {
                     $buffer .= $fail_text;
                 }
             }
-
-            #
-            # check forwards
-            #
-
-            if ($ok){
-                if (preg_match("!^($atom(\.$atom)*)!", $post, $matches)){
-
-                    # move matched part of address into $hit
-
-                    $len = strlen($matches[1]);
-
-                    $hit .= substr($post, 0, $len);
-                    $post = substr($post, $len);
-
-                }else{
-                    #echo "fail 3 at $cursor ($post)<br />\n";
-
-                    $ok = 0;
-                    $cursor += $fail_len;
-                    $buffer .= $fail_text;
-                }
-            }
-
-            #
-            # commit
-            #
-
-            if ($ok) {
-
-                $cursor += strlen($pre) + strlen($hit);
-                $buffer .= $pre;
-                $buffer .= "<a href=\"mailto:$hit\"$tagfill>$hit</a>";
-
-            }
-
         }
 
         #
-        # add everything from the cursor to the end onto the buffer.
+        # we want to autolink here - find the extent of the url
         #
 
-        $buffer .= substr($text, $cursor);
+        if ($ok){
+            if (preg_match('/^([a-z0-9\-\.\/\-_%~!?=,:;&+*#@\(\)\$]+)/i', $post, $matches)){
 
-        return $buffer;
+                $url = $hit.$matches[1];
+
+                $cursor += strlen($url) + strlen($pre_hit);
+                $buffer .= $pre_hit;
+
+                $url = html_entity_decode($url);
+
+
+                #
+                # remove trailing punctuation from url
+                #
+
+                while (preg_match('|[.,!;:?]$|', $url)){
+                    $url = substr($url, 0, strlen($url)-1);
+                    $cursor--;
+                }
+                foreach (array('()', '[]', '{}') as $pair){
+                    $o = substr($pair, 0, 1);
+                    $c = substr($pair, 1, 1);
+                    if (preg_match("!^(\\$c|^)[^\\$o]+\\$c$!", $url)){
+                        $url = substr($url, 0, strlen($url)-1);
+                        $cursor--;
+                    }
+                }
+
+
+                #
+                # nice-i-fy url here
+                #
+
+                $link_url = $url;
+                $display_url = $url;
+
+                if ($force_prefix) $link_url = $force_prefix.$link_url;
+
+                if ($GLOBALS['autolink_options']['strip_protocols']){
+                    if (preg_match('!^(http|https)://!i', $display_url, $m)){
+
+                        $display_url = substr($display_url, strlen($m[1])+3);
+                    }
+                }
+
+                $display_url = cff_autolink_label($display_url, $limit);
+
+
+                #
+                # add the url
+                #
+                
+                if ($display_url != $link_url && !preg_match('@title=@msi',$tagfill) && $auto_title) {
+
+                    $display_quoted = preg_quote($display_url, '!');
+
+                    if (!preg_match("!^(http|https)://{$display_quoted}$!i", $link_url)){
+
+                        $tagfill .= ' title="'.$link_url.'"';
+                    }
+                }
+
+                $link_url_enc = HtmlSpecialChars($link_url);
+                $display_url_enc = HtmlSpecialChars($display_url);
+
+                
+                if( substr( $link_url_enc, 0, 4 ) !== "http" ) $link_url_enc = 'http://' . $link_url_enc;
+                $buffer .= "<a target='_blank' style='color: #".$link_color."' href=\"{$link_url_enc}\"$tagfill>{$display_url_enc}</a>";
+                
+            
+            }else{
+                #echo "fail 3 at $cursor<br />\n";
+
+                $ok = 0;
+                $cursor += $fail_len;
+                $buffer .= $fail_text;
+            }
+        }
+
     }
 
-    ####################################################################
+    #
+    # add everything from the cursor to the end onto the buffer.
+    #
+
+    $buffer .= substr($text, $cursor);
+
+    return $buffer;
+}
+
+####################################################################
+
+function cff_autolink_label($text, $limit){
+
+    if (!$limit){ return $text; }
+
+    if (strlen($text) > $limit){
+        return substr($text, 0, $limit-3).'...';
+    }
+
+    return $text;
+}
+
+####################################################################
+
+function cff_autolink_email($text, $tagfill=''){
+
+    $atom = '[^()<>@,;:\\\\".\\[\\]\\x00-\\x20\\x7f]+'; # from RFC822
+
+    #die($atom);
+
+    $text_l = StrToLower($text);
+    $cursor = 0;
+    $loop = 1;
+    $buffer = '';
+
+    while(($cursor < strlen($text)) && $loop){
+
+        #
+        # find an '@' symbol
+        #
+
+        $ok = 1;
+        $pos = strpos($text_l, '@', $cursor);
+
+        if ($pos === false){
+
+            $loop = 0;
+            $ok = 0;
+
+        }else{
+
+            $pre = substr($text, $cursor, $pos-$cursor);
+            $hit = substr($text, $pos, 1);
+            $post = substr($text, $pos + 1);
+
+            $fail_text = $pre.$hit;
+            $fail_len = strlen($fail_text);
+
+            #die("$pre::$hit::$post::$fail_text");
+
+            #
+            # substring found - first check to see if we're inside a link tag already...
+            #
+
+            $bits = preg_split("!</a>!i", $pre);
+            $last_bit = array_pop($bits);
+            if (preg_match("!<a\s!i", $last_bit)){
+
+                #echo "fail 1 at $cursor<br />\n";
+
+                $ok = 0;
+                $cursor += $fail_len;
+                $buffer .= $fail_text;
+            }
+        }
+
+        #
+        # check backwards
+        #
+
+        if ($ok){
+            if (preg_match("!($atom(\.$atom)*)\$!", $pre, $matches)){
+
+                # move matched part of address into $hit
+
+                $len = strlen($matches[1]);
+                $plen = strlen($pre);
+
+                $hit = substr($pre, $plen-$len).$hit;
+                $pre = substr($pre, 0, $plen-$len);
+
+            }else{
+
+                #echo "fail 2 at $cursor ($pre)<br />\n";
+
+                $ok = 0;
+                $cursor += $fail_len;
+                $buffer .= $fail_text;
+            }
+        }
+
+        #
+        # check forwards
+        #
+
+        if ($ok){
+            if (preg_match("!^($atom(\.$atom)*)!", $post, $matches)){
+
+                # move matched part of address into $hit
+
+                $len = strlen($matches[1]);
+
+                $hit .= substr($post, 0, $len);
+                $post = substr($post, $len);
+
+            }else{
+                #echo "fail 3 at $cursor ($post)<br />\n";
+
+                $ok = 0;
+                $cursor += $fail_len;
+                $buffer .= $fail_text;
+            }
+        }
+
+        #
+        # commit
+        #
+
+        if ($ok) {
+
+            $cursor += strlen($pre) + strlen($hit);
+            $buffer .= $pre;
+            $buffer .= "<a href=\"mailto:$hit\"$tagfill>$hit</a>";
+
+        }
+
+    }
+
+    #
+    # add everything from the cursor to the end onto the buffer.
+    #
+
+    $buffer .= substr($text, $cursor);
+
+    return $buffer;
+}
+
+####################################################################
 
 
 //Comment out the line below to view errors
-error_reporting(0);
+// error_reporting(0);
 ?>

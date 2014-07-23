@@ -37,22 +37,29 @@ if(!class_exists('EPG_Stock_Index_Block')) {
         }
         function block($instance) {
             extract($instance);
+
+			// Temporarily delete cached data while fiddling with plugin.
+			//delete_transient( 'epg_stock_block_results' );
+
+
             $stockSymbols = explode(", ", $symbols);
-            $yql = 'http://query.yahooapis.com/v1/public/yql?q=select%20symbol%2CLastTradePriceOnly%2CChange%2CName%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(';
-            $i = 0;
+			$stock_url = '';
+			$i = 0;
             foreach ($stockSymbols as $stock) {
                 if ($i == 0) {
                     $stock = htmlentities($stock, ENT_QUOTES);
-                    $yql .= '"'. $stock . '"';
+					$stock_url .= '"'. $stock . '"';
                 } else {
                     $stock = htmlentities($stock, ENT_QUOTES);
-                    $yql .= ',"'. $stock . '"';
+					$stock_url .= ',"'. $stock . '"';
                 }
                 $i++;
             }
-            $yql .= ')&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
-            // Temporarily delete cached data while fiddling with plugin.
-            //delete_transient( 'epg_stock_block_results' );
+
+            $yql = 'http://query.yahooapis.com/v1/public/yql?q=select%20symbol%2CLastTradePriceOnly%2CChange%2CName%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(' .
+				urlencode($stock_url) .
+				')&format=json&diagnostics=false&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
+
             if ( false === ( $last_saved_time = get_transient( 'epg_stock_block_time_saved') ) ) {
                 $last_saved_time = time();
                 set_transient( 'epg_stock_block_time_saved', $last_saved_time, 15 * MINUTE_IN_SECONDS );
@@ -64,10 +71,16 @@ if(!class_exists('EPG_Stock_Index_Block')) {
                 $last_saved_time = time();
                 set_transient( 'epg_stock_block_time_saved', $last_saved_time, 15 * MINUTE_IN_SECONDS );
                 // set json
-                $json = file_get_contents($yql);
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $yql);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);//Use 1.1
+
+                $json = curl_exec( $ch );
                 set_transient( 'epg_stock_block_results', $json, 15 * MINUTE_IN_SECONDS );
             }
-            $data = json_decode($json, TRUE);
+
+			$data = json_decode($json, TRUE);
             $quoteArr = $data['query']['results']['quote'];
             function priceChangeColor($str) {
                 if ($str[0] === "-") {

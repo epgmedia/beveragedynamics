@@ -47,6 +47,7 @@
 error_log
 
 .htaccess
+wp-content/themes/reporter-child/assets/beverage-dynamics.*.css
 wp-content/blogs.dir/
 wp-content/upgrade/
 wp-content/backup-db/

@@ -1,0 +1,9 @@
+/*
+==  THEME DETAILS  ============================================================
+
+    Theme Name: Reporter - BDX Admin
+*/
+#wpadminbar #wp-admin-bar-epg-media-link > .ab-item:before {
+  top: 2px;
+  content: "\f319";
+}

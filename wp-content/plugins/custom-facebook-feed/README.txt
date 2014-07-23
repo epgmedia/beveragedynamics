@@ -3,7 +3,7 @@ Contributors: smashballoon
 Tags: Facebook, Facebook feed, Facebook posts, Facebook wall, Facebook events, Facebook page, Facebook group, Facebook Like box, Customizable Facebook Feed, custom, customizable, seo, responsive, mobile, social
 Requires at least: 3.0
 Tested up to: 3.9.1
-Stable tag: 1.9.8.1
+Stable tag: 1.9.9.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -269,6 +269,21 @@ Credit [iMarketing Factory](http://www.imarketingfactory.com/facebook/ "The Impo
 9. It's super easy to display your Facebook feed in any page or post
 
 == Changelog ==
+= 1.9.9.3 =
+* New: Hashtags in link, photo and video descriptions are now also linked
+* Fix: Fixed an issue with hashtags being linked when the post text is also linked, which interfered with the text formatting
+
+= 1.9.9.2 =
+* Fix: Removed a couple of stray PHP notices
+
+= 1.9.9.1 =
+* Fix: Fixed an occasional issue with hashtags in inline CSS inadvertently being linked
+
+= 1.9.9 =
+* New: Hashtags in your posts are now linked to the hashtag search on Facebook. This can be disabled in the 'Post Text' section on the Typography settings page.
+* New: Added a Facebook icon to the Custom Facebook Feed admin menu
+* Fix: Corrected the left side margin on the "Like" box so that it aligns correctly with posts
+
 = 1.9.8.1 =
 * Fix: Fixed an admin JavaScript error introduced by the last update
 

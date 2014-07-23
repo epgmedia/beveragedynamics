@@ -55,6 +55,23 @@ jQuery(document).ready(function() {
 		if( $sharedLink.text() == '' ){
 			$sharedLink.remove();
 		}
+
+		//Link hashtags
+		if(cfflinkhashtags == 'true'){
+			var str = $self.find('.cff-text').html(),
+				descstr = $self.find('.cff-post-desc').html(),
+				regex = /(?:\s|^)(?:#(?!\d+(?:\s|$)))(\w+)(?=\s|$)/gi,
+				linkcolor = $self.find('.cff-text').attr('rel');
+
+			function replacer(hash){
+				var replacementString = jQuery.trim(hash);
+				return ' <a href="https://www.facebook.com/hashtag/'+ replacementString.substring(1) +'" target="_blank" style="color: #' + linkcolor + '">' + replacementString + '</a>';
+			}
+			//Replace hashtags in text
+			$self.find('.cff-text').html( str.replace( regex , replacer ) );
+			//Replace hashtags in desc
+			if( $self.find('.cff-post-desc').length ) $self.find('.cff-post-desc').html( descstr.replace( regex , replacer ) );
+		}
 		
 	});
 });

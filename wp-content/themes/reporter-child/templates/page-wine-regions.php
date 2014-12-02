@@ -1,4 +1,7 @@
 <?php
+/**
+ * Template Name: Wine Regions
+ */
 get_header();
 
 wp_reset_query();
@@ -10,7 +13,9 @@ wp_reset_query();
 
 			<div <?php post_class(); ?>>
 
-                <div class="entry-content">
+				<?php get_template_part( "parts/wine-map" ); ?>
+
+				<div class="entry-content">
 
 					<h1 class="page-title"><?php the_title(); ?></h1>
 
@@ -32,13 +37,13 @@ wp_reset_query();
 
 		<?php if( engine_content_position() != 'large-12' ) : ?>
 
-		<div class="sidebar small-12 large-4 column" id="sidebar">
+			<div class="sidebar small-12 large-4 column" id="sidebar">
 
-			<?php get_sidebar(); ?>
+				<?php get_sidebar(); ?>
 
-		</div>
+			</div>
 
-		<!-- /#sidebar.sidebar small-12 large-4 column -->
+			<!-- /#sidebar.sidebar small-12 large-4 column -->
 
 		<?php endif; ?>
 

@@ -1,55 +1,61 @@
-######################################
-# Ignore All                         #
-######################################
+########################
+# Weird Files and logs #
+########################
 
-/*
-
-######################################
-# Except ...
-######################################
-
-# Not WP-Content
-!/wp-content
-
-######################################
-# But keep ignoring ...
-######################################
-
-# Image folders
-/wp-content/uploads**
-/wp-content/gallery**
-/wp-content/cache**
-
-######################################
-# But not ...
-######################################
-
-# Plugins and Themes
-!/wp-content/plugins**
-!/wp-content/themes**
-!/wp-content/maintenance.php
-!/wp-content/index.php
-
-
-# Or Hidden Files
-!.*
-
-######################################
-# But always ignore....
-######################################
-
-# Stupid Files
 .DS_Store
 ._*
+.htaccess
 .idea
 *.log
-*_log.txt
 error_log
 
-.htaccess
-wp-content/themes/reporter-child/assets/beverage-dynamics.*.css
-wp-content/blogs.dir/
-wp-content/upgrade/
-wp-content/backup-db/
+########################
+# Sitemap              #
+########################
+
+sitemap.xml
+sitemap.xml.gz
+
+########################
+# Wordpress            #
+########################
+
+wp-activate.php
+wp-blog-header.php
+wp-comments-post.php
 wp-config.php
-.idea
+wp-config-sample.php
+wp-cron.php
+wp-links-opml.php
+wp-load.php
+wp-login.php
+wp-mail.php
+wp-settings.php
+wp-signup.php
+wp-trackback.php
+xmlrpc.php
+
+# Admin
+wp-admin/
+
+# System files
+wp-includes/
+
+# Content folders
+wp-content/advanced-cache.php
+wp-content/backups/
+wp-content/backup-db/
+wp-content/blogs.dir/
+wp-content/cache/
+wp-content/gallery/
+wp-content/upgrade/
+wp-content/uploads/
+wp-content/wp-cache-config.php
+
+########################
+# Site Specific        #
+########################
+
+# CSS files
+wp-content/themes/reporter-child/assets/beverage-dynamics.*.css
+wp-content/themes/reporter-child/assets/beverage-admin.*.css

@@ -5,4 +5,5 @@
 */
 #wpadminbar #wp-admin-bar-epg-media-link > .ab-item:before {
   top: 2px;
-  content: "\f319"; }
+  content: "\f319";
+}

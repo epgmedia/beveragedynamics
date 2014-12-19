@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Template Name: Do Not Use - Post/Excerpt HTML Clean
+ *
  */
 header('Content-type: text/html; charset=utf-8');
 

@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: Admin Use - Database String Replace
+ *
  */
 /**
  * @param $replaceString
@@ -46,10 +46,10 @@ function epg_sql_table_replace($replaceString, $newString) {
 $host               = "localhost";
 $username           = "";
 $password           = "";
-$database           = "beverage_data";
-$string1            = 'cgerber-epg.ad.epgmediallc.com/projects/beverage-dynamics';
-$string2            = 'ec2-54-84-150-204.compute-1.amazonaws.com';
-$nString1           = 'www.beveragedynamics.com';
+$database           = "";
+$string1            = '';
+$string2            = '';
+$nString1           = '';
 
 // Connect to database server
 mysql_connect($host, $username, $password);

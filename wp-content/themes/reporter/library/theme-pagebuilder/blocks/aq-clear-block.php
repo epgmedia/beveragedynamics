@@ -23,7 +23,7 @@ class AQ_Clear_Block extends AQ_Block {
 			'horizontal_line' => 'none',
 			'line_color' => '#353535',
 			'pattern' => '1',
-			'height' => ''
+			'height' => '0'
 		);
 		
 		$line_options = array(
@@ -47,9 +47,13 @@ class AQ_Clear_Block extends AQ_Block {
 	}
 	
 	function block($instance) {
-		extract($instance);
-		
-		switch($horizontal_line) {
+		extract( $instance );
+
+		$horizontal_line = isset( $horizontal_line ) ? $horizontal_line : 'none';
+		$line_color = isset( $line_color ) ? $line_color : '#353535';
+		$height = isset( $height ) ? $height : '0';
+
+		switch( $horizontal_line ) {
 			case 'none':
 				break;
 			case 'single':
@@ -64,7 +68,7 @@ class AQ_Clear_Block extends AQ_Block {
 				break;
 		}
 		
-		if($height) {
+		if( $height ) {
 			echo '<div class="cf" style="height:'.$height.'px"></div>';
 		}
 		

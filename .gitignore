@@ -1,19 +1,61 @@
-._*
+########################
+# Weird Files and logs #
+########################
+
 .DS_Store
+._*
 .htaccess
-wp-content/uploads/
-wp-content/blogs.dir/
-wp-content/upgrade/
-wp-content/backup-db/
-wp-content/advanced-cache.php
-wp-content/wp-cache-config.php
-sitemap.xml
-*.log
-wp-content/cache/
-wp-content/backups/
-sitemap.xml.gz
-wp-config.php
-error_log
-wp-admin/
-wp-includes/
 .idea
+*.log
+error_log
+
+########################
+# Sitemap              #
+########################
+
+sitemap.xml
+sitemap.xml.gz
+
+########################
+# Wordpress            #
+########################
+
+wp-activate.php
+wp-blog-header.php
+wp-comments-post.php
+wp-config.php
+wp-config-sample.php
+wp-cron.php
+wp-links-opml.php
+wp-load.php
+wp-login.php
+wp-mail.php
+wp-settings.php
+wp-signup.php
+wp-trackback.php
+xmlrpc.php
+
+# Admin
+wp-admin/
+
+# System files
+wp-includes/
+
+# Content folders
+wp-content/advanced-cache.php
+wp-content/backups/
+wp-content/backup-db/
+wp-content/blogs.dir/
+wp-content/cache/
+wp-content/gallery/
+wp-content/upgrade/
+wp-content/uploads/
+wp-content/wp-cache-config.php
+
+########################
+# Site Specific        #
+########################
+
+# CSS files
+wp-content/themes/reporter-child/assets/beverage-dynamics.*.css
+wp-content/themes/reporter-child/assets/beverage-admin.*.css

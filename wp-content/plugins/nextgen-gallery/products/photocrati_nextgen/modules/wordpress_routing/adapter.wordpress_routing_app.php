@@ -29,14 +29,14 @@ class A_WordPress_Routing_App extends Mixin
      */
     function add_post_permalink_to_url($generated_url)
     {
-        $base_url           = $this->object->get_router()->get_base_url();
+        $base_url           = $this->object->get_router()->get_base_url('home');
         $settings           = C_NextGen_Settings::get_instance();
         if (strlen($generated_url) < 2) $generated_url = $base_url;
 
         $original_url       = $generated_url;
         $generated_parts    = explode($settings->router_param_slug, $generated_url);
         $generated_url      = $generated_parts[0];
-        $ngg_parameters     = isset($generated_parts[1]) ? array_shift(explode('?', $generated_parts[1])) : '/';
+        $ngg_parameters     = isset($generated_parts[1]) ? @array_shift(explode('?', $generated_parts[1])) : '/';
         $post_permalink = get_permalink(isset($_REQUEST['p']) ? $_REQUEST['p'] : 0);
         if ($post_permalink == '/') $post_permalink = $base_url;
 
@@ -89,7 +89,7 @@ class A_WordPress_Routing_App extends Mixin
 		$_SERVER['ORIG_REQUEST_URI'] = $_SERVER['REQUEST_URI'];
 
         // TODO: Verify that we only need to do this on Windows
-        $base_parts = parse_url($router->get_base_url());
+        $base_parts = parse_url($router->get_base_url('root'));
         $_SERVER['UNENCODED_URL'] = $_SERVER['HTTP_X_ORIGINAL_URL'] = $_SERVER['REQUEST_URI'] = '/'.trailingslashit($router->join_paths(
             (!empty($base_parts['path']) ? $base_parts['path'] : ''),
             $this->object->strip_param_segments($router->get_request_uri())

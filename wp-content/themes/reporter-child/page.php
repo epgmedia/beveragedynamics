@@ -10,17 +10,14 @@ wp_reset_query();
 
 			<div <?php post_class(); ?>>
 
-                <?php
-                $page = get_page_by_title("Wine Regions");
-
-                if ( is_page($page->ID) ) :
-                    get_template_part("parts/wine-map");
-                endif; ?>
-
                 <div class="entry-content">
+
 					<h1 class="page-title"><?php the_title(); ?></h1>
+
 					<?php the_content(); ?>
+
 					<?php engine_link_pages('before=<div class="page-links pagination">&after=</div>'); ?>
+
 				</div>
 
 			</div>
@@ -34,10 +31,15 @@ wp_reset_query();
 		<!-- /.content small-12 large-9 column -->
 
 		<?php if( engine_content_position() != 'large-12' ) : ?>
+
 		<div class="sidebar small-12 large-4 column" id="sidebar">
+
 			<?php get_sidebar(); ?>
+
 		</div>
+
 		<!-- /#sidebar.sidebar small-12 large-4 column -->
+
 		<?php endif; ?>
 
 	</div>

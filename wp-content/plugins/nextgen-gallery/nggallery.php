@@ -4,7 +4,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 /**
  * Plugin Name: NextGEN Gallery by Photocrati
  * Description: The most popular gallery plugin for WordPress and one of the most popular plugins of all time with over 9 million downloads.
- * Version: 2.0.58
+ * Version: 2.0.66.29
  * Author: Photocrati Media
  * Plugin URI: http://www.nextgen-gallery.com
  * Author URI: http://www.photocrati.com
@@ -218,9 +218,9 @@ class C_NextGEN_Bootstrap
 		$this->_registry->add_module_path(NGG_PRODUCT_DIR, true, false);
 		$this->_registry->load_all_products();
 
-	        // Give third-party plugins that opportunity to include their own products
-        	// and modules
-	        do_action('load_nextgen_gallery_modules', $this->_registry);
+        // Give third-party plugins that opportunity to include their own products
+        // and modules
+        do_action('load_nextgen_gallery_modules', $this->_registry);
 
 		// Initializes all loaded modules
 		$this->_registry->initialize_all_modules();
@@ -235,13 +235,6 @@ class C_NextGEN_Bootstrap
 	 */
 	function _register_hooks()
 	{
-		// Load text domain
-		load_plugin_textdomain(
-			NGG_I8N_DOMAIN,
-			false,
-			$this->directory_path('lang')
-		);
-
 		// Register the activation routines
 		add_action('activate_'.NGG_PLUGIN_BASENAME, array(get_class(), 'activate'));
 
@@ -261,17 +254,8 @@ class C_NextGEN_Bootstrap
             add_action('wp_print_scripts', array(&$this, 'fix_jquery'));
         }
 
-        // We require a minimum of jQuery 1.11.0 for IE11, due to a problem with interframe communication
-        $version = get_bloginfo('version');
-        if (version_compare($version, '3.9') == -1) {
-            add_action('admin_print_scripts', array(&$this, 'custom_jquery_prep'), 1);
-            add_action('admin_print_scripts', array(&$this, 'custom_jquery_install'), PHP_INT_MAX-1);
-        }
-
 		// If the selected stylesheet is using an unsafe path, then notify the user
-		if (C_NextGen_Style_Manager::get_instance()->is_directory_unsafe()) {
-			add_action('all_admin_notices', array(&$this, 'display_stylesheet_notice'));
-		}
+        add_action('all_admin_notices', array(&$this, 'display_stylesheet_notice'));
 
 		// Delete displayed gallery transients periodically
 		add_filter('cron_schedules', array(&$this, 'add_ngg_schedule'));
@@ -313,7 +297,7 @@ class C_NextGEN_Bootstrap
 	 */
 	function delete_expired_transients()
 	{
-		C_Photocrati_Cache::flush('displayed_galleries', TRUE);
+		C_Photocrati_Cache::flush('all', TRUE);
 	}
 
 	/**
@@ -337,17 +321,29 @@ class C_NextGEN_Bootstrap
         global $wp_scripts;
 
         // Determine which version of jQuery to include
-        $src     = '/wp-includes/js/jquery/jquery.js';
+        $src = '/wp-includes/js/jquery/jquery.js';
 
         // Ensure that jQuery is always set to the default
         if (isset($wp_scripts->registered['jquery'])) {
             $jquery = $wp_scripts->registered['jquery'];
-            $jquery->src = FALSE;
-            if (array_search('jquery-core', $jquery->deps) === FALSE) {
-                $jquery->deps[] = 'jquery-core';
+
+            // There's an exception to the rule. We'll allow the same
+            // version of jQuery as included with WP to be fetched from
+            // Google AJAX libraries, as we have a systematic means of verifying
+            // that won't cause any troubles
+            $version = preg_quote($jquery->ver, '#');
+            if (!preg_match("#ajax\\.googleapis\\.com/ajax/libs/jquery/{$version}/jquery\\.min\\.js#", $jquery->src)) {
+                $jquery->src = FALSE;
+                if (array_search('jquery-core', $jquery->deps) === FALSE) {
+                    $jquery->deps[] = 'jquery-core';
+                }
+                if (array_search('jquery-migrate', $jquery->deps) === FALSE) {
+                    $jquery->deps[] = 'jquery-migrate';
+                }
             }
         }
 
+        // Ensure that jquery-core is used, as WP intended
         if (isset($wp_scripts->registered['jquery-core'])) {
             $wp_scripts->registered['jquery-core']->src = $src;
         }
@@ -355,43 +351,24 @@ class C_NextGEN_Bootstrap
 		wp_enqueue_script('jquery');
 	}
 
-    function custom_jquery_prep()
-    {
-        ob_start();
-    }
-
-    function custom_jquery_install()
-    {
-        $scripts = ob_get_clean();
-        if (strpos($scripts, "jquery-core") === FALSE) {
-            if (preg_match("#<script.*jquery.js.*</script>#", $scripts, $match)) {
-                $jquery = $match[0];
-                if (preg_match("#<script.*load-scripts\\.php.*</script>#", $scripts, $match)) {
-                    $load_scripts = $match[0];
-                    $scripts = str_replace($load_scripts, "{$jquery}\n{$load_scripts}", $scripts);
-                }
-            }
-
-        }
-        echo $scripts;
-    }
-
 	/**
 	 * Displays a notice to the user that the current stylesheet location is unsafe
 	 */
 	function display_stylesheet_notice()
 	{
-		$styles		= C_NextGen_Style_Manager::get_instance();
-		$filename	= $styles->get_selected_stylesheet();
-		$abspath	= $styles->find_selected_stylesheet_abspath();
-		$newpath	= $styles->new_dir;
+        if (C_NextGen_Style_Manager::get_instance()->is_directory_unsafe()) {
+            $styles		= C_NextGen_Style_Manager::get_instance();
+            $filename	= $styles->get_selected_stylesheet();
+            $abspath	= $styles->find_selected_stylesheet_abspath();
+            $newpath	= $styles->new_dir;
 
-		echo "<div class='updated error'>
-			<h3>WARNING: NextGEN Gallery Stylesheet NOT Upgrade-safe</h3>
-			<p>
-			<strong>{$filename}</strong> is currently stored in <strong>{$abspath}</strong>, which isn't upgrade-safe. Please move the stylesheet to
-			<strong>{$newpath}</strong> to ensure that your customizations persist after updates.
-		</p></div>";
+            echo "<div class='updated error'>
+                <h3>WARNING: NextGEN Gallery Stylesheet NOT Upgrade-safe</h3>
+                <p>
+                <strong>{$filename}</strong> is currently stored in <strong>{$abspath}</strong>, which isn't upgrade-safe. Please move the stylesheet to
+                <strong>{$newpath}</strong> to ensure that your customizations persist after updates.
+            </p></div>";
+        }
 	}
 
 	/**
@@ -415,7 +392,8 @@ class C_NextGEN_Bootstrap
 	function route()
 	{
 		$this->_load_pope();
-		$router = $this->_registry->get_utility('I_Router');
+        $router = C_Router::get_instance();
+        do_action_ref_array('ngg_routes', array(&$router));
 		if (!$router->serve_request() && $router->has_parameter_segments()) {
 			return $router->passthru();
 		}
@@ -447,15 +425,13 @@ class C_NextGEN_Bootstrap
 		define('NGG_PLUGIN_BASENAME', plugin_basename(__FILE__));
 		define('NGG_PLUGIN_DIR', $this->directory_path());
 		define('NGG_PLUGIN_URL', $this->path_uri());
-		define('NGG_I8N_DOMAIN', 'nggallery');
 		define('NGG_TESTS_DIR',   implode(DIRECTORY_SEPARATOR, array(rtrim(NGG_PLUGIN_DIR, "/\\"), 'tests')));
         define('NGG_PRODUCT_DIR', implode(DIRECTORY_SEPARATOR, array(rtrim(NGG_PLUGIN_DIR, "/\\"), 'products')));
         define('NGG_MODULE_DIR', implode(DIRECTORY_SEPARATOR, array(rtrim(NGG_PRODUCT_DIR, "/\\"), 'photocrati_nextgen', 'modules')));
 		define('NGG_PRODUCT_URL', path_join(str_replace("\\", '/', NGG_PLUGIN_URL), 'products'));
 		define('NGG_MODULE_URL', path_join(str_replace("\\", '/', NGG_PRODUCT_URL), 'photocrati_nextgen/modules'));
 		define('NGG_PLUGIN_STARTED_AT', microtime());
-		define('NGG_PLUGIN_VERSION', '2.0.58');
-        define('NGG_JQUERY_VERSION', '1.11.0');
+		define('NGG_PLUGIN_VERSION', '2.0.66.29');
 
 		if (!defined('NGG_HIDE_STRICT_ERRORS')) {
 			define('NGG_HIDE_STRICT_ERRORS', TRUE);
@@ -476,10 +452,6 @@ class C_NextGEN_Bootstrap
 		// User definable constants
 		if (!defined('NGG_IMPORT_ROOT')) {
 			$path = WP_CONTENT_DIR;
-			if (is_multisite()) {
-				$uploads = wp_upload_dir();
-				$path = $uploads['path'];
-			}
 			define('NGG_IMPORT_ROOT', $path);
 		}
 

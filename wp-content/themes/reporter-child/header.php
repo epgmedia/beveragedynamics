@@ -19,44 +19,49 @@
 <body <?php body_class(); ?>>
 
     <?php get_template_part('parts/analytics'); ?>
-	
+
+	<div class="hero-ad">
+	<?php the_ad_position('Leaderboard', 'Top'); ?>
+	</div>
 	<div class="header">
-		
+
 		<div class="header-top container">
 
 			<div class="row large-12 small-12 column">
 
-                <div class="secondary-menu right">
+				<div class="secondary-menu right">
 
-                    <section class="secondary-bar-section">
+					<section class="secondary-bar-section">
 
-                        <?php
-                        wp_nav_menu(array(
-                            'container' => false,                           // remove nav container
-                            'container_class' => '',           				// class of container
-                            'menu' => '',                      	        	// menu name
-                            'menu_class' => '',         				// adding custom nav class
-                            'theme_location' => 'secondary-menu',             // where it's located in the theme
-                            'before' => '',                                 // before each link <a>
-                            'after' => ' | ',                                  // after each link </a>
-                            'link_before' => '',                            // before each link text
-                            'link_after' => '',                             // after each link text
-                            'depth' => 2,                                   // limit the depth of the nav
-                            'fallback_cb' => false,    						// this uses the below function to list pages as a menu
-                            'walker' => new engine_menu_walker( array(
-                                    'in_top_bar' => true,
-                                    'item_type' => 'li'
-                                ) ),
-                        ));
-                        ?>
+						<?php
+						wp_nav_menu(
+							array(
+								'theme_location' => 'secondary-menu',             // where it's located in the theme
+								'container' => false,                           // remove nav container
+								'container_class' => '',       // class of container
+								'menu' => '',                      	        	// menu name
+								'menu_class' => '',         				// adding custom nav class
+								'before' => '',                                 // before each link <a>
+								'after' => ' | ',                                  // after each link </a>
+								'link_before' => '',                            // before each link text
+								'link_after' => '',                             // after each link text
+								'depth' => 2,                                   // limit the depth of the nav
+								'fallback_cb' => false,    						// this uses the below function to list pages as a menu
+								'walker' => new engine_menu_walker( array(
+										'in_top_bar' => true,
+										'item_type' => 'li'
+									) ),
+							)
+						);
+						?>
 
-                    </section>
+					</section>
 
-                </div>
+				</div>
 
-            </div>
+			</div>
 			<!-- /.row  -->
-			
+
 		</div>
 		<!-- /.header-top -->
 		
@@ -176,5 +181,3 @@
 	<!-- /.header -->
 	
 	<div class="main container">
-
-        <?php the_ad_position('Leaderboard', 'Top'); ?>

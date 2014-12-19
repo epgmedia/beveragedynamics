@@ -4870,7 +4870,7 @@ pre {
 
 .featured-image {
   width: 100%;
-  background: #e8e8e8;
+  background: #ffffff;
   text-align: center;
   position: relative;
   overflow: hidden; }
@@ -5264,31 +5264,34 @@ textarea {
   .widget_dt_slider .slider li {
     border: 0; }
 
-.widget-epgStockIndex th,
-.widget-epgStockIndex td {
-  margin: 0;
-  padding: 0.25em 0.25em 0.41667em;
-  font-size: 1.08333em; }
-.widget-epgStockIndex tbody td {
-  border-bottom: 1px solid #DFDFDF;
-  font-size: 1em; }
-.widget-epgStockIndex tfoot {
-  padding: 0.25em 0.25em 0.41667em;
-  font-weight: normal; }
-  .widget-epgStockIndex tfoot td {
-    font-size: 0.83333em; }
-.widget-epgStockIndex .siChange,
-.widget-epgStockIndex .siSymbol,
-.widget-epgStockIndex .siPrice {
-  text-align: center; }
-  .widget-epgStockIndex .siChange .priceDown,
-  .widget-epgStockIndex .siSymbol .priceDown,
-  .widget-epgStockIndex .siPrice .priceDown {
-    color: #E00C0C; }
-  .widget-epgStockIndex .siChange .priceUp,
-  .widget-epgStockIndex .siSymbol .priceUp,
-  .widget-epgStockIndex .siPrice .priceUp {
-    color: #000000; }
+.widget-epgStockIndex {
+  width: 100%; }
+  .widget-epgStockIndex thead,
+  .widget-epgStockIndex th,
+  .widget-epgStockIndex td {
+    margin: 0;
+    padding: 0.25em 0.25em 0.41667em;
+    font-size: 1.08333em; }
+  .widget-epgStockIndex tbody td {
+    border-bottom: 1px solid #DFDFDF;
+    font-size: 0.91667em; }
+  .widget-epgStockIndex tfoot {
+    padding: 0.25em 0.25em 0.41667em;
+    font-weight: normal; }
+    .widget-epgStockIndex tfoot td {
+      font-size: 0.83333em; }
+  .widget-epgStockIndex .siChange,
+  .widget-epgStockIndex .siSymbol,
+  .widget-epgStockIndex .siPrice {
+    text-align: center; }
+    .widget-epgStockIndex .siChange .priceDown,
+    .widget-epgStockIndex .siSymbol .priceDown,
+    .widget-epgStockIndex .siPrice .priceDown {
+      color: #E00C0C; }
+    .widget-epgStockIndex .siChange .priceUp,
+    .widget-epgStockIndex .siSymbol .priceUp,
+    .widget-epgStockIndex .siPrice .priceUp {
+      color: #000000; }
 
 .fatHalf p {
   width: 48%;
@@ -5623,8 +5626,11 @@ Ad Styles
   clear: both; }
   .soldPosition div {
     text-align: center;
-    margin: auto;
-    margin-bottom: 15px; }
+    margin: 7px auto; }
+
+.hero-ad {
+  width: 100%;
+  height: 110px; }
 
 .leaderboard > div {
   min-width: 468px; }

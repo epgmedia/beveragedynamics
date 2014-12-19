@@ -19,6 +19,7 @@
 /wp-content/uploads**
 /wp-content/gallery**
 /wp-content/cache**
+/wp-content/w3tc-config
 
 ######################################
 # But not ...
@@ -47,6 +48,7 @@
 error_log
 
 .htaccess
+.sass-cache/
 wp-content/themes/reporter-child/assets/beverage-dynamics.*.css
 wp-content/blogs.dir/
 wp-content/upgrade/

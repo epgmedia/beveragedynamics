@@ -386,7 +386,7 @@ return array(
 	'varnish.servers' => array(
 		0 => '',
 	),
-	'browsercache.enabled' => true,
+	'browsercache.enabled' => false,
 	'browsercache.no404wp' => false,
 	'browsercache.no404wp.exceptions' => array(
 		0 => 'robots\\.txt',
@@ -421,7 +421,7 @@ return array(
 	'browsercache.other.etag' => false,
 	'browsercache.other.w3tc' => false,
 	'browsercache.other.replace' => false,
-	'browsercache.timestamp' => '1413817139',
+	'browsercache.timestamp' => '1417558690',
 	'browsercache.replace.exceptions' => array(
 	),
 	'mobile.enabled' => false,
@@ -617,7 +617,7 @@ return array(
 	'config.path' => '',
 	'widget.latest.items' => 3,
 	'widget.latest_news.items' => 5,
-	'widget.pagespeed.enabled' => true,
+	'widget.pagespeed.enabled' => false,
 	'widget.pagespeed.key' => '',
 	'notes.wp_content_changed_perms' => true,
 	'notes.wp_content_perms' => true,
@@ -632,7 +632,7 @@ return array(
 	'notes.root_rules' => true,
 	'notes.rules' => true,
 	'notes.pgcache_rules_wpsc' => true,
-	'notes.support_us' => true,
+	'notes.support_us' => false,
 	'notes.no_curl' => true,
 	'notes.no_zlib' => true,
 	'notes.zlib_output_compression' => true,

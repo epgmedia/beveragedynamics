@@ -1,168 +1,139 @@
 <?php
-//
-//  global-functions.php
-//  all-in-one-event-calendar
-//
-//  Created by The Seed Studio on 2012-02-28.
-//
 
 /**
- * Named function to return `false`
+ * Define global functions
  *
- * Used to distinguish from `__return_false` provided by WordPress
+ * @author     Time.ly Network Inc.
+ * @since      2.0
  *
- * @return bool Always return false
+ * @package    AI1EC
+ * @subpackage AI1EC.Lib
+ */
+
+/**
+ * Always return false for action/filter hooks
+ *
+ * @return boolean
  */
 function ai1ec_return_false() {
 	return false;
 }
 
 /**
- * Method to stop script execution
+ * Executed after initialization of Front Controller.
  *
- * @param int|string $code Exit value, expected int [optional=0]
- *
- * @return mixed Returns {$code}, unless `ai1ec_stop` filter returns false
+ * @return void
  */
-function ai1ec_stop( $code = 0 ) {
-	if ( ! apply_filters( 'ai1ec_stop', true ) ) {
-		echo $code;
-		return $code;
-	}
-	exit( $code );
+function ai1ec_start() {
+	ob_start();
 }
 
 /**
- * Check if given post is Ai1EC event
+ * Executed before script shutdown, when WP core objects are present.
  *
- * @param stdClass $post Instance (WP_Post class instance in WP 3.5+)
- *
- * @return bool True if it is Ai1EC
+ * @return void
  */
-function is_ai1ec_post( $post ) {
-	return (
-		is_object( $post ) &&
-		isset( $post->post_type  ) &&
-		AI1EC_POST_TYPE === $post->post_type
+function ai1ec_stop() {
+	if ( ob_get_level() ) {
+		echo ob_get_clean();
+	}
+}
+
+/**
+ * Create `<pre>` wrapped variable dump.
+ *
+ * @param mixed $var Arbitrary value to dump.
+ *
+ * @return void
+ */
+function ai1ec_dump( $var ) {
+	if ( ! defined( 'AI1EC_DEBUG' ) || ! AI1EC_DEBUG ) {
+		return null;
+	}
+	echo '<pre>';
+	var_dump( $var );
+	echo '</pre>';
+	exit( 0 );
+}
+
+/**
+ * Indicate deprecated function.
+ *
+ * @param string $function Name of called function.
+ *
+ * @return void
+ */
+function ai1ec_deprecated( $function ) {
+	trigger_error(
+		'Function \'' . $function . '\' is deprecated.',
+		E_USER_WARNING
 	);
 }
 
-if ( ! function_exists( 'pr' ) ):
-/**
- * pr function
- *
- * Debug output of variable.
- * Print variable information (using var_dump for {@see empty()} values
- * and print_r otherwise) optionally preceeded by {$title}.
- *
- * @param mixed  $arg   Variable to output (print)
- * @param string $title Title to preceed the variable information
- *
- * @return void Method does not return
+/* (non-PHPdoc)
+ * @see admin_url()
  */
-function pr( $arg, $title = null )
-{
-	if ( WP_DEBUG ) {
-		if ( $title ) {
-			echo '<strong style="font-family:fixed;font-size:1.6em">',
-				$title, '</strong>';
-		}
-		echo '<pre>';
-		if ( empty( $arg ) ) {
-			var_dump( $arg );
-		} else {
-			print_r( $arg );
-		}
-		echo '</pre>';
+function ai1ec_admin_url( $path = '', $scheme = 'admin' ) {
+	if ( ai1ec_is_ssl_forced() ) {
+		$scheme = 'https';
 	}
-}
-endif;
-
-/**
- * url_get_contents function
- *
- * @param string $url URL 
- *
- * @return string
- **/
-function url_get_contents( $url ) {
-	// holds the output
-	$output = "";
-
-	// To make a remote call in wordpress it's better to use the wrapper functions instead
-	// of class methods. http://codex.wordpress.org/HTTP_API
-	// SSL Verification was disabled in the cUrl call
-	$result = wp_remote_get( $url, array( 'sslverify' => false, 'timeout' => 120 ) );
-	// The wrapper functions return an WP_error if anything goes wrong.
-	if( is_wp_error( $result ) ) {
-		// We explicitly return false to notify an error. This is exactly the same behaviour we had before
-		// because both curl_exec() and file_get_contents() returned false on error
-		return FALSE;
-	}
-
-	$output = $result['body'];
-
-	// check if data is utf-8
-	if( ! SG_iCal_Parser::_ValidUtf8( $output ) ) {
-		// Encode the data in utf-8
-		$output = utf8_encode( $output );
-	}
-
-	return $output;
+	return admin_url( $path, $scheme );
 }
 
-/**
- * is_curl_available function
- *
- * checks if cURL is enabled on the system
- *
- * @return bool
- **/
-function is_curl_available() { 
-	
-	if( ! function_exists( "curl_init" )   && 
-      ! function_exists( "curl_setopt" ) && 
-      ! function_exists( "curl_exec" )   && 
-      ! function_exists( "curl_close" ) ) {
-			
-			return false; 
-	}
-	
-	return true;
-}
-
-/**
- * ai1ec_utf8 function
- *
- * Encode value as safe UTF8 - discarding unrecognized characters.
- * NOTE: objects will be cast as array.
- *
- * @uses iconv               To change encoding
- * @uses mb_convert_encoding To change encoding if `iconv` is not available
- *
- * @param mixed $input Value to encode
- *
- * @return mixed UTF8 encoded value
- *
- * @throws Exception If no trans-coding method is available
+/* (non-PHPdoc)
+ * @see get_admin_url()
  */
-function ai1ec_utf8( $input ) {
-	if ( NULL === $input ) {
-		return NULL;
+function ai1ec_get_admin_url( $blog_id = null, $path = '', $scheme = 'admin' ) {
+	if ( ai1ec_is_ssl_forced() ) {
+		$scheme = 'https';
 	}
-	if ( is_scalar( $input ) ) {
-		if ( function_exists( 'iconv' ) ) {
-			return iconv( 'UTF-8', 'UTF-8//IGNORE', $input );
-		}
-		if ( function_exists( 'mb_convert_encoding' ) ) {
-			return mb_convert_encoding( $input, 'UTF-8' );
-		}
-		throw new Exception(
-			'Either `iconv` or `mb_convert_encoding` must be available.'
-		);
+	return get_admin_url( $blog_id, $path, $scheme );
+}
+
+/* (non-PHPdoc)
+ * @see get_site_url()
+ */
+function ai1ec_get_site_url( $blog_id = null, $path = '', $scheme = null ) {
+	if ( ai1ec_is_ssl_forced() ) {
+		$scheme = 'https';
 	}
-	if ( ! is_array( $input ) ) {
-		$input = (array)$input;
+	return get_site_url( $blog_id, $path, $scheme );
+}
+
+/* (non-PHPdoc)
+ * @see site_url()
+ */
+function ai1ec_site_url( $path = '', $scheme = null ) {
+	if ( ai1ec_is_ssl_forced() ) {
+		$scheme = 'https';
 	}
-	return array_map( 'ai1ec_utf8', $input );
+	return site_url( $path, $scheme );
+}
+
+/* (non-PHPdoc)
+ * @see network_admin_url()
+ */
+function ai1ec_network_admin_url( $path = '', $scheme = 'admin' ) {
+	if ( ai1ec_is_ssl_forced() ) {
+		$scheme = 'https';
+	}
+	return network_admin_url( $path, $scheme );
+}
+
+/**
+ * Returns whether SSL URLs are forced or not.
+ *
+ * @return bool Result.
+ */
+function ai1ec_is_ssl_forced() {
+	return (
+		is_admin() &&
+		(
+			class_exists( 'WordPressHTTPS' ) ||
+			(
+				defined( 'FORCE_SSL_ADMIN' ) &&
+				true === FORCE_SSL_ADMIN
+			)
+		)
+	);
 }

@@ -37,28 +37,48 @@ class Ai1ecdm_Datetime_Migration {
 	protected $_column_suffix = '_transformation';
 
 	/**
+	 * Output debug statements.
+	 *
+	 * @var mixed $arg1 Number of arguments to output.
+	 *
+	 * @return bool True when debug is in action.
+	 */
+	static public function debug( /** polymorphic arg list **/ ) {
+		if ( ! defined( 'AI1EC_DEBUG' ) || ! AI1EC_DEBUG ) {
+			return false;
+		}
+		$argv = func_get_args();
+		foreach ( $argv as $value ) {
+			echo '<pre class="timely-debug">',
+				'<small>', microtime( true ), '</small>', "\n";
+			var_export( $value );
+			echo '</pre>';
+		}
+		return true;
+	}
+
+	/**
 	 * Acquire references of global variables and define non-scalar values.
 	 *
 	 * @return void
 	 */
-	public function __construct() {
-		global $wpdb;
-		$this->_dbi = $wpdb;
+	public function __construct( Ai1ec_Registry_Object $registry ) {
+		$this->_dbi = $registry->get( 'dbi.dbi' );
 		$this->_tables = array(
-			$this->_dbi->prefix . 'ai1ec_events'                => array(
+			$this->_dbi->get_table_name( 'ai1ec_events' )                => array(
 				'start',
 				'end',
 			),
-			$this->_dbi->prefix . 'ai1ec_event_instances'       => array(
+			$this->_dbi->get_table_name( 'ai1ec_event_instances' )       => array(
 				'start',
 				'end',
 			),
-			$this->_dbi->prefix . 'ai1ec_facebook_users_events' => array(
+			$this->_dbi->get_table_name( 'ai1ec_facebook_users_events' ) => array(
 				'start',
 			),
 		);
 		$this->_indices = array(
-			$this->_dbi->prefix . 'ai1ec_event_instances' => array(
+			$this->_dbi->get_table_name( 'ai1ec_event_instances' ) => array(
 				'evt_instance' => array(
 					'unique'  => true,
 					'columns' => array( 'post_id', 'start' ),
@@ -66,6 +86,17 @@ class Ai1ecdm_Datetime_Migration {
 				),
 			),
 		);
+	}
+
+	/**
+	 * Interface to underlying methods to use as a filter callback.
+	 *
+	 * @wp_hook ai1ec_perform_scheme_update
+	 *
+	 * @return bool True when database is up to date.
+	 */
+	public function filter_scheme_update() {
+		return ( ! $this->is_change_required() || $this->execute() );
 	}
 
 	/**
@@ -167,7 +198,7 @@ class Ai1ecdm_Datetime_Migration {
 				return false;
 			}
 		}
-		ai1ecdm_debug(
+		self::debug(
 			'Copies of following tables created successfully:',
 			$tables
 		);
@@ -185,6 +216,7 @@ class Ai1ecdm_Datetime_Migration {
 			if (
 				! (
 					$this->drop_indices( $table, $name )
+					&& $this->out_of_bounds_fix( $table, $name )
 					&& $this->add_columns( $name, $columns )
 					&& $this->transform_dates( $name, $columns )
 					&& $this->replace_columns( $name, $columns )
@@ -194,7 +226,7 @@ class Ai1ecdm_Datetime_Migration {
 				return false;
 			}
 		}
-		ai1ecdm_debug(
+		self::debug(
 			'Table copies successfully modified:',
 			$this->_tables
 		);
@@ -219,7 +251,7 @@ class Ai1ecdm_Datetime_Migration {
 		if ( false === $this->_dbi->query( $sql_query ) ) {
 			return false;
 		}
-		ai1ecdm_debug(
+		self::debug(
 			'Tables successfully swaped:',
 			$this->_tables
 		);
@@ -235,7 +267,7 @@ class Ai1ecdm_Datetime_Migration {
 	 * @return bool Success.
 	 */
 	public function drop_indices( $name, $table ) {
-		ai1ecdm_debug( __METHOD__ );
+		self::debug( __METHOD__ );
 		if ( ! isset( $this->_indices[$name] ) ) {
 			return true;
 		}
@@ -261,7 +293,7 @@ class Ai1ecdm_Datetime_Migration {
 	 * @return bool Success.
 	 */
 	public function add_columns( $table, $columns ) {
-		ai1ecdm_debug( __METHOD__ );
+		self::debug( __METHOD__ );
 		$column_particles = array();
 		foreach ( $columns as $column ) {
 			$name = $column . $this->_column_suffix;
@@ -270,7 +302,7 @@ class Ai1ecdm_Datetime_Migration {
 		}
 		$sql_query = 'ALTER TABLE `' . $table . '` ' .
 			implode( ', ', $column_particles );
-		return $this->_dbi->query( $sql_query );
+		return ( false !== $this->_dbi->query( $sql_query ) );
 	}
 
 	/**
@@ -282,12 +314,16 @@ class Ai1ecdm_Datetime_Migration {
 	 * @return bool Success.
 	 */
 	public function transform_dates( $table, $columns ) {
-		ai1ecdm_debug( __METHOD__ );
+		self::debug( __METHOD__ );
 		$update_particles = array();
 		foreach ( $columns as $column ) {
-			$name = $column . $this->_column_suffix;
+			$name      = $column . $this->_column_suffix;
+			$new_value = '\'1970-01-01 00:00:00\'';
+			if ( 'end' === $column && in_array( 'start', $columns ) ) {
+				$new_value = 'IFNULL(`start`, ' . $new_value . ')';
+			}
 			$update_particles[] = '`' . $name .
-				'` = UNIX_TIMESTAMP( `' . $column . '` )';
+				'` = UNIX_TIMESTAMP( IFNULL(`' . $column . '`, ' . $new_value . ' ))';
 		}
 		$sql_query = 'UPDATE `' . $table . '` SET ' .
 			implode( ', ', $update_particles );
@@ -303,7 +339,7 @@ class Ai1ecdm_Datetime_Migration {
 	 * @return bool Success.
 	 */
 	public function replace_columns( $table, $columns ) {
-		ai1ecdm_debug( __METHOD__ );
+		self::debug( __METHOD__ );
 		$snippets = array();
 		foreach ( $columns as $column ) {
 			$snippets[] = 'DROP COLUMN `' . $column . '`';
@@ -312,7 +348,7 @@ class Ai1ecdm_Datetime_Migration {
 		}
 		$sql_query = 'ALTER TABLE `' . $table . '` ' .
 			implode( ', ', $snippets );
-		return $this->_dbi->query( $sql_query );
+		return ( false !== $this->_dbi->query( $sql_query ) );
 	}
 
 	/**
@@ -324,7 +360,7 @@ class Ai1ecdm_Datetime_Migration {
 	 * @return bool Success.
 	 */
 	public function restore_indices( $name, $table ) {
-		ai1ecdm_debug( __METHOD__ );
+		self::debug( __METHOD__ );
 		if ( ! isset( $this->_indices[$name] ) ) {
 			return true;
 		}
@@ -353,7 +389,7 @@ class Ai1ecdm_Datetime_Migration {
 	 */
 	public function drop( $table ) {
 		$sql_query = 'DROP TABLE IF EXISTS ' . $table;
-		return false !== $this->_dbi->query( $sql_query );
+		return ( false !== $this->_dbi->query( $sql_query ) );
 	}
 
 	/**
@@ -370,7 +406,7 @@ class Ai1ecdm_Datetime_Migration {
 			'INSERT INTO '  . $new_table . ' SELECT * FROM ' . $existing,
 		);
 		foreach ( $queries as $query ) {
-			ai1ecdm_debug( $query );
+			self::debug( $query );
 			if ( false === $this->_dbi->query( $query ) ) {
 				return false;
 			}
@@ -387,6 +423,37 @@ class Ai1ecdm_Datetime_Migration {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Return list of tables to be processed
+	 *
+	 * @return array List of tables to be processed
+	 */
+	public function get_tables() {
+		return $this->_tables;
+	}
+
+	/**
+	 * Delete events dated before or at `1970-01-01 00:00:00`.
+	 *
+	 * @param string $table Original table.
+	 * @param string $name  Temporary table to replay changes onto.
+	 *
+	 * @return bool Success.
+	 */
+	public function out_of_bounds_fix( $table, $name ) {
+		static $instances = null;
+		if ( null === $instances ) {
+			$instances = $this->_dbi->get_table_name( 'ai1ec_event_instances' );
+		}
+		if ( $instances !== $table ) {
+			return true;
+		}
+		$query = 'DELETE FROM `' .
+			$this->_dbi->get_table_name( $name ) .
+			'` WHERE `start` <= \'1970-01-01 00:00:00\'';
+		return ( false !== $this->_dbi->query( $query ) );
 	}
 
 	/**

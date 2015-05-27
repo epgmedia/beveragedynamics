@@ -43,6 +43,7 @@ if ( isset($_POST['section']) ) {
 			$this->user_settings['tools']['thumbnail']['field'] = ( !empty( $_POST['thumb_field']) ) ? $_POST['thumb_field'] : "wpp_thumbnail";
 			$this->user_settings['tools']['thumbnail']['default'] = ( !empty( $_POST['upload_thumb_src']) ) ? $_POST['upload_thumb_src'] : "";
 			$this->user_settings['tools']['thumbnail']['resize'] = $_POST['thumb_field_resize'];
+			$this->user_settings['tools']['thumbnail']['responsive'] = $_POST['thumb_responsive'];
 			
 			update_site_option('wpp_settings_config', $this->user_settings);				
 			echo "<div class=\"updated\"><p><strong>" . __('Settings saved.', $this->plugin_slug ) . "</strong></p></div>";
@@ -77,7 +78,7 @@ if ( isset($_POST['section']) ) {
 }
 
 if ( $this->user_settings['tools']['css'] && !file_exists( get_stylesheet_directory() . '/wpp.css' ) ) {
-	echo '<div id="wpp-message" class="error fade"><p>'. __('Any changes made to WPP\'s default stylesheet will be lost after every plugin update. In order to prevent this from happening, please copy the wpp.css file (located at wp-content/plugins/wordpress-popular-posts/style) into your theme\'s directory', $this->plugin_slug) .'.</p></div>';
+	echo '<div id="wpp-message" class="update-nag"><strong>'. __('Any changes made to WPP\'s default stylesheet will be lost after every plugin update. In order to prevent this from happening, please copy the wpp.css file (located at wp-content/plugins/wordpress-popular-posts/style) into your theme\'s directory', $this->plugin_slug) .'.</strong></div>';
 }
 
 $rand = md5(uniqid(rand(), true));	
@@ -245,6 +246,17 @@ if (empty($wpp_rand)) {
                                 <option <?php if ( !$this->user_settings['tools']['thumbnail']['resize'] ) {?>selected="selected"<?php } ?> value="0"><?php _e("No, I will upload my own thumbnail", $this->plugin_slug); ?></option>
                                 <option <?php if ( $this->user_settings['tools']['thumbnail']['resize'] == 1 ) {?>selected="selected"<?php } ?> value="1"><?php _e("Yes", $this->plugin_slug); ?></option>                        
                             </select>
+                        </td>
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><label for="thumb_responsive"><?php _e("Responsive support", $this->plugin_slug); ?>:</label></th>
+                        <td>
+                            <select name="thumb_responsive" id="thumb_responsive">
+                                <option <?php if ($this->user_settings['tools']['thumbnail']['responsive']) {?>selected="selected"<?php } ?> value="1"><?php _e("Enabled", $this->plugin_slug); ?></option>
+                                <option <?php if (!$this->user_settings['tools']['thumbnail']['responsive']) {?>selected="selected"<?php } ?> value="0"><?php _e("Disabled", $this->plugin_slug); ?></option>
+                            </select>
+                            <br />
+                            <p class="description"><?php _e("If enabled, WordPress Popular Posts will strip height and width attributes out of thumbnails' image tags", $this->plugin_slug); ?>.</p>
                         </td>
                     </tr>
                     <?php
@@ -669,7 +681,7 @@ if (empty($wpp_rand)) {
             <p><?php _e('This filter allows you to decide which post types to show on the listing. By default, it will retrieve only posts and pages (which should be fine for most cases).', $this->plugin_slug); ?></p>
         </div>
         
-        <h4 id="filter_category">&raquo; <a href="#" rel="q-9"><?php _e('What is "Category(ies) ID(s)" for?', $this->plugin_slug); ?></a></h4>
+        <h4 id="filter-category">&raquo; <a href="#" rel="q-9"><?php _e('What is "Category(ies) ID(s)" for?', $this->plugin_slug); ?></a></h4>
         <div class="wpp-ans" id="q-9">
             <p><?php _e('This filter allows you to select which categories should be included or excluded from the listing. A negative sign in front of the category ID number will exclude posts belonging to it from the list, for example. You can specify more than one ID with a comma separated list.', $this->plugin_slug); ?></p>
         </div>
@@ -766,9 +778,21 @@ if (empty($wpp_rand)) {
         <h3><?php echo sprintf( __('About WordPress Popular Posts %s', $this->plugin_slug), $this->version); ?></h3>
         <p><?php _e( 'This version includes the following changes', $this->plugin_slug ); ?>:</p>
         
+        <p><strong>If you're using a caching plugin, flushing its cache after installing / upgrading to this version is recommended.</strong></p>
+        
         <ul>
-            <li>Fixes missing HTML decoding for custom HTML in widget.</li>
-            <li>Puts LIMIT clause back to the outer query.</li>
+            <li>Moves sampling logic into Javascript (thanks, @<a href="https://github.com/kurtpayne">kurtpayne</a>!)</li>
+            <li>Simplifies category filtering logic.</li>
+            <li>Fixes list sorting issue that some users were experimenting (thanks, sponker!)</li>
+            <li>Widget uses stock thumbnails when using predefined size (some conditions apply).</li>
+            <li>Adds the ability to enable / disable responsive support for thumbails.</li>
+			<li>Renames wpp_update_views action hook to wpp_post_update_views, <strong>update your code!</strong></li>
+            <li>Adds wpp_pre_update_views action hook, and renames wpp_update_views action hook to wpp_post_update_views.</li>
+            <li>Adds filter wpp_render_image.</li>
+            <li>Drops support for get_mostpopular() template tag.</li>
+            <li>Fixes empty HTML tags (thumbnail, stats).</li>
+            <li>Removes Japanese, French and Norwegian Bokmal translation files from plugin.</li>
+            <li>Many minor bug fixes / enhancements.</li>
         </ul>
                 
     </div>
@@ -783,12 +807,12 @@ if (empty($wpp_rand)) {
             <img alt="" border="0" src="//www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
         </form>
         <p><?php _e( 'Each donation motivates me to keep releasing free stuff for the WordPress community!', $this->plugin_slug ); ?></p>
-        <p><?php echo sprintf( __('You can <a href="%s" target="_blank">leave a review</a>, too!', $this->plugin_slug), 'http://wordpress.org/support/view/plugin-reviews/wordpress-popular-posts' ); ?></p>
+        <p><?php echo sprintf( __('You can <a href="%s" target="_blank">leave a review</a>, too!', $this->plugin_slug), 'https://wordpress.org/support/view/plugin-reviews/wordpress-popular-posts?rate=5#postform' ); ?></p>
     </div>
     
     <div id="wpp_support" class="wpp_box" style="">
         <h3 style="margin-top:0; text-align:center;"><?php _e('Need help?', $this->plugin_slug); ?></h3>
-        <p><?php echo sprintf( __('Visit <a href="%s" target="_blank">the forum</a> for support, questions and feedback.', $this->plugin_slug), 'http://wordpress.org/support/plugin/wordpress-popular-posts' ); ?></p>
+        <p><?php echo sprintf( __('Visit <a href="%s" target="_blank">the forum</a> for support, questions and feedback.', $this->plugin_slug), 'https://wordpress.org/support/plugin/wordpress-popular-posts' ); ?></p>
         <p><?php _e('Let\'s make this plugin even better!', $this->plugin_slug); ?></p>
     </div>
         

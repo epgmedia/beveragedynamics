@@ -1,7 +1,7 @@
 <?php
 
 return array(
-	'version' => '0.9.4',
+	'version' => '0.9.4.1',
 	'cluster.messagebus.debug' => false,
 	'cluster.messagebus.enabled' => false,
 	'cluster.messagebus.sns.region' => '',
@@ -83,7 +83,7 @@ return array(
 	'fragmentcache.lifetime' => 180,
 	'fragmentcache.groups' => array(
 	),
-	'pgcache.enabled' => false,
+	'pgcache.enabled' => true,
 	'pgcache.comment_cookie_ttl' => 1800,
 	'pgcache.debug' => false,
 	'pgcache.engine' => 'file_generic',
@@ -654,11 +654,11 @@ return array(
 	'minify.auto.disable_filename_length_test' => false,
 	'common.instance_id' => 764405326,
 	'common.force_master' => true,
-	'newrelic.enabled' => false,
-	'newrelic.api_key' => '',
-	'newrelic.account_id' => '',
-	'newrelic.application_id' => 0,
-	'newrelic.appname' => '',
+	'newrelic.enabled' => true,
+	'newrelic.api_key' => '5fc73e478b5de528dfbe0e641120de65eaec5109fa9bb59',
+	'newrelic.account_id' => '442412',
+	'newrelic.application_id' => 14260638,
+	'newrelic.appname' => 'Beverage Dynamics',
 	'newrelic.accept.logged_roles' => true,
 	'newrelic.accept.roles' => array(
 		0 => 'contributor',
